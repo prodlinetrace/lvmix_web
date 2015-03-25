@@ -1,0 +1,9 @@
+<div class="talk-header">
+    {% if user.id == current_user.id %}
+    <a class="btn btn-primary pull-right" href="{{ url_for('users.edit', id=user.id) }}">Edit</a>
+    {% elif current_user.is_admin %}
+    <a class="btn btn-danger pull-right" href="{{ url_for('users.delete', id=user.id) }}">Delete</a>
+    <a class="btn btn-danger pull-right" href="{{ url_for('users.edit', id=user.id) }}">Edit</a>
+    {% endif %}
+    <h2><a href="{{ url_for('users.user', username=user.login) }}">{{ user.name }}</a></h2>
+</div>

@@ -1,0 +1,7 @@
+<ul class="product-list">
+{% for product in products %}
+    <li class="product">
+    {% include "products/_product_header.html" %}
+    </li>
+{% endfor %}
+</ul>

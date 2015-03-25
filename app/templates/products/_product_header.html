@@ -1,0 +1,11 @@
+<div class="product-header">
+    {% if product.author == current_user %}
+    <a class="btn btn-primary pull-right" href="{{ url_for('products.edit_product', id=product.id) }}">Edit</a>
+    {% elif current_user.is_admin %}
+    <a class="btn btn-danger pull-right" href="{{ url_for('products.edit_product', id=product.id) }}">Edit</a>
+    {% endif %}
+    <h2><a href="{{ url_for('products.product', id=product.id) }}">{{ product.type }} {{ product.serial }}</a></h2>
+    <h3>{{ product.description }}</h3>
+    <div class="pull-right"><a href="{{ url_for('products.product', id=product.id) }}#comments"><span class="label label-default">Comments: {{ product.comments.count() }}</span></a></div>
+
+</div>

@@ -1,0 +1,9 @@
+<div class="product-header">
+    {% if not current_user.is_admin  %}
+    <a class="btn btn-primary pull-right" href="{{ url_for('stations.edit', id=station.id) }}">Edit</a>
+    {% else %}
+    <a class="btn btn-danger pull-right" href="{{ url_for('stations.delete', id=station.id) }}">Delete</a>
+    <a class="btn btn-primary pull-right" href="{{ url_for('stations.edit', id=station.id) }}">Edit</a>
+    {% endif %}
+    <h2><a href="{{ url_for('stations.station', id=station.id) }}">{{ station.name }}</a></h2>
+</div>
