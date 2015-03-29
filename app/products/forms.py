@@ -3,15 +3,16 @@ from wtforms import SubmitField, IntegerField, SelectField
 from wtforms.fields.html5 import DateTimeField
 from wtforms.validators import Required, NumberRange
 from flask.ext.pagedown.fields import PageDownField
+from flask.ext.babel import gettext
 
 
 class ProductForm(Form):
-    type = IntegerField('Product Type', validators=[Required(), NumberRange(min=0, max=10000000000)])
-    serial = IntegerField('Serial Number', validators=[Required(), NumberRange(min=0, max=10000000)])
-    year = IntegerField('Year Number', validators=[Required(), NumberRange(min=0, max=99)])
-    week = IntegerField('Week Number', validators=[Required(), NumberRange(min=0, max=99)])
-    date = DateTimeField('Date Added', validators=[Required()])
-    submit = SubmitField('Submit')
+    type = IntegerField(gettext('Product Type'), validators=[Required(), NumberRange(min=0, max=10000000000)])
+    serial = IntegerField(gettext('Serial Number'), validators=[Required(), NumberRange(min=0, max=10000000)])
+    year = IntegerField(gettext('Year Number'), validators=[Required(), NumberRange(min=0, max=99)])
+    week = IntegerField(gettext('Week Number'), validators=[Required(), NumberRange(min=0, max=99)])
+    date = DateTimeField(gettext('Date Added'), validators=[Required()])
+    submit = SubmitField(gettext('Submit'))
 
     def from_model(self, product):
         self.type.data = product.type
@@ -29,11 +30,11 @@ class ProductForm(Form):
 
 
 class CommentForm(Form):
-    body = PageDownField('Comment', validators=[Required()])
-    submit = SubmitField('Submit')
+    body = PageDownField(gettext('Comment'), validators=[Required()])
+    submit = SubmitField(gettext('Submit'))
 
 
 class FindProductForm(Form):
-    type = IntegerField('Product Type', validators=[Required()])
-    serial = IntegerField('Serial Number', validators=[Required()])
-    submit = SubmitField('Submit')
+    type = IntegerField(gettext('Product Type'), validators=[Required()])
+    serial = IntegerField(gettext('Serial Number'), validators=[Required()])
+    submit = SubmitField(gettext('Submit'))

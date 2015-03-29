@@ -1,16 +1,17 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import Optional, Length, Required, IPAddress
+from flask.ext.babel import gettext
 
 
 class StationForm(Form):
-    id = IntegerField('id', validators=[Required()])
-    ip = StringField('IP Address', validators=[Required(), IPAddress()])
-    name = StringField('Name', validators=[Optional(), Length(1, 64)])
-    rack = IntegerField('Rack', validators=[Optional()])
-    slot = IntegerField('Slot', validators=[Optional()])
-    port = IntegerField('Port', validators=[Optional()])
-    submit = SubmitField('Submit')
+    id = IntegerField(gettext('Id'), validators=[Required()])
+    ip = StringField(gettext('IP Address'), validators=[Required(), IPAddress()])
+    name = StringField(gettext('Name'), validators=[Optional(), Length(1, 64)])
+    rack = IntegerField(gettext('Rack'), validators=[Optional()])
+    slot = IntegerField(gettext('Slot'), validators=[Optional()])
+    port = IntegerField(gettext('Port'), validators=[Optional()])
+    submit = SubmitField(gettext('Submit'))
 
     def from_model(self, station):
         self.id.data = station.id

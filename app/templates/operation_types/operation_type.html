@@ -2,13 +2,13 @@
 
 {% block page_content %}
 <div class="page-header operation_type-profile">
-    {% if current_user.is_admin %}<a class="btn btn-default pull-right" href="{{ url_for('operation_types.edit', id=operation_type.id) }}">Edit</a>{% endif %}
-    <h1>Details for: {{ operation_type.name }}</h1>
+    {% if current_user.is_admin %}<a class="btn btn-default pull-right" href="{{ url_for('operation_types.edit', id=operation_type.id) }}">{{ _('Edit') }}</a>{% endif %}
+    <h1>{{ _('Details for') }}: {{ operation_type.name }}</h1>
     <p>
     	<ul>
-	    	{% if operation_type.id %}<p>Id: {{ operation_type.id }}</p>{% endif %}
-	    	{% if operation_type.name %}<p>Name: {{ operation_type.name }}</p>{% endif %}
-	    	{% if operation_type.description %}<p>Description: {{ operation_type.description }}</p>{% endif %}
+	    	{% if operation_type.id %}<p>{{ _('Id') }}: {{ operation_type.id }}</p>{% endif %}
+	    	{% if operation_type.name %}<p>{{ _('Name') }}: {{ operation_type.name }}</p>{% endif %}
+	    	{% if operation_type.description %}<p>{{ _('Description') }}: {{ operation_type.description }}</p>{% endif %}
     	</ul>
     </p>
     

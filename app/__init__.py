@@ -5,6 +5,7 @@ from flask.ext.login import LoginManager
 from flask.ext.moment import Moment
 from flask.ext.pagedown import PageDown
 from flask.ext.autodoc import Autodoc
+from flask.ext.babel import Babel
 from config import config 
 
 cfg = config
@@ -13,6 +14,7 @@ db = SQLAlchemy()
 moment = Moment()
 pagedown = PageDown()
 auto = Autodoc()
+babel = Babel()
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
@@ -37,6 +39,7 @@ def create_app(config_name):
     pagedown.init_app(app)
     login_manager.init_app(app)
     auto.init_app(app)
+    babel.init_app(app)
 
     from .products import products as products_blueprint
     app.register_blueprint(products_blueprint, url_prefix='/app')

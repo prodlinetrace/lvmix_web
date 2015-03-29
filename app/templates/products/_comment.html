@@ -1,17 +1,16 @@
 <p>
         {% if comment.author.id == current_user.id or current_user.is_admin %}
             <div id="moderate-{{ comment.id }}" class="pull-right">
-                <a class="btn btn-danger api-delete" data-id="{{ comment.id }}" href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                <a class="btn btn-danger api-delete" data-id="{{ comment.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
             </div>
             <div id="deleted-{{ comment.id }}" class="pull-right" style="display: none;">
-                <span class="glyphicon glyphicon-trash"></span> <b>Deleted</b>
+                <span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
             </div>
         {% endif %}
         {% if index %}
         	<span class="label label-default">#{{ index }}</span>
         {% endif %}
-        <b>{{comment.author.name}}</b>
-    commented {{ moment(comment.timestamp).fromNow() }}:
+        <b>{{comment.author.name}}</b> {{ _('commented') }} {{ moment(comment.timestamp).fromNow() }}:
 </p>
 <div class="comment-body">
     {{ comment.body_html | safe }}

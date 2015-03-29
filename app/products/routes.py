@@ -1,11 +1,16 @@
-from flask import render_template, flash, redirect, url_for, abort,\
-    request, current_app
+from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
-from .. import db
+from flask.ext.babel import gettext
+from .. import db, babel, cfg
 from ..models import *
 from . import products
 from .forms import ProductForm, CommentForm, FindProductForm
 
+LANGUAGES = cfg['default'].LANGUAGES 
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
 
 @products.route('/')
 def index():
@@ -22,10 +27,10 @@ def find_product():
     if form.validate_on_submit():
         result = Product.query.filter_by(type=form.type.data).filter_by(serial=form.serial.data).first()
         if result is not None:
-            flash('Product with serial {serial} found.'.format(serial=form.serial.data))
+            flash(gettext('Product with serial {serial} found.'.format(serial=form.serial.data)))
             return redirect(url_for('products.product', id=result.id))
 
-        flash('Product with serial {serial} not found.'.format(serial=form.serial.data))
+        flash(gettext('Product with serial {serial} not found.'.format(serial=form.serial.data)))
     return render_template('products/find_product.html', form=form)
 
 @products.route('/product/<int:id>', methods=['GET', 'POST'])
@@ -44,7 +49,7 @@ def product(id):
         db.session.add(comment)
         db.session.commit()
         if comment:
-            flash('Your comment has been published.')
+            flash(gettext('Your comment has been published.'))
         return redirect(url_for('.product', id=product.id) + '#top')
     comments_query = product.comments
     page = request.args.get('page', 1, type=int)
@@ -53,9 +58,6 @@ def product(id):
         error_out=False)
     comments = pagination.items
     stations = {}
-    #status = Status.query.filter_by(product_id=id).order_by('date_time').all()
-    #print status
-    #print product.statuses.all()
     headers = {}
     if current_user.is_authenticated():
         headers['X-XSS-Protection'] = '0'
@@ -75,7 +77,7 @@ def edit_product(id):
         form.to_model(product)
         db.session.add(product)
         db.session.commit()
-        flash('The product was updated successfully.')
+        flash(gettext('The product was updated successfully.'))
         return redirect(url_for('.product', id=product.id))
     form.from_model(product)
     return render_template('products/edit_product.html', form=form)

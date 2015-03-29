@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block body %}
 	<div=main>
-	    <h3>Welcome to ProdLineTrace</h3>
+	    <h3>{{ _('Welcome to ProdLineTrace') }}</h3>
 	    <p>
-	    	Please click the link to start <a href='/app'>Operator Application</a><br/>
+	    	{{ _('Please click the link to start') }} <a href='/app'>{{ _('Operator Application') }}</a><br/>
 	    </p>
 	    <p>
-	    	To use RestAPI please refer <a href='/api/doc'>documentation</a> for details.<br/>
+	    	{{ _('To use RestAPI please refer') }} <a href='/api/doc'>{{ _('documentation') }}</a> {{ _('for details') }}.<br/>
 	    </p>
 	    <p>
-	    	Please click the link see available <a href='/api/status_codes'>status codes</a>.<br/>
+	    	{{ _('Please click the link see available') }} <a href='/api/status_codes'>{{ _('status codes') }}</a>.<br/>
 	    </p>
 	    <p>
-	    Please contact: <a href="email:piotr.wilkosz@gmail.com">Piotr.Wilkosz@gmail.com</a> in case of any questions.<br/>
+	    {{ _('Please contact') }}: <a href="email:piotr.wilkosz@gmail.com">Piotr.Wilkosz@gmail.com</a>{{ _('in case of any questions.') }} <br/>
 	    </p>
-	    Enjoy!
+	    {{ _('Enjoy!') }}
 	    <br/>
 	</div>
 {% endblock %}

@@ -1,12 +1,13 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import Optional, Length, Required
+from flask.ext.babel import gettext
 
 
 class Operation_TypeForm(Form):
-    id = IntegerField('id', validators=[Required()])
-    name = StringField('Name', validators=[Optional(), Length(1, 50)])
-    description = StringField('Description', validators=[Required(), Length(1, 255)])
+    id = IntegerField(gettext('Id'), validators=[Required()])
+    name = StringField(gettext('Name'), validators=[Optional(), Length(1, 50)])
+    description = StringField(gettext('Description'), validators=[Required(), Length(1, 255)])
     submit = SubmitField('Submit')
 
     def from_model(self, station):

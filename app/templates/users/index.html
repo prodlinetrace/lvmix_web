@@ -3,21 +3,21 @@
 {% block page_content %}
 
 {% if current_user.is_admin %}
-	<a class="btn btn-primary" href="{{ url_for('users.new') }}">New User</a>
+	<a class="btn btn-primary" href="{{ url_for('users.new') }}">{{ _('New User') }}</a>
 {% endif %}
 
 {% include "users/_users.html" %}
 {% if users %}
 <ul class="pager">
     {% if pagination.has_prev %}
-    <li class="previous"><a href="{{ url_for('users.index', page=pagination.prev_num) }}">&larr; Newer</a></li>
+    <li class="previous"><a href="{{ url_for('users.index', page=pagination.prev_num) }}">&larr; {{ _('Newer') }}</a></li>
     {% else %}
-    <li class="previous disabled"><a href="#">&larr; Newer</a></li>
+    <li class="previous disabled"><a href="#">&larr; {{ _('Older') }}</a></li>
     {% endif %}
     {% if pagination.has_next %}
-    <li class="next"><a href="{{ url_for('users.index', page=pagination.next_num) }}">Older &rarr;</a></li>
+    <li class="next"><a href="{{ url_for('users.index', page=pagination.next_num) }}">{{ _('Older') }} &rarr;</a></li>
     {% else %}
-    <li class="next disabled"><a href="#">Older &rarr;</a></li>
+    <li class="next disabled"><a href="#">{{ _('Older') }} &rarr;</a></li>
     {% endif %}
 </ul>
 {% endif %}

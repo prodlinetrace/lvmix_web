@@ -3,35 +3,36 @@ from wtforms import StringField, TextAreaField, BooleanField, SubmitField, Passw
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Optional, Length, Required, EqualTo
 from flask.ext.pagedown.fields import PageDownField
+from flask.ext.babel import gettext
 
 
 class ProfileForm(Form):
-    name = StringField('Name', validators=[Optional(), Length(1, 64)])
-    location = StringField('Location', validators=[Optional(), Length(1, 64)])
-    bio = TextAreaField('Bio')
-    password = PasswordField('Password', validators=[Required(), EqualTo('confirm', message='Passwords must match')])
-    confirm = PasswordField('Repeat Password')
-    submit = SubmitField('Submit')
+    name = StringField(gettext('Name'), validators=[Optional(), Length(1, 64)])
+    location = StringField(gettext('Location'), validators=[Optional(), Length(1, 64)])
+    bio = TextAreaField(gettext('Bio'))
+    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(gettext('Repeat Password'))
+    submit = SubmitField(gettext('Submit'))
 
 
 class UserForm(Form):
-    login = StringField('Login', validators=[Required(), Length(1, 64)])
-    name = StringField('Name', validators=[Required(), Length(1, 64)])
-    password = PasswordField('Password', validators=[Required(), EqualTo('confirm', message='Passwords must match')])
-    confirm = PasswordField('Repeat Password')
-    admin = BooleanField('Administrator', default=False)
-    submit = SubmitField('Submit')
+    login = StringField(gettext('Login'), validators=[Required(), Length(1, 64)])
+    name = StringField(gettext('Name'), validators=[Required(), Length(1, 64)])
+    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(gettext('Repeat Password'))
+    admin = BooleanField(gettext('Administrator'), default=False)
+    submit = SubmitField(gettext('Submit'))
 
 
 class EditUserForm(Form):
-    login = StringField('Login', validators=[Required(), Length(1, 64)])
-    name = StringField('Name', validators=[Required(), Length(1, 64)])
-    location = StringField('Location', validators=[Optional(), Length(1, 64)])
-    bio = TextAreaField('Bio', validators=[Optional()])
-    password = PasswordField('Password', validators=[Required(), EqualTo('confirm', message='Passwords must match')])
-    confirm = PasswordField('Repeat Password')
-    admin = BooleanField('Administrator', default=False)
-    submit = SubmitField('Submit')
+    login = StringField(gettext('Login'), validators=[Required(), Length(1, 64)])
+    name = StringField(gettext('Name'), validators=[Required(), Length(1, 64)])
+    location = StringField(gettext('Location'), validators=[Optional(), Length(1, 64)])
+    bio = TextAreaField(gettext('Bio'), validators=[Optional()])
+    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(gettext('Repeat Password'))
+    admin = BooleanField(gettext('Administrator'), default=False)
+    submit = SubmitField(gettext('Submit'))
 
     def from_model(self, user):
         self.login.data = user.login
