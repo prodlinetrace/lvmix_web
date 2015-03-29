@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
+from flask.ext.babel import gettext
 from .. import db
 from ..models import Station
 from . import stations
@@ -42,10 +43,10 @@ def new():
         form.to_model(station) # update station object with form data
         db.session.add(station)
         db.session.commit()
-        flash('New station: {station} was added successfully.'.format(station=station.name))
+        flash(gettext('New station: {station} was added successfully.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash("Validation failed")
+        flash(gettext("Validation failed"))
     return render_template('stations/new.html', form=form)
 
 
@@ -60,10 +61,10 @@ def edit(id):
         form.to_model(station)
         db.session.add(station)
         db.session.commit()
-        flash('Station profile for: {station} has been updated.'.format(station=station.name))
+        flash(gettext('Station profile for: {station} has been updated.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash("Validation failed")
+        flash(gettext("Validation failed"))
     form.from_model(station)
     return render_template('stations/edit.html', station=station, form=form)
 
@@ -75,10 +76,10 @@ def delete(id):
     if current_user.is_admin: 
         db.session.delete(station)
         db.session.commit()
-        flash('Station for: {station} has been deleted.'.format(station=station.name))
+        flash(gettext('Station for: {station} has been deleted.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash('You have to be adminstrator to remove stations.'.format(station=station.name))
+        flash(gettext('You have to be adminstrator to remove stations.'.format(station=station.name)))
         return redirect(url_for('.index'))
 
     # should never get here

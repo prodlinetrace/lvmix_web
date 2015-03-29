@@ -4,6 +4,7 @@ from .. import db
 from ..models import User, Comment
 from . import users
 from .forms import ProfileForm, UserForm, EditUserForm
+from flask.ext.babel import gettext
 
 
 @users.route('/')
@@ -39,7 +40,7 @@ def profile():
         current_user.bio = form.bio.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
-        flash('{user}, you have updated your profile successfully.'.format(user=current_user.name))
+        flash(gettext('{user}, you have updated your profile successfully.'.format(user=current_user.name)))
         return redirect(url_for('users.user', username=current_user.login))
     form.name.data = current_user.name
     form.location.data = current_user.location
@@ -57,7 +58,7 @@ def new():
         user = User(login=form.login.data, name=form.name.data, password=form.password.data, is_admin=form.admin.data)
         db.session.add(user)
         db.session.commit()
-        flash('New user: {user} was added successfully.'.format(user=user.name))
+        flash(gettext('New user: {user} was added successfully.'.format(user=user.name)))
         return redirect(url_for('.index'))
     return render_template('users/new_user.html', form=form)
 
@@ -75,7 +76,7 @@ def edit(id):
         form.to_model(user)
         db.session.add(user)
         db.session.commit()
-        flash('User profile for: {user} has been updated.'.format(user=user.name))
+        flash(gettext('User profile for: {user} has been updated.'.format(user=user.name)))
         return redirect(url_for('.index'))
     form.from_model(user)
     return render_template('users/profile.html', form=form)
@@ -87,15 +88,15 @@ def delete(id):
     user = User.query.get_or_404(id)
     if current_user.is_admin: 
         if user.id == current_user.id:
-            flash('Unable to remove currently logged user: {user}.'.format(user=user.name))
+            flash(gettext('Unable to remove currently logged user: {user}.'.format(user=user.name)))
             return redirect(url_for('.index'))
 
         db.session.delete(user)
         db.session.commit()
-        flash('User profile for: {user} has been deleted.'.format(user=user.name))
+        flash(gettext('User profile for: {user} has been deleted.'.format(user=user.name)))
         return redirect(url_for('.index'))
     else:
-        flash('You have to be adminstrator to remove users.'.format(user=user.name))
+        flash(gettext('You have to be adminstrator to remove users.'.format(user=user.name)))
         return redirect(url_for('.index'))
 
     # should never get here
