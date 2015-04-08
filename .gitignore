@@ -41,7 +41,7 @@ nosetests.xml
 coverage.xml
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:
@@ -52,3 +52,4 @@ docs/_build/
 
 # PyBuilder
 target/
+/cover/

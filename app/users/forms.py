@@ -3,36 +3,36 @@ from wtforms import StringField, TextAreaField, BooleanField, SubmitField, Passw
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Optional, Length, Required, EqualTo
 from flask.ext.pagedown.fields import PageDownField
-from flask.ext.babel import gettext
+from flask.ext.babel import gettext, lazy_gettext
 
 
 class ProfileForm(Form):
-    name = StringField(gettext('Name'), validators=[Optional(), Length(1, 64)])
-    location = StringField(gettext('Location'), validators=[Optional(), Length(1, 64)])
-    bio = TextAreaField(gettext('Bio'))
-    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
-    confirm = PasswordField(gettext('Repeat Password'))
-    submit = SubmitField(gettext('Submit'))
+    name = StringField(lazy_gettext('Name'), validators=[Optional(), Length(1, 64)])
+    location = StringField(lazy_gettext('Location'), validators=[Optional(), Length(1, 64)])
+    bio = TextAreaField(lazy_gettext('Bio'))
+    password = PasswordField(lazy_gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(lazy_gettext('Repeat Password'))
+    submit = SubmitField(lazy_gettext('Submit'))
 
 
 class UserForm(Form):
-    login = StringField(gettext('Login'), validators=[Required(), Length(1, 64)])
-    name = StringField(gettext('Name'), validators=[Required(), Length(1, 64)])
-    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
-    confirm = PasswordField(gettext('Repeat Password'))
-    admin = BooleanField(gettext('Administrator'), default=False)
-    submit = SubmitField(gettext('Submit'))
+    login = StringField(lazy_gettext('Login'), validators=[Required(), Length(1, 64)])
+    name = StringField(lazy_gettext('Name'), validators=[Required(), Length(1, 64)])
+    password = PasswordField(lazy_gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(lazy_gettext('Repeat Password'))
+    admin = BooleanField(lazy_gettext('Administrator'), default=False)
+    submit = SubmitField(lazy_gettext('Submit'))
 
 
 class EditUserForm(Form):
-    login = StringField(gettext('Login'), validators=[Required(), Length(1, 64)])
-    name = StringField(gettext('Name'), validators=[Required(), Length(1, 64)])
-    location = StringField(gettext('Location'), validators=[Optional(), Length(1, 64)])
-    bio = TextAreaField(gettext('Bio'), validators=[Optional()])
-    password = PasswordField(gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
-    confirm = PasswordField(gettext('Repeat Password'))
-    admin = BooleanField(gettext('Administrator'), default=False)
-    submit = SubmitField(gettext('Submit'))
+    login = StringField(lazy_gettext('Login'), validators=[Required(), Length(1, 64)])
+    name = StringField(lazy_gettext('Name'), validators=[Required(), Length(1, 64)])
+    location = StringField(lazy_gettext('Location'), validators=[Optional(), Length(1, 64)])
+    bio = TextAreaField(lazy_gettext('Bio'), validators=[Optional()])
+    password = PasswordField(lazy_gettext('Password'), validators=[Required(), EqualTo(gettext('confirm'), message=gettext('Passwords must match'))])
+    confirm = PasswordField(lazy_gettext('Repeat Password'))
+    admin = BooleanField(lazy_gettext('Administrator'), default=False)
+    submit = SubmitField(lazy_gettext('Submit'))
 
     def from_model(self, user):
         self.login.data = user.login

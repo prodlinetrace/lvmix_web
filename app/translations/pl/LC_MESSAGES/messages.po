@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-30 00:40+0200\n"
-"PO-Revision-Date: 2015-03-30 00:41+0100\n"
+"POT-Creation-Date: 2015-04-08 21:28+0200\n"
+"PO-Revision-Date: 2015-04-08 21:48+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
@@ -22,7 +22,7 @@ msgstr ""
 
 #: app/api_1_0/comments.py:13
 msgid "You cannot modify this comment."
-msgstr "Nie mozesz modyfikowac tego komentarza"
+msgstr "Nie mozesz modyfikować tego komentarza"
 
 #: app/auth/forms.py:8
 msgid "Username"
@@ -31,10 +31,10 @@ msgstr "Użytkownik"
 #: app/auth/forms.py:9 app/users/forms.py:13 app/users/forms.py:21
 #: app/users/forms.py:32
 msgid "Password"
-msgstr "Haslo"
+msgstr "Hasło"
 
 #: app/auth/forms.py:10
-msgid "Keep me logged in"
+msgid "Keep me logged on"
 msgstr "Utrzymuj mnie zalogowanego"
 
 #: app/auth/forms.py:11
@@ -67,6 +67,12 @@ msgstr "Nazwa"
 msgid "Description"
 msgstr "Opis"
 
+#: app/operation_types/forms.py:11 app/products/forms.py:15
+#: app/products/forms.py:34 app/products/forms.py:40 app/stations/forms.py:14
+#: app/users/forms.py:15 app/users/forms.py:24 app/users/forms.py:35
+msgid "Submit"
+msgstr "Wyslij"
+
 #: app/operation_types/routes.py:46
 msgid "New operation_type: {operation_type} was added successfully."
 msgstr "Nowy rodzaj operacji : {operation_type} został dodany."
@@ -74,7 +80,7 @@ msgstr "Nowy rodzaj operacji : {operation_type} został dodany."
 #: app/operation_types/routes.py:49 app/operation_types/routes.py:67
 #: app/stations/routes.py:49 app/stations/routes.py:67
 msgid "Validation failed"
-msgstr "Walidacja nie powiodla sie"
+msgstr "Walidacja nie powiodla się"
 
 #: app/operation_types/routes.py:64
 msgid "Operation_Type profile for: {operation_type} has been updated."
@@ -86,7 +92,7 @@ msgstr "Typ Operacji: {operation_type} został skaowany. "
 
 #: app/operation_types/routes.py:82
 msgid "You have to be administrator to remove operation_types."
-msgstr "Musisz byc administratorem aby kasowac Typy Operacji."
+msgstr "Musisz byc administratorem aby kasować Typy Operacji."
 
 #: app/products/forms.py:10 app/products/forms.py:38
 msgid "Product Type"
@@ -108,29 +114,23 @@ msgstr "Tydzien Produkcji"
 msgid "Date Added"
 msgstr "Data dodania"
 
-#: app/products/forms.py:15 app/products/forms.py:34 app/products/forms.py:40
-#: app/stations/forms.py:14 app/users/forms.py:15 app/users/forms.py:24
-#: app/users/forms.py:35
-msgid "Submit"
-msgstr "Wyslij"
-
 #: app/products/forms.py:33
 msgid "Comment"
-msgstr "skomentarz"
+msgstr "komentarz"
 
-#: app/products/routes.py:30
+#: app/products/routes.py:32
 msgid "Product with serial {serial} found."
 msgstr "Produkt z numerem seryjnym: {serial} znaleziony."
 
-#: app/products/routes.py:33
+#: app/products/routes.py:35
 msgid "Product with serial {serial} not found."
 msgstr "Produkt z numerem seryjnym: {serial} nie znaleziony."
 
-#: app/products/routes.py:52
+#: app/products/routes.py:54
 msgid "Your comment has been published."
 msgstr "Twój komentarz został opublikowany."
 
-#: app/products/routes.py:80
+#: app/products/routes.py:82
 msgid "The product was updated successfully."
 msgstr "Produkt został pomyślnie zaktualizowany."
 
@@ -152,27 +152,27 @@ msgstr "Port"
 
 #: app/stations/routes.py:46
 msgid "New station: {station} was added successfully."
-msgstr "Nowa Stacja: {station} zostala dodana pomyslnie."
+msgstr "Nowa Stacja: {station} została dodana pomyslnie."
 
 #: app/stations/routes.py:64
 msgid "Station profile for: {station} has been updated."
-msgstr "Profil stacji: {station} zostal zaktualizowany."
+msgstr "Profil stacji: {station} został zaktualizowany."
 
 #: app/stations/routes.py:79
 msgid "Station for: {station} has been deleted."
-msgstr "Stacja: {station} zostala usunięta."
+msgstr "Stacja: {station} została usunięta."
 
 #: app/stations/routes.py:82
 msgid "You have to be adminstrator to remove stations."
-msgstr "Musisz być administratorem aby kasowac stacje."
+msgstr "Musisz być administratorem aby kasować stacje."
 
 #: app/templates/base.html:3
-msgid "PLCWeb - ProdLineTrace frontend"
-msgstr "PLCWeb - ProdLineTrace UI"
+msgid "PLCWeb - ProdLineTrace Frontend - "
+msgstr "PLCWeb - ProdLineTrace UI - "
 
 #: app/templates/base.html:18
 msgid "Toggle Navigation"
-msgstr "Przelacz nawigacje"
+msgstr "Przełącz nawigacje"
 
 #: app/templates/base.html:23
 msgid "Products"
@@ -192,7 +192,7 @@ msgstr "Rodzaje operacji"
 
 #: app/templates/base.html:33
 msgid "Users"
-msgstr "Uzytkownicy"
+msgstr "Użytkownicy"
 
 #: app/templates/base.html:41
 msgid "Profile"
@@ -267,7 +267,7 @@ msgstr "Starsze"
 
 #: app/templates/operation_types/new.html:6
 msgid "Add New Operation Type"
-msgstr "Dodaj nowy Rodzaj Operacji"
+msgstr "Dodaj nowy rodzaj operacji"
 
 #: app/templates/operation_types/operation_type.html:6
 #: app/templates/stations/station.html:6
@@ -293,11 +293,11 @@ msgstr "Produkt"
 
 #: app/templates/products/find_product.html:6
 msgid "Find Product"
-msgstr "Znajdz produkt"
+msgstr "Znajdź produkt"
 
 #: app/templates/products/product.html:10
 msgid "Product Overview"
-msgstr "Podglad Produktu"
+msgstr "Podgląd Produktu"
 
 #: app/templates/products/product.html:13
 msgid "Type"
@@ -313,7 +313,7 @@ msgstr "Rok"
 
 #: app/templates/products/product.html:28
 msgid "Week"
-msgstr "Tydzien"
+msgstr "Tydzień"
 
 #: app/templates/products/product.html:36
 msgid "Status Overview"
@@ -337,7 +337,7 @@ msgstr "Data"
 #: app/templates/products/product.html:43
 #: app/templates/products/product.html:64
 msgid "Overall Status"
-msgstr "Status Calkowity"
+msgstr "Status Całkowity"
 
 #: app/templates/products/product.html:58
 msgid "Operation Overview"
@@ -365,7 +365,7 @@ msgstr "Witamy w ProdLineTrace"
 
 #: app/templates/restapi/index.html:6
 msgid "Please click the link to start"
-msgstr "Kliknij na odnosnik aby rozpoczac"
+msgstr "Kliknij na odnosnik aby rozpocząć"
 
 #: app/templates/restapi/index.html:6
 msgid "Operator Application"
@@ -373,7 +373,7 @@ msgstr "Aplikacja Operatora"
 
 #: app/templates/restapi/index.html:9
 msgid "To use RestAPI please refer"
-msgstr "Aby uzyc RestAPI kliknij"
+msgstr "Aby użyć RestAPI kliknij"
 
 #: app/templates/restapi/index.html:9
 msgid "documentation"
@@ -381,7 +381,7 @@ msgstr "dokumentacja"
 
 #: app/templates/restapi/index.html:9
 msgid "for details"
-msgstr "dla szczegolow"
+msgstr "dla szczegółów"
 
 #: app/templates/restapi/index.html:12
 msgid "Please click the link see available"
@@ -393,15 +393,15 @@ msgstr "Kody Statusow"
 
 #: app/templates/restapi/index.html:15
 msgid "Please contact"
-msgstr "Prosze skontaktowac sie z "
+msgstr "Proszę skontaktować się z "
 
 #: app/templates/restapi/index.html:15
 msgid "in case of any questions."
-msgstr "w przypdaku niejasnosci."
+msgstr "w przypdaku niejasności."
 
 #: app/templates/restapi/index.html:17
 msgid "Enjoy!"
-msgstr "Milego uzytkowania!"
+msgstr "Życzę miłego użytkowania!"
 
 #: app/templates/restapi/status_codes.html:4
 msgid "I'm logged in as"
@@ -409,11 +409,11 @@ msgstr "Jestem zalogowany jako"
 
 #: app/templates/restapi/status_codes.html:6
 msgid "Status Codes"
-msgstr "Kody Statusow"
+msgstr "Kody Statusów"
 
 #: app/templates/restapi/status_codes.html:9
 msgid "Please"
-msgstr "Prosze"
+msgstr "Proszę"
 
 #: app/templates/restapi/status_codes.html:13
 msgid "code"
@@ -421,7 +421,7 @@ msgstr "kod"
 
 #: app/templates/restapi/status_codes.html:13
 msgid "short"
-msgstr "krotki"
+msgstr "krótki"
 
 #: app/templates/restapi/status_codes.html:13
 msgid "description"
@@ -429,7 +429,7 @@ msgstr "opis"
 
 #: app/templates/stations/edit.html:6
 msgid "Edit Station"
-msgstr "Edytuj Stacje"
+msgstr "Edytuj Stację"
 
 #: app/templates/stations/index.html:6
 msgid "New Station"
@@ -437,15 +437,15 @@ msgstr "Nowa Stacja"
 
 #: app/templates/stations/new.html:6
 msgid "Add New Station"
-msgstr "Dodaj Nowa Stacje"
+msgstr "Dodaj Nową Stację"
 
 #: app/templates/users/index.html:6
 msgid "New User"
-msgstr "Nowy Uzytkownik"
+msgstr "Nowy użytkownik"
 
 #: app/templates/users/new_user.html:6
 msgid "Add New User"
-msgstr "Dodaj nowego uzytkownika"
+msgstr "Dodaj nowego użytkownika"
 
 #: app/templates/users/profile.html:6 app/templates/users/user.html:6
 msgid "Edit Profile"
@@ -461,15 +461,15 @@ msgstr "Opis"
 
 #: app/users/forms.py:13 app/users/forms.py:21 app/users/forms.py:32
 msgid "confirm"
-msgstr "potwierdz"
+msgstr "potwierdź"
 
 #: app/users/forms.py:13 app/users/forms.py:21 app/users/forms.py:32
 msgid "Passwords must match"
-msgstr "Hasla musza pasowac"
+msgstr "Hasła muszą być identyczne"
 
 #: app/users/forms.py:14 app/users/forms.py:22 app/users/forms.py:33
 msgid "Repeat Password"
-msgstr "Powtorz haslo"
+msgstr "powtórz hasło"
 
 #: app/users/forms.py:23 app/users/forms.py:34
 msgid "Administrator"
@@ -481,7 +481,7 @@ msgstr "{user}, pomyślnie zaktualizowałeś swój profil."
 
 #: app/users/routes.py:61
 msgid "New user: {user} was added successfully."
-msgstr "Nowy użytkownik: {user} zostal dodany pomyślnie."
+msgstr "Nowy użytkownik: {user} został dodany pomyślnie."
 
 #: app/users/routes.py:79
 msgid "User profile for: {user} has been updated."
@@ -489,11 +489,11 @@ msgstr "Profil użytkownika {user} został zaktualizowany."
 
 #: app/users/routes.py:91
 msgid "Unable to remove currently logged user: {user}."
-msgstr "Nie moge usunąc aktualnie zalogowanego uzytkownika: {user}."
+msgstr "Nie mogę usunąć aktualnie zalogowanego użytkownika: {user}."
 
 #: app/users/routes.py:96
 msgid "User profile for: {user} has been deleted."
-msgstr "Profil użytkonika: {user} został skasowany."
+msgstr "Profil użytkownika: {user} został skasowany."
 
 #: app/users/routes.py:99
 msgid "You have to be adminstrator to remove users."

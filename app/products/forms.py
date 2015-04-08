@@ -3,16 +3,16 @@ from wtforms import SubmitField, IntegerField, SelectField
 from wtforms.fields.html5 import DateTimeField
 from wtforms.validators import Required, NumberRange
 from flask.ext.pagedown.fields import PageDownField
-from flask.ext.babel import gettext
+from flask.ext.babel import gettext, lazy_gettext
 
 
 class ProductForm(Form):
-    type = IntegerField(gettext('Product Type'), validators=[Required(), NumberRange(min=0, max=10000000000)])
-    serial = IntegerField(gettext('Serial Number'), validators=[Required(), NumberRange(min=0, max=10000000)])
-    year = IntegerField(gettext('Year Number'), validators=[Required(), NumberRange(min=0, max=99)])
-    week = IntegerField(gettext('Week Number'), validators=[Required(), NumberRange(min=0, max=99)])
-    date = DateTimeField(gettext('Date Added'), validators=[Required()])
-    submit = SubmitField(gettext('Submit'))
+    type = IntegerField(lazy_gettext('Product Type'), validators=[Required(), NumberRange(min=0, max=10000000000)])
+    serial = IntegerField(lazy_gettext('Serial Number'), validators=[Required(), NumberRange(min=0, max=10000000)])
+    year = IntegerField(lazy_gettext('Year Number'), validators=[Required(), NumberRange(min=0, max=99)])
+    week = IntegerField(lazy_gettext('Week Number'), validators=[Required(), NumberRange(min=0, max=99)])
+    date = DateTimeField(lazy_gettext('Date Added'), validators=[Required()])
+    submit = SubmitField(lazy_gettext('Submit'))
 
     def from_model(self, product):
         self.type.data = product.type
@@ -30,11 +30,11 @@ class ProductForm(Form):
 
 
 class CommentForm(Form):
-    body = PageDownField(gettext('Comment'), validators=[Required()])
-    submit = SubmitField(gettext('Submit'))
+    body = PageDownField(lazy_gettext('Comment'), validators=[Required()])
+    submit = SubmitField(lazy_gettext('Submit'))
 
 
 class FindProductForm(Form):
-    type = IntegerField(gettext('Product Type'), validators=[Required()])
-    serial = IntegerField(gettext('Serial Number'), validators=[Required()])
-    submit = SubmitField(gettext('Submit'))
+    type = IntegerField(lazy_gettext('Product Type'), validators=[Required()])
+    serial = IntegerField(lazy_gettext('Serial Number'), validators=[Required()])
+    submit = SubmitField(lazy_gettext('Submit'))
