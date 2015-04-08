@@ -8,9 +8,12 @@ from .forms import ProductForm, CommentForm, FindProductForm
 
 LANGUAGES = cfg['default'].LANGUAGES 
 
+
 @babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(LANGUAGES.keys())
+    lang = request.accept_languages.best_match(LANGUAGES.keys())
+    return lang
+
 
 @products.route('/')
 def index():

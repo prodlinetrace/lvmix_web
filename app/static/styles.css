@@ -39,6 +39,14 @@ div.product-header p {
     margin: 20px 0px 0px 0px;
 }
 
+#footer {
+    float: right;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    font-size: 90%;
+    font-style: italic;
+}
+
 div.product-main {
     width: 450px;
     max-width: 450px;

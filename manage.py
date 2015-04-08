@@ -9,16 +9,17 @@ if os.path.exists('.env'):
 
 from app import create_app
 from flask.ext.script import Manager
-from flask.ext.migrate import Migrate, MigrateCommand
 from app import db
 from app.models import User
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-migrate = Migrate(app, db)
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
 
-from flask.ext.migrate import Migrate, MigrateCommand
+#from flask.ext.migrate import Migrate, MigrateCommand
+#migrate = Migrate(app, db)
+manager = Manager(app)
+#manager.add_command('db', MigrateCommand)
+
+#from flask.ext.migrate import Migrate, MigrateCommand
 
 
 

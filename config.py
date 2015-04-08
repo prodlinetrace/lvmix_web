@@ -16,7 +16,9 @@ class Config:
         'en': 'English',
         'pl': 'Polish'
     }
-    #BABEL_DEFAULT_LOCALE = 'pl'
+    VERSION = '0.1.0'
+    DBMODEL_VERSION = "None"
+    #BABEL_DEFAULT_LOCALE = 'en'
 
     STATION_STATUS_CODES = {
         0: {"result": "NOK", "desc": "Status not ok"},

@@ -23,7 +23,7 @@ Below are step-by-step installation instructions:
 
 **Step 1**: Clone the git repository
 
-    $ git clone https://github.com/wilkpio/prodlinetraceweb.git
+    $ git clone https://bitbucket.org/wilkpio/prodlinetraceweb.git
     $ cd prodlinetraceweb
 
 **Step 2**: Create a virtual environment.

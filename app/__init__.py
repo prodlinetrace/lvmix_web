@@ -6,7 +6,9 @@ from flask.ext.moment import Moment
 from flask.ext.pagedown import PageDown
 from flask.ext.autodoc import Autodoc
 from flask.ext.babel import Babel
-from config import config 
+from config import config
+
+__version__ = config['default'].VERSION
 
 cfg = config
 bootstrap = Bootstrap()
@@ -40,6 +42,9 @@ def create_app(config_name):
     login_manager.init_app(app)
     auto.init_app(app)
     babel.init_app(app)
+
+    from app.models import __version__ as dbmodel_version
+    app.config.DBMODEL_VERSION = dbmodel_version
 
     from .products import products as products_blueprint
     app.register_blueprint(products_blueprint, url_prefix='/app')
