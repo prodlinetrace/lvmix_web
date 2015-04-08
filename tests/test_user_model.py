@@ -1,6 +1,6 @@
 import unittest
 from app import create_app, db
-from app.models import User, Talk, Comment, load_user
+from app.models import User, Product, Comment, load_user
 
 
 class UserModelTestCase(unittest.TestCase):
@@ -36,13 +36,13 @@ class UserModelTestCase(unittest.TestCase):
 
     def test_user_loader(self):
         db.create_all()
-        u = User(email='john@example.com', username='john', password='cat')
+        u = User(login='john', password='cat')
         db.session.add(u)
         db.session.commit()
         self.assertTrue(load_user(u.id) == u)
 
     def test_gravatar(self):
-        u = User(email='john@example.com', password='cat')
+        u = User(login="john", password='cat')
         with self.app.test_request_context('/'):
             gravatar = u.gravatar()
             gravatar_256 = u.gravatar(size=256)
@@ -61,16 +61,14 @@ class UserModelTestCase(unittest.TestCase):
 
     def test_moderation(self):
         db.create_all()
-        u1 = User(email='john@example.com', username='john', password='cat')
-        u2 = User(email='susan@example.com', username='susan', password='cat',
-                  is_admin=True)
-        t = Talk(title='t', description='d', author=u1)
-        c1 = Comment(talk=t, body='c1', author_name='n',
-                     author_email='e@e.com', approved=True)
-        c2 = Comment(talk=t, body='c2', author_name='n',
-                     author_email='e@e.com', approved=False)
-        db.session.add_all([u1, u2, t, c1, c2])
+        u1 = User(login='john', password='cat')
+        u2 = User(login='susan', password='cat', is_admin=True)
+        p = Product(type=1234567890, serial=123456, week=45, year=15)
+        c1 = Comment(body='comment body 1', author_id=u1.id, product_id=p.get_product_id())
+        c2 = Comment(body='comment body 2', author_id=u2.id, product_id=p.get_product_id())
+        db.session.add_all([u1, u2, p, c1, c2])
         db.session.commit()
+        """
         for_mod1 = u1.for_moderation().all()
         for_mod1_admin = u1.for_moderation(True).all()
         for_mod2 = u2.for_moderation().all()
@@ -81,3 +79,4 @@ class UserModelTestCase(unittest.TestCase):
         self.assertTrue(len(for_mod2) == 0)
         self.assertTrue(len(for_mod2_admin) == 1)
         self.assertTrue(for_mod2_admin[0] == c2)
+        """
