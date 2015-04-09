@@ -37,6 +37,7 @@ def profile():
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.location = form.location.data
+        current_user.locale = form.locale.data
         current_user.bio = form.bio.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
@@ -44,6 +45,7 @@ def profile():
         return redirect(url_for('users.user', username=current_user.login))
     form.name.data = current_user.name
     form.location.data = current_user.location
+    form.locale.data = current_user.locale
     form.bio.data = current_user.bio
     return render_template('users/profile.html', form=form)
 
@@ -86,7 +88,7 @@ def edit(id):
 @login_required
 def delete(id):
     user = User.query.get_or_404(id)
-    if current_user.is_admin: 
+    if current_user.is_admin:
         if user.id == current_user.id:
             flash(gettext('Unable to remove currently logged user: {user}.'.format(user=user.name)))
             return redirect(url_for('.index'))

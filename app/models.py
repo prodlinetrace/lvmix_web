@@ -8,7 +8,7 @@ from flask import request, current_app
 from flask.ext.login import UserMixin
 from . import db, login_manager
 import logging
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
+    locale = db.Column(db.String(16))
     bio = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
@@ -122,7 +123,7 @@ class Product(db.Model):
 
         if serial is None:
             serial = self.serial
-            
+
         return pow(10, 8) * type + serial
 
     @property

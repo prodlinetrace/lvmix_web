@@ -12,13 +12,10 @@ class Config:
     COMMENTS_PER_PAGE = 100
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
-    LANGUAGES = {
-        'en': 'English',
-        'pl': 'Polish'
-    }
-    VERSION = '0.1.0'
+    LANGUAGES = (('en', 'English'), ('pl', 'Polish'))
+    VERSION = '0.2.0'
     DBMODEL_VERSION = "None"
-    #BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_LOCALE = 'en'
 
     STATION_STATUS_CODES = {
         0: {"result": "NOK", "desc": "Status not ok"},

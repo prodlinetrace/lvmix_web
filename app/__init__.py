@@ -1,7 +1,7 @@
-from flask import Flask
+from flask import Flask, g, request, session
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, current_user
 from flask.ext.moment import Moment
 from flask.ext.pagedown import PageDown
 from flask.ext.autodoc import Autodoc
@@ -43,8 +43,25 @@ def create_app(config_name):
     auto.init_app(app)
     babel.init_app(app)
 
+    # set model version
     from app.models import __version__ as dbmodel_version
     app.config.DBMODEL_VERSION = dbmodel_version
+
+    # langs handling
+    langs = zip(*app.config['LANGUAGES'])[0]
+
+    @babel.localeselector
+    def get_locale():
+        # if a user is logged in, use the locale from the user settings
+        if current_user.is_authenticated():
+            return current_user.locale
+
+        # otherwise try to guess locale from browser settings.
+        browser = request.accept_languages.best_match(langs)
+        lang = session.get('lang', browser)
+        setattr(g, 'lang', lang)
+        return lang
+
 
     from .products import products as products_blueprint
     app.register_blueprint(products_blueprint, url_prefix='/app')

@@ -6,8 +6,9 @@
     {% if current_user == user %}<a class="btn btn-default pull-right" href="{{ url_for('users.profile') }}">{{ _('Edit Profile') }}</a>{% endif %}
     <h1>{{ user.username }}</h1>
     <p>
-        {% if user.name %}{{ user.name }}<br>{% endif %}
-        {% if user.location %}<a href="http://maps.google.com?q={{ user.location }}">{{ user.location }}</a><br>{% endif %}
+        {% if user.name %}{{_('Name')}}: {{ user.name }}<br>{% endif %}
+        {% if user.location %}{{_('Location')}}: <a href="http://maps.google.com?q={{ user.location }}">{{ user.location }}</a><br>{% endif %}
+        {% if user.locale %}{{_('Preferred Language')}}: {{ user.locale }}<br>{% endif %}
     </p>
     {% if user.bio %}<p>{{ user.bio }}</p>{% endif %}
 </div>
