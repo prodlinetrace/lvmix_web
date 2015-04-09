@@ -52,12 +52,12 @@ class UserModelTestCase(unittest.TestCase):
                                            base_url='https://example.com'):
             gravatar_ssl = u.gravatar()
         self.assertTrue('http://www.gravatar.com/avatar/' +
-                        'd4c74594d841139328695756648b6bd6'in gravatar)
+                        '527bd5b5d689e2c32ae974c6229ff785'in gravatar)
         self.assertTrue('s=256' in gravatar_256)
         self.assertTrue('r=pg' in gravatar_pg)
         self.assertTrue('d=retro' in gravatar_retro)
         self.assertTrue('https://secure.gravatar.com/avatar/' +
-                        'd4c74594d841139328695756648b6bd6' in gravatar_ssl)
+                        '527bd5b5d689e2c32ae974c6229ff785' in gravatar_ssl)
 
     def test_moderation(self):
         db.create_all()
