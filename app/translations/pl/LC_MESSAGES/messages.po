@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-04-08 21:28+0200\n"
-"PO-Revision-Date: 2015-04-08 21:48+0100\n"
+"POT-Creation-Date: 2015-04-10 10:52+0200\n"
+"PO-Revision-Date: 2015-04-10 10:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
@@ -28,8 +28,8 @@ msgstr "Nie mozesz modyfikować tego komentarza"
 msgid "Username"
 msgstr "Użytkownik"
 
-#: app/auth/forms.py:9 app/users/forms.py:13 app/users/forms.py:21
-#: app/users/forms.py:32
+#: app/auth/forms.py:9 app/users/forms.py:16 app/users/forms.py:24
+#: app/users/forms.py:36
 msgid "Password"
 msgstr "Hasło"
 
@@ -57,8 +57,8 @@ msgstr "Identyfikator"
 
 #: app/operation_types/forms.py:9 app/stations/forms.py:10
 #: app/templates/operation_types/operation_type.html:10
-#: app/templates/stations/station.html:11 app/users/forms.py:10
-#: app/users/forms.py:20 app/users/forms.py:29
+#: app/templates/stations/station.html:11 app/templates/users/user.html:9
+#: app/users/forms.py:12 app/users/forms.py:23 app/users/forms.py:32
 msgid "Name"
 msgstr "Nazwa"
 
@@ -69,9 +69,9 @@ msgstr "Opis"
 
 #: app/operation_types/forms.py:11 app/products/forms.py:15
 #: app/products/forms.py:34 app/products/forms.py:40 app/stations/forms.py:14
-#: app/users/forms.py:15 app/users/forms.py:24 app/users/forms.py:35
+#: app/users/forms.py:18 app/users/forms.py:27 app/users/forms.py:39
 msgid "Submit"
-msgstr "Wyslij"
+msgstr "Wyślij"
 
 #: app/operation_types/routes.py:46
 msgid "New operation_type: {operation_type} was added successfully."
@@ -118,19 +118,19 @@ msgstr "Data dodania"
 msgid "Comment"
 msgstr "komentarz"
 
-#: app/products/routes.py:32
+#: app/products/routes.py:25
 msgid "Product with serial {serial} found."
 msgstr "Produkt z numerem seryjnym: {serial} znaleziony."
 
-#: app/products/routes.py:35
+#: app/products/routes.py:28
 msgid "Product with serial {serial} not found."
 msgstr "Produkt z numerem seryjnym: {serial} nie znaleziony."
 
-#: app/products/routes.py:54
+#: app/products/routes.py:47
 msgid "Your comment has been published."
 msgstr "Twój komentarz został opublikowany."
 
-#: app/products/routes.py:82
+#: app/products/routes.py:75
 msgid "The product was updated successfully."
 msgstr "Produkt został pomyślnie zaktualizowany."
 
@@ -210,7 +210,7 @@ msgstr "Operator"
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: app/templates/auth/login.html:6 app/users/forms.py:19 app/users/forms.py:28
+#: app/templates/auth/login.html:6 app/users/forms.py:22 app/users/forms.py:31
 msgid "Login"
 msgstr "Zaloguj"
 
@@ -248,8 +248,8 @@ msgstr "Nowy Typ Operacji"
 #: app/templates/products/product.html:115
 #: app/templates/products/product.html:117
 #: app/templates/stations/index.html:13 app/templates/stations/index.html:15
-#: app/templates/users/index.html:13 app/templates/users/user.html:18
-#: app/templates/users/user.html:20
+#: app/templates/users/index.html:13 app/templates/users/user.html:19
+#: app/templates/users/user.html:21
 msgid "Newer"
 msgstr "Nowsze"
 
@@ -260,8 +260,8 @@ msgstr "Nowsze"
 #: app/templates/products/product.html:112
 #: app/templates/stations/index.html:18 app/templates/stations/index.html:20
 #: app/templates/users/index.html:15 app/templates/users/index.html:18
-#: app/templates/users/index.html:20 app/templates/users/user.html:23
-#: app/templates/users/user.html:25
+#: app/templates/users/index.html:20 app/templates/users/user.html:24
+#: app/templates/users/user.html:26
 msgid "Older"
 msgstr "Starsze"
 
@@ -357,7 +357,7 @@ msgstr "Rezultat | Minimum | Maximimum | Status"
 
 #: app/templates/products/product.html:122
 msgid "Write a comment"
-msgstr "Napisz komentarz"
+msgstr "Dodaj komentarz"
 
 #: app/templates/restapi/index.html:4
 msgid "Welcome to ProdLineTrace"
@@ -451,51 +451,60 @@ msgstr "Dodaj nowego użytkownika"
 msgid "Edit Profile"
 msgstr "Edytuj Profil"
 
-#: app/users/forms.py:11 app/users/forms.py:30
+#: app/templates/users/user.html:10 app/users/forms.py:13
+#: app/users/forms.py:33
 msgid "Location"
 msgstr "Lokalizacja"
 
-#: app/users/forms.py:12 app/users/forms.py:31
+#: app/templates/users/user.html:11
+msgid "Preferred Language"
+msgstr "Preferowany Język"
+
+#: app/users/forms.py:14 app/users/forms.py:34
+msgid "Locale"
+msgstr "Język"
+
+#: app/users/forms.py:15 app/users/forms.py:35
 msgid "Bio"
 msgstr "Opis"
 
-#: app/users/forms.py:13 app/users/forms.py:21 app/users/forms.py:32
+#: app/users/forms.py:16 app/users/forms.py:24 app/users/forms.py:36
 msgid "confirm"
 msgstr "potwierdź"
 
-#: app/users/forms.py:13 app/users/forms.py:21 app/users/forms.py:32
+#: app/users/forms.py:16 app/users/forms.py:24 app/users/forms.py:36
 msgid "Passwords must match"
 msgstr "Hasła muszą być identyczne"
 
-#: app/users/forms.py:14 app/users/forms.py:22 app/users/forms.py:33
+#: app/users/forms.py:17 app/users/forms.py:25 app/users/forms.py:37
 msgid "Repeat Password"
-msgstr "powtórz hasło"
+msgstr "Powtórz hasło"
 
-#: app/users/forms.py:23 app/users/forms.py:34
+#: app/users/forms.py:26 app/users/forms.py:38
 msgid "Administrator"
 msgstr "Administrator"
 
-#: app/users/routes.py:43
+#: app/users/routes.py:44
 msgid "{user}, you have updated your profile successfully."
 msgstr "{user}, pomyślnie zaktualizowałeś swój profil."
 
-#: app/users/routes.py:61
+#: app/users/routes.py:63
 msgid "New user: {user} was added successfully."
 msgstr "Nowy użytkownik: {user} został dodany pomyślnie."
 
-#: app/users/routes.py:79
+#: app/users/routes.py:81
 msgid "User profile for: {user} has been updated."
 msgstr "Profil użytkownika {user} został zaktualizowany."
 
-#: app/users/routes.py:91
+#: app/users/routes.py:93
 msgid "Unable to remove currently logged user: {user}."
 msgstr "Nie mogę usunąć aktualnie zalogowanego użytkownika: {user}."
 
-#: app/users/routes.py:96
+#: app/users/routes.py:98
 msgid "User profile for: {user} has been deleted."
 msgstr "Profil użytkownika: {user} został skasowany."
 
-#: app/users/routes.py:99
+#: app/users/routes.py:101
 msgid "You have to be adminstrator to remove users."
 msgstr "Jesteś za młody na heroda. Musisz być adminem."
 
