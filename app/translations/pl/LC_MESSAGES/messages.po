@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-04-10 10:52+0200\n"
-"PO-Revision-Date: 2015-04-10 10:55+0100\n"
+"POT-Creation-Date: 2015-04-16 01:10+0200\n"
+"PO-Revision-Date: 2015-04-16 01:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
@@ -49,38 +49,61 @@ msgstr "Błędna nazwa użytkownika lub hasło."
 msgid "You have been logged out."
 msgstr "Zostałeś wylogowany."
 
-#: app/operation_types/forms.py:8 app/stations/forms.py:8
+#: app/operation_statuses/forms.py:8 app/operation_types/forms.py:8
+#: app/stations/forms.py:8
+#: app/templates/operation_statuses/operation_status.html:9
 #: app/templates/operation_types/operation_type.html:9
 #: app/templates/stations/station.html:9
 msgid "Id"
 msgstr "Identyfikator"
 
-#: app/operation_types/forms.py:9 app/stations/forms.py:10
+#: app/operation_statuses/forms.py:9 app/operation_types/forms.py:9
+#: app/stations/forms.py:10
+#: app/templates/operation_statuses/operation_status.html:10
 #: app/templates/operation_types/operation_type.html:10
 #: app/templates/stations/station.html:11 app/templates/users/user.html:9
 #: app/users/forms.py:12 app/users/forms.py:23 app/users/forms.py:32
 msgid "Name"
 msgstr "Nazwa"
 
-#: app/operation_types/forms.py:10
+#: app/operation_statuses/forms.py:10 app/operation_types/forms.py:10
+#: app/templates/operation_statuses/operation_status.html:11
 #: app/templates/operation_types/operation_type.html:11
 msgid "Description"
 msgstr "Opis"
 
-#: app/operation_types/forms.py:11 app/products/forms.py:15
-#: app/products/forms.py:34 app/products/forms.py:40 app/stations/forms.py:14
-#: app/users/forms.py:18 app/users/forms.py:27 app/users/forms.py:39
+#: app/operation_statuses/forms.py:11 app/operation_types/forms.py:11
+#: app/products/forms.py:15 app/products/forms.py:34 app/products/forms.py:40
+#: app/stations/forms.py:14 app/users/forms.py:18 app/users/forms.py:27
+#: app/users/forms.py:39
 msgid "Submit"
 msgstr "Wyślij"
 
-#: app/operation_types/routes.py:46
-msgid "New operation_type: {operation_type} was added successfully."
-msgstr "Nowy rodzaj operacji : {operation_type} został dodany."
+#: app/operation_statuses/routes.py:46
+msgid "New operation_status: {operation_status} was added successfully."
+msgstr "Nowy status operacji : {operation_status} został dodany."
 
+#: app/operation_statuses/routes.py:49 app/operation_statuses/routes.py:67
 #: app/operation_types/routes.py:49 app/operation_types/routes.py:67
 #: app/stations/routes.py:49 app/stations/routes.py:67
 msgid "Validation failed"
 msgstr "Walidacja nie powiodla się"
+
+#: app/operation_statuses/routes.py:64
+msgid "operation_status profile for: {operation_status} has been updated."
+msgstr "Status Operacji: {operation_status} został zaktualizowany. "
+
+#: app/operation_statuses/routes.py:79
+msgid "Operation_Status for: {operation_status} has been deleted."
+msgstr "Status Operacji: {operation_status} został skaowany. "
+
+#: app/operation_statuses/routes.py:82
+msgid "You have to be administrator to remove operation_statuses."
+msgstr "Musisz byc administratorem aby kasować Statusy Operacji."
+
+#: app/operation_types/routes.py:46
+msgid "New operation_type: {operation_type} was added successfully."
+msgstr "Nowy rodzaj operacji : {operation_type} został dodany."
 
 #: app/operation_types/routes.py:64
 msgid "Operation_Type profile for: {operation_type} has been updated."
@@ -187,26 +210,30 @@ msgid "Stations"
 msgstr "Stacje"
 
 #: app/templates/base.html:31
-msgid "Operation Types"
-msgstr "Rodzaje operacji"
+msgid "Operations"
+msgstr "Operacje"
 
-#: app/templates/base.html:33
+#: app/templates/base.html:32
+msgid "Statuses"
+msgstr "Statusy"
+
+#: app/templates/base.html:34
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: app/templates/base.html:41
+#: app/templates/base.html:42
 msgid "Profile"
 msgstr "Profil"
 
-#: app/templates/base.html:43
+#: app/templates/base.html:44
 msgid "Admin"
 msgstr "Adminitstrator"
 
-#: app/templates/base.html:43
+#: app/templates/base.html:44
 msgid "Operator"
 msgstr "Operator"
 
-#: app/templates/base.html:45
+#: app/templates/base.html:46
 msgid "Logout"
 msgstr "Wyloguj"
 
@@ -214,6 +241,9 @@ msgstr "Wyloguj"
 msgid "Login"
 msgstr "Zaloguj"
 
+#: app/templates/operation_statuses/_operation_status_header.html:3
+#: app/templates/operation_statuses/_operation_status_header.html:6
+#: app/templates/operation_statuses/operation_status.html:5
 #: app/templates/operation_types/_operation_type_header.html:3
 #: app/templates/operation_types/_operation_type_header.html:6
 #: app/templates/operation_types/operation_type.html:5
@@ -227,12 +257,58 @@ msgstr "Zaloguj"
 msgid "Edit"
 msgstr "Edytuj"
 
+#: app/templates/operation_statuses/_operation_status_header.html:5
 #: app/templates/operation_types/_operation_type_header.html:5
 #: app/templates/products/_comment.html:4
 #: app/templates/stations/_station_header.html:5
 #: app/templates/users/_user_header.html:5
 msgid "Delete"
 msgstr "Skasuj"
+
+#: app/templates/operation_statuses/edit.html:6
+msgid "Edit Operation Status"
+msgstr "Edytuj Status Operacji"
+
+#: app/templates/operation_statuses/index.html:6
+msgid "New Operation Status"
+msgstr "Nowy Status Operacji"
+
+#: app/templates/operation_statuses/index.html:13
+#: app/templates/operation_statuses/index.html:15
+#: app/templates/operation_types/index.html:13
+#: app/templates/operation_types/index.html:15
+#: app/templates/products/index.html:8 app/templates/products/index.html:10
+#: app/templates/products/product.html:117
+#: app/templates/products/product.html:119
+#: app/templates/stations/index.html:13 app/templates/stations/index.html:15
+#: app/templates/users/index.html:13 app/templates/users/user.html:19
+#: app/templates/users/user.html:21
+msgid "Newer"
+msgstr "Nowsze"
+
+#: app/templates/operation_statuses/index.html:18
+#: app/templates/operation_statuses/index.html:20
+#: app/templates/operation_types/index.html:18
+#: app/templates/operation_types/index.html:20
+#: app/templates/products/index.html:13 app/templates/products/index.html:15
+#: app/templates/products/product.html:112
+#: app/templates/products/product.html:114
+#: app/templates/stations/index.html:18 app/templates/stations/index.html:20
+#: app/templates/users/index.html:15 app/templates/users/index.html:18
+#: app/templates/users/index.html:20 app/templates/users/user.html:24
+#: app/templates/users/user.html:26
+msgid "Older"
+msgstr "Starsze"
+
+#: app/templates/operation_statuses/new.html:6
+msgid "Add New Operation Status"
+msgstr "Dodaj nowy status operacji"
+
+#: app/templates/operation_statuses/operation_status.html:6
+#: app/templates/operation_types/operation_type.html:6
+#: app/templates/stations/station.html:6
+msgid "Details for"
+msgstr "Detale"
 
 #: app/templates/operation_types/edit.html:6
 msgid "Edit Operation Type"
@@ -242,37 +318,9 @@ msgstr "Edytuj Typ Operacji"
 msgid "New Operation Type"
 msgstr "Nowy Typ Operacji"
 
-#: app/templates/operation_types/index.html:13
-#: app/templates/operation_types/index.html:15
-#: app/templates/products/index.html:8 app/templates/products/index.html:10
-#: app/templates/products/product.html:115
-#: app/templates/products/product.html:117
-#: app/templates/stations/index.html:13 app/templates/stations/index.html:15
-#: app/templates/users/index.html:13 app/templates/users/user.html:19
-#: app/templates/users/user.html:21
-msgid "Newer"
-msgstr "Nowsze"
-
-#: app/templates/operation_types/index.html:18
-#: app/templates/operation_types/index.html:20
-#: app/templates/products/index.html:13 app/templates/products/index.html:15
-#: app/templates/products/product.html:110
-#: app/templates/products/product.html:112
-#: app/templates/stations/index.html:18 app/templates/stations/index.html:20
-#: app/templates/users/index.html:15 app/templates/users/index.html:18
-#: app/templates/users/index.html:20 app/templates/users/user.html:24
-#: app/templates/users/user.html:26
-msgid "Older"
-msgstr "Starsze"
-
 #: app/templates/operation_types/new.html:6
 msgid "Add New Operation Type"
 msgstr "Dodaj nowy rodzaj operacji"
-
-#: app/templates/operation_types/operation_type.html:6
-#: app/templates/stations/station.html:6
-msgid "Details for"
-msgstr "Detale"
 
 #: app/templates/products/_comment.html:7
 msgid "Deleted"
@@ -283,7 +331,7 @@ msgid "commented"
 msgstr "skomentowany"
 
 #: app/templates/products/_product_header.html:9
-#: app/templates/products/product.html:106
+#: app/templates/products/product.html:108
 msgid "Comments"
 msgstr "Komentarze"
 
@@ -320,42 +368,49 @@ msgid "Status Overview"
 msgstr "Podglad Statusu"
 
 #: app/templates/products/product.html:40
-#: app/templates/products/product.html:62
+#: app/templates/products/product.html:64
 msgid "Station Id"
 msgstr "Identyfikator Stacji"
 
 #: app/templates/products/product.html:41
-#: app/templates/products/product.html:63
+#: app/templates/products/product.html:65
 msgid "Station Name"
 msgstr "Nazwa Stacji"
 
 #: app/templates/products/product.html:42
-#: app/templates/products/product.html:66
+msgid "Status Id"
+msgstr "Identyfikator Statusu"
+
+#: app/templates/products/product.html:43
+msgid "Status Name"
+msgstr "Nazwa Statusu"
+
+#: app/templates/products/product.html:44
+#: app/templates/products/product.html:68
 msgid "Date"
 msgstr "Data"
 
-#: app/templates/products/product.html:43
-#: app/templates/products/product.html:64
-msgid "Overall Status"
-msgstr "Status Całkowity"
-
-#: app/templates/products/product.html:58
+#: app/templates/products/product.html:60
 msgid "Operation Overview"
 msgstr "Podglad Stacji"
 
-#: app/templates/products/product.html:65
+#: app/templates/products/product.html:66
 msgid "Operation Name"
 msgstr "Nazwa Operacji"
 
 #: app/templates/products/product.html:67
+msgid "Overall Status"
+msgstr "Status Całkowity"
+
+#: app/templates/products/product.html:69
 msgid "Operation Measurment"
 msgstr "Parametry Operacji"
 
-#: app/templates/products/product.html:67
+#: app/templates/products/product.html:69
 msgid "Result | Min | Max | Status"
 msgstr "Rezultat | Minimum | Maximimum | Status"
 
-#: app/templates/products/product.html:122
+#: app/templates/products/product.html:124
 msgid "Write a comment"
 msgstr "Dodaj komentarz"
 

@@ -76,6 +76,9 @@ def create_app(config_name):
     from .operation_types import operation_types as operation_types_blueprint
     app.register_blueprint(operation_types_blueprint, url_prefix='/app/operation_types')
 
+    from .operation_statuses import operation_statuses as operation_statuses_blueprint
+    app.register_blueprint(operation_statuses_blueprint, url_prefix='/app/operation_statuses')
+
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/app/auth')
 

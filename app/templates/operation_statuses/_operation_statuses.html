@@ -1,0 +1,7 @@
+<ul class="talk-list">
+{% for operation_status in operation_statuses %}
+    <li class="talk">
+    {% include "operation_statuses/_operation_status_header.html" %}
+    </li>
+{% endfor %}
+</ul>

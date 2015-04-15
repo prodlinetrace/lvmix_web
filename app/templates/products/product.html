@@ -34,13 +34,14 @@
 	    	</div>
 	    {% endif %}
 	<h3 id="comments">{{ _('Status Overview') }}</h3>
-	<table cellspacing="1" id="statuses" class="statuses tablesorter"> 
+	<table cellspacing="1" id="statuses" class="statuses tablesorter">
 		<thead>
 	   		<tr>
 	            <th>{{ _('Station Id') }}</th>
 	            <th>{{ _('Station Name') }}</th>
+                <th>{{ _('Status Id') }}</th>
+	            <th>{{ _('Status Name') }}</th>
 	            <th>{{ _('Date') }}</th>
-	            <th>{{ _('Overall Status') }}</th>
 	        </tr>
         </thead>
         <tbody>
@@ -48,21 +49,22 @@
    			<tr>
 				<td>{{ status.station.id }} </td>
     			<td>{{ status.station.name }} </td>
+ 	   			<td>{{ status.status }} </td>
+    			<td>{{ status.status_name.name }} </td>
     			<td>{{ status.date_time }} </td>
-    			<td>{{ status.status }} </td>
    			</tr>
 			{% endfor %}
         </tbody>
     </table>
-	
+
 	<h3 id="comments">{{ _('Operation Overview') }}</h3>
-	<table cellspacing="1" id="operations" class="tablesorter"> 
+	<table cellspacing="1" id="operations" class="tablesorter">
 		<thead>
 	   		<tr>
 	            <th>{{ _('Station Id') }}</th>
 	            <th>{{ _('Station Name') }}</th>
-	            <th>{{ _('Overall Status') }}</th>
 	            <th>{{ _('Operation Name') }}</th>
+	            <th>{{ _('Overall Status') }}</th>
 	            <th>{{ _('Date') }}</th>
 	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Min | Max | Status') }}</th>
 	        </tr>
@@ -72,20 +74,20 @@
     		<tr>
     			<td>{{ operation.station_id }}</td>
     			<td>{{ operation.station.name }}</td>
-    			<td>{{ operation.operation_status }}</td>
     			<td>{{ operation.operation_type.name }}</td>
+    			<td>{{ operation.operation_status.name }}</td>
     			<td>{{ operation.date_time }} </td>
-    			<td> 
+    			<td>
     				<table id="result" class="operation_data">
 			        	<tbody>
 			    			{% if operation.result_1 %}
-			    				<tr><td>{{ operation.result_1}}</td><td>{{ operation.result_1_max}}</td><td>{{ operation.result_1_min}}</td><td>{{ operation.result_1_status}}</td></tr>
+			    				<tr><td>{{ operation.result_1}}</td><td>{{ operation.result_1_max}}</td><td>{{ operation.result_1_min}}</td><td>{{ operation.result_1_status.name}}</td></tr>
 			    			{% endif %}
 			    			{% if operation.result_2 %}
-			    				<tr><td>{{ operation.result_2}}</td><td>{{ operation.result_2_max}}</td><td>{{ operation.result_2_min}}</td><td>{{ operation.result_2_status}}</td></tr>
+			    				<tr><td>{{ operation.result_2}}</td><td>{{ operation.result_2_max}}</td><td>{{ operation.result_2_min}}</td><td>{{ operation.result_2_status.name}}</td></tr>
 			    			{% endif %}
 			    			{% if operation.result_3 %}
-			    				<tr><td>{{ operation.result_3}}</td><td>{{ operation.result_3_max}}</td><td>{{ operation.result_3_min}}</td><td>{{ operation.result_3_status}}</td></tr>
+			    				<tr><td>{{ operation.result_3}}</td><td>{{ operation.result_3_max}}</td><td>{{ operation.result_3_min}}</td><td>{{ operation.result_3_status.name}}</td></tr>
 			    			{% endif %}
 	    		        </tbody>
     				</table>
@@ -94,13 +96,13 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	
+
 
  	{% if product.statuses %}
  		<div>
- 		</div> 
+ 		</div>
  	{% endif %}
-	    
+
 </div>
 	{% if comments %}
 		<h3 id="comments">{{ _('Comments') }}</h3>
@@ -133,15 +135,15 @@
 	        $('#flask-pagedown-body').autosize();
 	    });
 	</script>
-	<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script> 
-	
+	<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+
 	<script type="text/javascript">
-	$(document).ready(function() 
-		    { 
-				$("#statuses").tablesorter(); 
-		        $("#operations").tablesorter(); 
-		    } 
-		); 
-	</script>	
+	$(document).ready(function()
+		    {
+				$("#statuses").tablesorter();
+		        $("#operations").tablesorter();
+		    }
+		);
+	</script>
 	{% include "_api_client.html" %}
 {% endblock %}
