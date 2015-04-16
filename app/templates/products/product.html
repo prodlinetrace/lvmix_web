@@ -39,7 +39,6 @@
 	   		<tr>
 	            <th>{{ _('Station Id') }}</th>
 	            <th>{{ _('Station Name') }}</th>
-                <th>{{ _('Status Id') }}</th>
 	            <th>{{ _('Status Name') }}</th>
 	            <th>{{ _('Date') }}</th>
 	        </tr>
@@ -49,7 +48,6 @@
    			<tr>
 				<td>{{ status.station.id }} </td>
     			<td>{{ status.station.name }} </td>
- 	   			<td>{{ status.status }} </td>
     			<td>{{ status.status_name.name }} </td>
     			<td>{{ status.date_time }} </td>
    			</tr>
@@ -66,7 +64,7 @@
 	            <th>{{ _('Operation Name') }}</th>
 	            <th>{{ _('Overall Status') }}</th>
 	            <th>{{ _('Date') }}</th>
-	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Min | Max | Status') }}</th>
+	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Max | Min | Status') }}</th>
 	        </tr>
         </thead>
         <tbody>
