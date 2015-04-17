@@ -14,14 +14,14 @@ class Config:
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('en', 'English'), ('pl', 'Polish'))
-    VERSION = '0.3.1'
+    VERSION = '0.3.2'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'en'
 
     STATION_STATUS_CODES = {
-        0: {"result": "NOK", "desc": "Status not ok"},
+        0: {"result": "UNDEFINED", "desc": "status undefined (not present in database)"},
         1: {"result": "OK", "desc": "Status ok"},
-        2: {"result": "UNDEFINED", "desc": "status undefined (not present in database)"},
+        2: {"result": "NOK", "desc": "Status not ok"},
         4: {"result": "NOTAVAILABLE", "desc": "Not present in given type"},
         5: {"result": "REPEATEDOK", "desc": "Repeated test was ok"},
         6: {"result": "REPEATEDNOK", "desc": "Repeated test was not ok"},
