@@ -1,13 +1,13 @@
 from flask.ext.wtf import Form
 from wtforms import SubmitField, IntegerField, SelectField
 from wtforms.fields.html5 import DateTimeField
-from wtforms.validators import Required, NumberRange
+from wtforms.validators import Required, NumberRange, InputRequired
 from flask.ext.pagedown.fields import PageDownField
 from flask.ext.babel import gettext, lazy_gettext
 
 
 class ProductForm(Form):
-    type = IntegerField(lazy_gettext('Product Type'), validators=[Required(), NumberRange(min=0, max=10000000000)])
+    type = IntegerField(lazy_gettext('Product Type'), validators=[InputRequired(), NumberRange(min=0, max=10000000000)])
     serial = IntegerField(lazy_gettext('Serial Number'), validators=[Required(), NumberRange(min=0, max=10000000)])
     year = IntegerField(lazy_gettext('Year Number'), validators=[Required(), NumberRange(min=0, max=99)])
     week = IntegerField(lazy_gettext('Week Number'), validators=[Required(), NumberRange(min=0, max=99)])

@@ -1,11 +1,11 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import Optional, Length, Required, IPAddress
+from wtforms.validators import Optional, Length, Required, IPAddress, InputRequired
 from flask.ext.babel import gettext, lazy_gettext
 
 
 class StationForm(Form):
-    id = IntegerField(lazy_gettext('Id'), validators=[Required()])
+    id = IntegerField(lazy_gettext('Id'), validators=[InputRequired()])
     ip = StringField(lazy_gettext('IP Address'), validators=[Required(), IPAddress()])
     name = StringField(lazy_gettext('Name'), validators=[Optional(), Length(1, 64)])
     rack = IntegerField(lazy_gettext('Rack'), validators=[Optional()])
