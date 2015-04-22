@@ -79,13 +79,13 @@
     				<table id="result" class="operation_data">
 			        	<tbody>
 			    			{% if operation.result_1 %}
-			    				<tr><td>{{ operation.result_1}}</td><td>{{ operation.result_1_max}}</td><td>{{ operation.result_1_min}}</td><td>{{ operation.result_1_status.name}}</td></tr>
+			    				<tr><td>{{ operation.result_1|round(2) }}</td><td>{{ operation.result_1_max|round(2) }}</td><td>{{ operation.result_1_min|round(2) }}</td><td>{{ operation.result_1_status.name }}</td></tr>
 			    			{% endif %}
 			    			{% if operation.result_2 %}
-			    				<tr><td>{{ operation.result_2}}</td><td>{{ operation.result_2_max}}</td><td>{{ operation.result_2_min}}</td><td>{{ operation.result_2_status.name}}</td></tr>
+			    				<tr><td>{{ operation.result_2|round(2) }}</td><td>{{ operation.result_2_max|round(2) }}</td><td>{{ operation.result_2_min|round(2) }}</td><td>{{ operation.result_2_status.name }}</td></tr>
 			    			{% endif %}
 			    			{% if operation.result_3 %}
-			    				<tr><td>{{ operation.result_3}}</td><td>{{ operation.result_3_max}}</td><td>{{ operation.result_3_min}}</td><td>{{ operation.result_3_status.name}}</td></tr>
+			    				<tr><td>{{ operation.result_3|round(2) }}</td><td>{{ operation.result_3_max|round(2) }}</td><td>{{ operation.result_3_min|round(2) }}</td><td>{{ operation.result_3_status.name }}</td></tr>
 			    			{% endif %}
 	    		        </tbody>
     				</table>
