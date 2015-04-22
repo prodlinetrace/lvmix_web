@@ -79,6 +79,12 @@ def create_app(config_name):
     from .operation_statuses import operation_statuses as operation_statuses_blueprint
     app.register_blueprint(operation_statuses_blueprint, url_prefix='/app/operation_statuses')
 
+    from .operations import operations as operations_blueprint
+    app.register_blueprint(operations_blueprint, url_prefix='/app/operations')
+
+    from .statuses import statuses as statuses_blueprint
+    app.register_blueprint(statuses_blueprint, url_prefix='/app/statuses')
+
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/app/auth')
 

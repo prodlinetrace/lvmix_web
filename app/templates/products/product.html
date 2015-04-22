@@ -53,16 +53,13 @@
         <tbody>
 			{% for status in product.statuses %}
    			<tr>
-   				<!-- 
-	   			{% if status.station %}<td><a href="{{ url_for('stations.edit', id=status.station.id) | safe }}" title="{{status.station.name | safe}}">{{ status.station.id }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
-   				 -->
    				<td>{{ status.id }}</td>
 				{% if status.station %}<td><a href="{{ url_for('stations.station', id=status.station.id) | safe}}" title="{{status.station.ip | safe}}">{{ status.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
 				{% if status.status_name %} <td><a href="{{ url_for('operation_statuses.operation_status', id=status.status_name.id) | safe}}" title="{{status.status_name.description | safe}}">{{ status.status_name.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ status.date_time }} </td>
     			<td>
 	    			{% if current_user.is_admin  %}
-		    			<a class="btn btn-danger pull-right" href="{{ url_for('operation_statuses.delete', id=status.id) }}">{{ _('Delete') }}</a>
+		    			<a class="btn btn-danger pull-right" href="{{ url_for('statuses.delete', id=status.id) }}">{{ _('Delete') }}</a>
 		    		{% endif %}
 	    		</td>
    			</tr>
@@ -78,17 +75,15 @@
 	            <th class="name">{{ _('Station') }}</th>
 	            <th class="status">{{ _('Status') }}</th>
 	            <th class="name">{{ _('Operation') }}</th>
-	            <th class="date">{{ _('Date') }}</th>
+	            <th class="date" style="width:300px">{{ _('Date') }}</th>
 	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Max | Min | Status') }}</th>
+	            <th>{{ _('Extras') }}</th>
 	        </tr>
         </thead>
         <tbody>
 			{% for operation in product.operations|sort %}
     		<tr>
     			<td>{{ operation.id }}</td>
-    			<!-- 
-    			{% if operation.station %}<td><a href="{{ url_for('stations.edit', id=operation.station.id) | safe }}" title="{{operation.station.name | safe}}">{{ operation.station_id }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
-    			 -->
     			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.id | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
@@ -97,44 +92,55 @@
     				<table id="result" class="operation_data">
 			        	<tbody>
 			    			{% if operation.result_1 %}
-			    				<tr>
-			    					<td class="value">{{ operation.result_1|round(2) }}</td>
-			    					<td class="value">{{ operation.result_1_max|round(2) }}</td>
-			    					<td class="value">{{ operation.result_1_min|round(2) }}</td>
+		    				<tr>
+		    					<td class="value">{{ operation.result_1|round(2) }}</td>
+		    					<td class="value">{{ operation.result_1_max|round(2) }}</td>
+		    					<td class="value">{{ operation.result_1_min|round(2) }}</td>
+		    					<td>
 			    					{% if operation.result_1_status %}
-			    						<td><a href="{{ url_for('operation_statuses.operation_status', id=operation.result_1_status.id)}}" title="{{operation.result_1_status.description}}">{{ operation.result_1_status.name }}</a></td>
+			    						<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_1_status.id)}}" title="{{operation.result_1_status.description}}">{{ operation.result_1_status.name }}</a>
 			    					{% else %}
-			    						<td>{{ _('undefined value') }}</td> 
+			    						{{ _('undefined value') }}
 									{% endif %}
-			    				</tr>
+	    						</td> 
+		    				</tr>
 			    			{% endif %}
 			    			{% if operation.result_2 %}
-			    				<tr>
-			    					<td>{{ operation.result_2|round(2) }}</td>
-			    					<td>{{ operation.result_2_max|round(2) }}</td>
-			    					<td>{{ operation.result_2_min|round(2) }}</td>
-			    					{% if operation.result_2_status %}
-			    						<td><a href="{{ url_for('operation_statuses.operation_status', id=operation.result_2_status.id)}}" title="{{operation.result_2_status.description}}">{{ operation.result_2_status.name }}</a></td>
-			    					{% else %} 
-			    						<td>{{ _('undefined value') }}</td> 
+		    				<tr>
+		    					<td>{{ operation.result_2|round(2) }}</td>
+		    					<td>{{ operation.result_2_max|round(2) }}</td>
+		    					<td>{{ operation.result_2_min|round(2) }}</td>
+		    					<td>
+		    						{% if operation.result_2_status %}
+		    							<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_2_status.id)}}" title="{{operation.result_2_status.description}}">{{ operation.result_2_status.name }}</a>
+			    					{% else %}
+			    						{{ _('undefined value') }}
 									{% endif %}
-			    				</tr>
+	    						</td> 
+		    				</tr>
 			    			{% endif %}
 			    			{% if operation.result_3 %}
-			    				<tr>
-			    					<td>{{ operation.result_3|round(2) }}</td>
-			    					<td>{{ operation.result_3_max|round(2) }}</td>
-			    					<td>{{ operation.result_3_min|round(2) }}</td>
-				    				{% if operation.result_3_status %}
-			    						<td><a href="{{ url_for('operation_statuses.operation_status', id=operation.result_3_status.id)}}" title="{{operation.result_3_status.description}}">{{ operation.result_3_status.name }}</a></td>
+		    				<tr>
+		    					<td>{{ operation.result_3|round(2) }}</td>
+		    					<td>{{ operation.result_3_max|round(2) }}</td>
+		    					<td>{{ operation.result_3_min|round(2) }}</td>
+	    						<td>
+			    					{% if operation.result_3_status %}
+		    							<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_3_status.id)}}" title="{{operation.result_3_status.description}}">{{ operation.result_3_status.name }}</a>
 			    					{% else %}
-			    						<td>{{ _('undefined value') }}</td> 
+			    						{{ _('undefined value') }}
 									{% endif %}
-		    					</tr>
+	    						</td>
+	    					</tr>
 			    			{% endif %}
 	    		        </tbody>
     				</table>
     			</td>
+			    <td>
+	    			{% if current_user.is_admin  %}
+		    			<a class="btn btn-danger pull-right" href="{{ url_for('operations.delete', id=operation.id) }}">{{ _('Delete') }}</a>
+		    		{% endif %}
+	    		</td>
     		</tr>
 			{% endfor %}
 		</tbody>

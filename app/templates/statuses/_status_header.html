@@ -1,0 +1,9 @@
+<tr>
+	<td>{{ status.id }}</td>
+	<td>{{ status }}</td>	  
+	<td>
+	    {% if current_user.is_admin  %}
+	    	<a class="btn btn-danger pull-right" href="{{ url_for('statuses.delete', id=status.id) }}">{{ _('Delete') }}</a>
+	    {% endif %}
+    </td>
+</tr>
