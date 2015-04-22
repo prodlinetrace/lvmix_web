@@ -4,17 +4,16 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    TALKS_PER_PAGE = 50
-    USERS_PER_PAGE = 10
-    STATIONS_PER_PAGE = 10
-    OPERATION_TYPES_PER_PAGE = 10
-    OPERATION_STATUSES_PER_PAGE = 10
-    PRODUCTS_PER_PAGE = 20
+    USERS_PER_PAGE = 20
+    STATIONS_PER_PAGE = 1000
+    OPERATION_TYPES_PER_PAGE = 1000
+    OPERATION_STATUSES_PER_PAGE = 1000
+    PRODUCTS_PER_PAGE = 200
     COMMENTS_PER_PAGE = 100
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('en', 'English'), ('pl', 'Polish'))
-    VERSION = '0.3.2'
+    VERSION = '0.3.3'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'en'
 
