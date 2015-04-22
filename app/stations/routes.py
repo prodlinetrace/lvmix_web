@@ -43,7 +43,7 @@ def new():
         form.to_model(station) # update station object with form data
         db.session.add(station)
         db.session.commit()
-        flash(gettext('New station: {station} was added successfully.'.format(station=station.name)))
+        flash(gettext(u'New station: {station} was added successfully.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
         flash(gettext("Validation failed"))
@@ -61,7 +61,7 @@ def edit(id):
         form.to_model(station)
         db.session.add(station)
         db.session.commit()
-        flash(gettext('Station profile for: {station} has been updated.'.format(station=station.name)))
+        flash(gettext(u'Station profile for: {station} has been updated.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
         flash(gettext("Validation failed"))
@@ -76,10 +76,10 @@ def delete(id):
     if current_user.is_admin: 
         db.session.delete(station)
         db.session.commit()
-        flash(gettext('Station for: {station} has been deleted.'.format(station=station.name)))
+        flash(gettext(u'Station for: {station} has been deleted.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext('You have to be adminstrator to remove stations.'.format(station=station.name)))
+        flash(gettext(u'You have to be adminstrator to remove stations.'.format(station=station.name)))
         return redirect(url_for('.index'))
 
     # should never get here

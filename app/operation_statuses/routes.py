@@ -43,7 +43,7 @@ def new():
         form.to_model(operation_status) # update operation_status object with form data
         db.session.add(operation_status)
         db.session.commit()
-        flash(gettext('New operation_status: {operation_status} was added successfully.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'New operation_status: {operation_status} was added successfully.'.format(operation_status=operation_status.name)))
         return redirect(url_for('.index'))
     else:
         flash(gettext("Validation failed"))
@@ -61,7 +61,7 @@ def edit(id):
         form.to_model(operation_status)
         db.session.add(operation_status)
         db.session.commit()
-        flash(gettext('operation_status profile for: {operation_status} has been updated.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'operation_status profile for: {operation_status} has been updated.'.format(operation_status=operation_status.name)))
         return redirect(url_for('.index'))
     else:
         flash(gettext("Validation failed"))
@@ -76,10 +76,10 @@ def delete(id):
     if current_user.is_admin:
         db.session.delete(operation_status)
         db.session.commit()
-        flash(gettext('Operation_Status for: {operation_status} has been deleted.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'Operation_Status for: {operation_status} has been deleted.'.format(operation_status=operation_status.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext('You have to be administrator to remove operation_statuses.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'You have to be administrator to remove operation_statuses.'.format(operation_status=operation_status.name)))
         return redirect(url_for('.index'))
 
     # should never get here

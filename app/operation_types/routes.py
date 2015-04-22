@@ -43,7 +43,7 @@ def new():
         form.to_model(operation_type) # update operation_type object with form data
         db.session.add(operation_type)
         db.session.commit()
-        flash(gettext('New operation_type: {operation_type} was added successfully.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'New operation_type: {operation_type} was added successfully.'.format(operation_type=operation_type.name)))
         return redirect(url_for('.index'))
     else:
         flash(gettext("Validation failed"))
@@ -61,10 +61,10 @@ def edit(id):
         form.to_model(operation_type)
         db.session.add(operation_type)
         db.session.commit()
-        flash(gettext('Operation_Type profile for: {operation_type} has been updated.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'Operation_Type profile for: {operation_type} has been updated.'.format(operation_type=operation_type.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        flash(gettext(u"Validation failed"))
     form.from_model(operation_type)
     return render_template('operation_types/edit.html', operation_type=operation_type, form=form)
 
@@ -76,10 +76,10 @@ def delete(id):
     if current_user.is_admin: 
         db.session.delete(operation_type)
         db.session.commit()
-        flash(gettext('Operation_Type for: {operation_type} has been deleted.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'Operation_Type for: {operation_type} has been deleted.'.format(operation_type=operation_type.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext('You have to be administrator to remove operation_types.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'You have to be administrator to remove operation_types.'.format(operation_type=operation_type.name)))
         return redirect(url_for('.index'))
 
     # should never get here

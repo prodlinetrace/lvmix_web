@@ -22,10 +22,10 @@ def find_product():
     if form.validate_on_submit():
         result = Product.query.filter_by(type=form.type.data).filter_by(serial=form.serial.data).first()
         if result is not None:
-            flash(gettext('Product with serial {serial} found.'.format(serial=form.serial.data)))
+            flash(gettext(u'Product with serial {serial} found.'.format(serial=form.serial.data)))
             return redirect(url_for('products.product', id=result.id))
 
-        flash(gettext('Product with serial {serial} not found.'.format(serial=form.serial.data)))
+        flash(gettext(u'Product with serial {serial} not found.'.format(serial=form.serial.data)))
     return render_template('products/find_product.html', form=form)
 
 @products.route('/product/<int:id>', methods=['GET', 'POST'])
@@ -44,7 +44,7 @@ def product(id):
         db.session.add(comment)
         db.session.commit()
         if comment:
-            flash(gettext('Your comment has been published.'))
+            flash(gettext(u'Your comment has been published.'))
         return redirect(url_for('.product', id=product.id) + '#top')
     comments_query = product.comments
     page = request.args.get('page', 1, type=int)
@@ -72,7 +72,7 @@ def edit_product(id):
         form.to_model(product)
         db.session.add(product)
         db.session.commit()
-        flash(gettext('The product was updated successfully.'))
+        flash(gettext(u'The product was updated successfully.'))
         return redirect(url_for('.product', id=product.id))
     form.from_model(product)
     return render_template('products/edit_product.html', form=form)
