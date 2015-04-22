@@ -35,12 +35,19 @@
 	    {% endif %}
 	<h3 id="comments">{{ _('Status Overview') }}</h3>
 	<table cellspacing="1" id="statuses" class="statuses tablesorter">
+	  <colgroup>
+		    <col class="id">
+		    <col class="name">
+		    <col class="name">
+		    <col class="date">
+  		</colgroup> 
 		<thead>
 	   		<tr>
-	            <th>{{ _('Station Id') }}</th>
-	            <th>{{ _('Station Name') }}</th>
-	            <th>{{ _('Status Name') }}</th>
-	            <th>{{ _('Date') }}</th>
+	            <th class="id">{{ _('Ident') }}</th>
+	            <th class="name">{{ _('Station Name') }}</th>
+	            <th class="status">{{ _('Status Name') }}</th>
+	            <th class="date">{{ _('Date') }}</th>
+	            <th>{{ _('Extras') }}</th>
 	        </tr>
         </thead>
         <tbody>
@@ -50,6 +57,7 @@
     			<td>{{ status.station.name }} </td>
     			<td>{{ status.status_name.name }} </td>
     			<td>{{ status.date_time }} </td>
+    			<td>remove (optional)</td>
    			</tr>
 			{% endfor %}
         </tbody>
@@ -59,11 +67,11 @@
 	<table cellspacing="1" id="operations" class="tablesorter">
 		<thead>
 	   		<tr>
-	            <th>{{ _('Station Id') }}</th>
-	            <th>{{ _('Station Name') }}</th>
-	            <th>{{ _('Operation Name') }}</th>
-	            <th>{{ _('Overall Status') }}</th>
-	            <th>{{ _('Date') }}</th>
+	            <th class="id">{{ _('Ident') }}</th>
+	            <th class="name">{{ _('Station Name') }}</th>
+	            <th class="name">{{ _('Operation Name') }}</th>
+	            <th class="status">{{ _('Overall Status') }}</th>
+	            <th class="date">{{ _('Date') }}</th>
 	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Max | Min | Status') }}</th>
 	        </tr>
         </thead>
@@ -79,7 +87,7 @@
     				<table id="result" class="operation_data">
 			        	<tbody>
 			    			{% if operation.result_1 %}
-			    				<tr><td>{{ operation.result_1|round(2) }}</td><td>{{ operation.result_1_max|round(2) }}</td><td>{{ operation.result_1_min|round(2) }}</td><td>{{ operation.result_1_status.name }}</td></tr>
+			    				<tr><td class="value">{{ operation.result_1|round(2) }}</td><td class="value">{{ operation.result_1_max|round(2) }}</td><td class="value">{{ operation.result_1_min|round(2) }}</td><td class="name">{{ operation.result_1_status.name }}</td></tr>
 			    			{% endif %}
 			    			{% if operation.result_2 %}
 			    				<tr><td>{{ operation.result_2|round(2) }}</td><td>{{ operation.result_2_max|round(2) }}</td><td>{{ operation.result_2_min|round(2) }}</td><td>{{ operation.result_2_status.name }}</td></tr>

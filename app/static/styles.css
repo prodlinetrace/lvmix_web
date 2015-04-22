@@ -2,6 +2,26 @@
     min-height: 140px;
 }
 
+.id {
+	width: 80px;
+}
+
+.date {
+	width: 250px;
+}
+
+.name {
+	width: 200px;
+}
+
+.value {
+	width: 50px;
+}
+
+.status {
+	width: 100px;
+}
+
 .user-avatar {
     float: left;
     margin-right: 16px;
