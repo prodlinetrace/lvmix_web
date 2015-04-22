@@ -1,9 +1,12 @@
-<div class="product-header">
-    {% if not current_user.is_admin  %}
-    <a class="btn btn-primary pull-right" href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ _('Edit') }}</a>
-    {% else %}
-    <a class="btn btn-danger pull-right" href="{{ url_for('operation_statuses.delete', id=operation_status.id) }}">{{ _('Delete') }}</a>
-    <a class="btn btn-primary pull-right" href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ _('Edit') }}</a>
-    {% endif %}
-    <h2><a href="{{ url_for('operation_statuses.operation_status', id=operation_status.id) }}">{{ operation_status.name }}</a></h2>
-</div>
+<tr>
+	<td><a href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ operation_status.id }}</a></td>
+	<td><a href="{{ url_for('operation_statuses.operation_status', id=operation_status.id) }}">{{ operation_status.name }}</a></td>
+	<td>
+	    {% if not current_user.is_admin  %}
+	    <a class="btn btn-primary pull-right" href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ _('Edit') }}</a>
+	    {% else %}
+	    <a class="btn btn-danger pull-right" href="{{ url_for('operation_statuses.delete', id=operation_status.id) }}">{{ _('Delete') }}</a>
+	    <a class="btn btn-primary pull-right" href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ _('Edit') }}</a>
+	    {% endif %}
+	</td>	  			
+</tr>

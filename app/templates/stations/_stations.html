@@ -1,7 +1,16 @@
-<ul class="product-list">
-{% for station in stations %}
-    <li class="product">
-    {% include "stations/_station_header.html" %}
-    </li>
-{% endfor %}
-</ul>
+<table cellspacing="0" id="stations" class="stations tablesorter">
+	<thead>
+  		<tr>
+           <th width="100px">{{ _('Station Id') }}</th>
+           <th>{{ _('Station Name') }}</th>
+           <th width="150px">{{ _('Extras') }}</th>
+       </tr>
+    </thead>
+    <tbody>
+	{% for station in stations %}
+    		{% include "stations/_station_header.html" %}
+	{% endfor %}
+	</tbody>
+</table>
+
+

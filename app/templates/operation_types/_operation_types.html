@@ -1,7 +1,14 @@
-<ul class="talk-list">
-{% for operation_type in operation_types %}
-    <li class="talk">
-    {% include "operation_types/_operation_type_header.html" %}
-    </li>
-{% endfor %}
-</ul>
+<table cellspacing="0" id="operation_types" class="operation_types tablesorter">
+	<thead>
+  		<tr>
+           <th width="100px">{{ _('Id') }}</th>
+           <th>{{ _('Name') }}</th>
+           <th width="150px">{{ _('Extras') }}</th>
+       </tr>
+    </thead>
+    <tbody>
+	{% for operation_type in operation_types %}
+    		{% include "operation_types/_operation_type_header.html" %}
+	{% endfor %}
+	</tbody>
+</table>

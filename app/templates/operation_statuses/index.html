@@ -3,7 +3,7 @@
 {% block page_content %}
 
 {% if current_user.is_admin %}
-	<a class="btn btn-primary" href="{{ url_for('operation_statuses.new') }}">{{ _('New Operation Status') }}</a>
+	<a class="btn btn-primary pull-right" href="{{ url_for('operation_statuses.new') }}">{{ _('New Operation Status') }}</a>
 {% endif %}
 
 {% include "operation_statuses/_operation_statuses.html" %}
@@ -21,4 +21,24 @@
     {% endif %}
 </ul>
 {% endif %}
+{% endblock %}
+{% block scripts %}
+	{{ super() }}
+	{{ pagedown.include_pagedown() }}
+	<script src="/static/jquery.autosize.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	        $('#flask-pagedown-body').autosize();
+	    });
+	</script>
+	<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function()
+		    {
+				$("#operation_statuses").tablesorter();
+		    }
+		);
+	</script>
+	{% include "_api_client.html" %}
 {% endblock %}

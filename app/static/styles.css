@@ -8,6 +8,21 @@
     margin-bottom: 16px;
 }
 
+ul.station-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+li.station {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+
+li.station:hover {
+    background-color: #f8f8f8;
+}
+
 ul.product-list {
     list-style-type: none;
     padding: 0px;
