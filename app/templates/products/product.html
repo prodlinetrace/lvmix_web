@@ -86,7 +86,7 @@
     			<td>{{ operation.id }}</td>
     			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
-    			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.id | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
+    			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ operation.date_time }} </td>
     			<td>
     				<table id="result" class="operation_data">
