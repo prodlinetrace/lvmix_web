@@ -33,6 +33,7 @@
 		    	{{ _('Date Added') }}: {{ product.date_added | safe }}
 	    	</div>
 	    {% endif %}
+	    
 	<h3 id="comments">{{ _('Status Overview') }}</h3>
 	<table cellspacing="1" id="statuses" class="statuses tablesorter">
 	  <colgroup>
@@ -75,7 +76,7 @@
 	            <th class="name">{{ _('Station') }}</th>
 	            <th class="status">{{ _('Status') }}</th>
 	            <th class="name">{{ _('Operation') }}</th>
-	            <th class="date" style="width:300px">{{ _('Date') }}</th>
+	            <th class="date string-top" style="width:300px">{{ _('Date') }}</th>
 	            <th>{{ _('Operation Measurment') }}:<br/>{{ _('Result | Max | Min | Status') }}</th>
 	            <th>{{ _('Extras') }}</th>
 	        </tr>
@@ -87,7 +88,8 @@
     			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
-    			<td>{{ operation.date_time }} </td>
+    			<!-- td>{{ operation.date_time|replace(' ', '_')|replace('-','_') }} </td -->
+    			<td class='string-top'>{{ operation.date_time }} </td>
     			<td>
     				<table id="result" class="operation_data">
 			        	<tbody>
@@ -189,8 +191,17 @@
 	<script type="text/javascript">
 	$(document).ready(function()
 		    {
-				$("#statuses").tablesorter();
-		        $("#operations").tablesorter();
+				$("#statuses").tablesorter({ 
+				    headers: {
+				        3: { sorter:'text' } // force third column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+				    }
+				});
+		        $("#operations").tablesorter({
+		        	sortList: [[0,0], [1,0]],  // sort by id on load
+		            headers: {
+		                4: { sorter:'text' } // force fourth column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+		            }
+		        });
 		    }
 		);
 	</script>
