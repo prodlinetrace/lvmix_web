@@ -6,8 +6,8 @@
     <h1>{{ _('Edit Operation Type') }}</h1>
 </div>
 {{ wtf.quick_form(form) }}
+{% endblock %}
 
 {% if form.errors %}
     {{ form.errors }}
 {% endif %}
-{% endblock %}

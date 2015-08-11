@@ -6,8 +6,8 @@
     <h1>{{ _('Details for') }}: {{ operation_status.name }}</h1>
     <p>
     	<ul>
-	    	{% if operation_status.id %}<p>{{ _('Id') }}: {{ operation_status.id }}</p>{% endif %}
-	    	{% if operation_status.name %}<p>{{ _('Name') }}: {{ operation_status.name }}</p>{% endif %}
+	    	<p>{{ _('Id') }}: {{ operation_status.id }}</p>
+	    	<p>{{ _('Name') }}: {{ operation_status.name }}</p>
 	    	{% if operation_status.description %}<p>{{ _('Description') }}: {{ operation_status.description }}</p>{% endif %}
     	</ul>
     </p>

@@ -32,21 +32,23 @@ def new():
     if not current_user.is_admin:
         abort(403)
     _last_operation_type_id = Operation_Type.query.first()
-    if _last_operation_type_id is None:
-        id = 0
-    else:
-        id = _last_operation_type_id.id
-    id = id + 1
+    id = 1
+    if _last_operation_type_id is not None:
+        id = _last_operation_type_id.id + 1
     form = Operation_TypeForm()
     if form.validate_on_submit():
         operation_type = Operation_Type(id)
-        form.to_model(operation_type) # update operation_type object with form data
+        form.to_model(operation_type)  # update operation_type object with form data
         db.session.add(operation_type)
         db.session.commit()
         flash(gettext(u'New operation_type: {operation_type} was added successfully.'.format(operation_type=operation_type.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
     return render_template('operation_types/new.html', form=form)
 
 
@@ -61,10 +63,14 @@ def edit(id):
         form.to_model(operation_type)
         db.session.add(operation_type)
         db.session.commit()
-        flash(gettext(u'Operation_Type profile for: {operation_type} has been updated.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'Operation_Type with id: {operation_type} has been updated.'.format(operation_type=operation_type.id)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext(u"Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
     form.from_model(operation_type)
     return render_template('operation_types/edit.html', operation_type=operation_type, form=form)
 
@@ -73,13 +79,13 @@ def edit(id):
 @login_required
 def delete(id):
     operation_type = Operation_Type.query.get_or_404(id)
-    if current_user.is_admin: 
+    if current_user.is_admin:
         db.session.delete(operation_type)
         db.session.commit()
-        flash(gettext(u'Operation_Type for: {operation_type} has been deleted.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'Operation_Type with id: {operation_type} has been deleted.'.format(operation_type=operation_type.id)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext(u'You have to be administrator to remove operation_types.'.format(operation_type=operation_type.name)))
+        flash(gettext(u'You have to be administrator to remove operation_types.'))
         return redirect(url_for('.index'))
 
     # should never get here

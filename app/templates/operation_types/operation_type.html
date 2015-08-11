@@ -6,11 +6,11 @@
     <h1>{{ _('Details for') }}: {{ operation_type.name }}</h1>
     <p>
     	<ul>
-	    	{% if operation_type.id %}<p>{{ _('Id') }}: {{ operation_type.id }}</p>{% endif %}
-	    	{% if operation_type.name %}<p>{{ _('Name') }}: {{ operation_type.name }}</p>{% endif %}
+	    	<p>{{ _('Id') }}: {{ operation_type.id }}</p>
+	    	<p>{{ _('Name') }}: {{ operation_type.name }}</p>
 	    	{% if operation_type.description %}<p>{{ _('Description') }}: {{ operation_type.description }}</p>{% endif %}
     	</ul>
     </p>
-    
+
 </div>
 {% endblock %}

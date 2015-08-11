@@ -7,11 +7,11 @@
     <p>
     	<ul>
 	    	{% if station.id %}<p>{{ _('Id') }}: {{ station.id }}</p>{% endif %}
-	    	{% if station.ip %}<p>{{ _('IP Address') }}: {{ station.ip }}</p>{% endif %}
 	    	{% if station.name %}<p>{{ _('Name') }}: {{ station.name }}</p>{% endif %}
-	    	{% if station.rack %}<p>{{ _('Rack') }}: {{ station.rack }}</p>{% endif %}
+	    	{% if station.ip %}<p>{{ _('IP Address') }}: {{ station.ip }}</p>{% endif %}
 	    	{% if station.port %}<p>{{ _('Port') }}: {{ station.port }}</p>{% endif %}
-	    	{% if station.slot %}<p>{{ _('Slot') }}: {{ station.slot }}</p>{% endif %}
+	    	<p>{{ _('Rack') }}: {{ station.rack }}</p>
+	    	<p>{{ _('Slot') }}: {{ station.slot }}</p>
     	</ul>
     </p>
 </div>

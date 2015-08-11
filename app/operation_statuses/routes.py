@@ -32,11 +32,10 @@ def new():
     if not current_user.is_admin:
         abort(403)
     _last_operation_status_id = Operation_Status.query.first()
-    if _last_operation_status_id is None:
-        id = 0
-    else:
-        id = _last_operation_status_id.id
-    id = id + 1
+    id = 1
+    if _last_operation_status_id is not None:
+        id = _last_operation_status_id.id + 1
+
     form = Operation_StatusForm()
     if form.validate_on_submit():
         operation_status = Operation_Status(id)
@@ -46,7 +45,11 @@ def new():
         flash(gettext(u'New operation_status: {operation_status} was added successfully.'.format(operation_status=operation_status.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
     return render_template('operation_statuses/new.html', form=form)
 
 
@@ -61,10 +64,14 @@ def edit(id):
         form.to_model(operation_status)
         db.session.add(operation_status)
         db.session.commit()
-        flash(gettext(u'operation_status profile for: {operation_status} has been updated.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'operation_status with id: {operation_status} has been updated.'.format(operation_status=operation_status.id)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
     form.from_model(operation_status)
     return render_template('operation_statuses/edit.html', operation_status=operation_status, form=form)
 
@@ -76,10 +83,10 @@ def delete(id):
     if current_user.is_admin:
         db.session.delete(operation_status)
         db.session.commit()
-        flash(gettext(u'Operation_Status for: {operation_status} has been deleted.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'Operation_Status with id: {operation_status} has been deleted.'.format(operation_status=operation_status.id)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext(u'You have to be administrator to remove operation_statuses.'.format(operation_status=operation_status.name)))
+        flash(gettext(u'You have to be administrator to remove operation_statuses.'))
         return redirect(url_for('.index'))
 
     # should never get here

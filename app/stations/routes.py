@@ -32,21 +32,25 @@ def new():
     if not current_user.is_admin:
         abort(403)
     _last_station_id = Station.query.first()
-    if _last_station_id is None:
-        id = 0
-    else:
-        id = _last_station_id.id
-    id = id + 1
+    id = 1
+    if _last_station_id is not None:
+        id = _last_station_id.id + 1
+
     form = StationForm()
     if form.validate_on_submit():
         station = Station(id)
-        form.to_model(station) # update station object with form data
+        form.to_model(station)  # update station object with form data
         db.session.add(station)
         db.session.commit()
         flash(gettext(u'New station: {station} was added successfully.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
+
     return render_template('stations/new.html', form=form)
 
 
@@ -64,7 +68,11 @@ def edit(id):
         flash(gettext(u'Station profile for: {station} has been updated.'.format(station=station.name)))
         return redirect(url_for('.index'))
     else:
-        flash(gettext("Validation failed"))
+        if form.errors:
+            flash(gettext("Validation failed"))
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
     form.from_model(station)
     return render_template('stations/edit.html', station=station, form=form)
 
@@ -73,7 +81,7 @@ def edit(id):
 @login_required
 def delete(id):
     station = Station.query.get_or_404(id)
-    if current_user.is_admin: 
+    if current_user.is_admin:
         db.session.delete(station)
         db.session.commit()
         flash(gettext(u'Station for: {station} has been deleted.'.format(station=station.name)))
