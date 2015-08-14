@@ -8,7 +8,7 @@ from flask import request, current_app
 from flask.ext.login import UserMixin
 from . import db, login_manager
 import logging
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 logger = logging.getLogger(__name__)
 
