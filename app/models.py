@@ -8,9 +8,13 @@ from flask import request, current_app
 from flask.ext.login import UserMixin
 from . import db, login_manager
 import logging
-__version__ = '0.2.4'
-
 logger = logging.getLogger(__name__)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+__version__ = '0.2.4'
 
 
 class User(UserMixin, db.Model):
@@ -366,7 +370,3 @@ class Unit(db.Model):
             'symbol': self.symbol,
             'description': self.description,
         }
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
