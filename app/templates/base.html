@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <script src="{{ url_for('static', filename='jquery-latest.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='theme.blue.css') }}"> 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='theme.blue.css') }}">
 
 
 {% endblock %}
@@ -31,6 +31,7 @@
 	                	 <li><a href="{{ url_for('stations.index') }}">{{ _('Stations') }}</a></li>
 	                	 <li><a href="{{ url_for('operation_types.index') }}">{{ _('Operations') }}</a></li>
           	 	      	 <li><a href="{{ url_for('operation_statuses.index') }}">{{ _('Statuses') }}</a></li>
+           	 	      	 <li><a href="{{ url_for('units.index') }}">{{ _('Units') }}</a></li>
 	                {% if current_user.is_admin %}
 	                	 <li><a href="{{ url_for('users.index') }}">{{ _('Users') }}</a></li>
 	                {% endif %}

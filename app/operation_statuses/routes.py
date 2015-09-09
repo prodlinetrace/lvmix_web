@@ -10,19 +10,13 @@ from .forms import Operation_StatusForm
 @operation_statuses.route('/')
 @login_required
 def index():
-    page = request.args.get('page', 1, type=int)
-    pagination = Operation_Status.query.paginate(
-        page, per_page=current_app.config['OPERATION_STATUSES_PER_PAGE'],
-        error_out=False)
-    operation_status_list = pagination.items
-    return render_template('operation_statuses/index.html', operation_statuses=operation_status_list, pagination=pagination)
-
+    operation_status_list = Operation_Status.query.order_by(Operation_Status.id.desc())
+    return render_template('operation_statuses/index.html', operation_statuses=operation_status_list)
 
 @operation_statuses.route('/<int:id>')
 @login_required
 def operation_status(id):
     operation_status = Operation_Status.query.filter_by(id=id).first_or_404()
-    page = request.args.get('page', 1, type=int)
     return render_template('operation_statuses/operation_status.html', operation_status=operation_status)
 
 

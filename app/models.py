@@ -8,7 +8,7 @@ from flask import request, current_app
 from flask.ext.login import UserMixin
 from . import db, login_manager
 import logging
-__version__ = '0.2.3'
+__version__ = '0.2.4'
 
 logger = logging.getLogger(__name__)
 
@@ -286,6 +286,7 @@ class Operation_Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     description = db.Column(db.String(255))
+    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
     operations = db.relationship('Operation', lazy='dynamic', backref='operation_status',  foreign_keys='Operation.operation_status_id')
 
     result_1_status = db.relationship('Operation', lazy='dynamic', backref='result_1_status', foreign_keys='Operation.result_1_status_id')
@@ -294,11 +295,11 @@ class Operation_Status(db.Model):
 
     status = db.relationship('Status', lazy='dynamic', backref='status_name', foreign_keys='Status.status')
 
-
-    def __init__(self, id, name="Default Operation Status", description="Default Operation Status Description"):
+    def __init__(self, id, name="Default Operation Status", description="Default Operation Status Description", unit_id=0):
         self.id = id
         self.name = name
         self.description = description
+        self.unit_id = unit_id
 
     def __repr__(self):
         return '<Operation_Type Id: %r Name: %r Description: %r>' % (self.id, self.name, self.description)
@@ -310,6 +311,7 @@ class Operation_Status(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'unit_id': self.unit_id,
         }
 
 
@@ -337,6 +339,36 @@ class Operation_Type(db.Model):
             'description': self.description,
         }
 
+
+class Unit(db.Model):
+    __tablename__ = 'unit'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    symbol = db.Column(db.String(16))
+    description = db.Column(db.String(255))
+    #operation_statues = db.relationship('Operation_Status', lazy='dynamic', backref='unit')
+
+    unit = db.relationship('Operation_Status', lazy='dynamic', backref='unit', foreign_keys='Operation_Status.unit_id')
+
+
+    def __init__(self, id, name="Default Unit Name", symbol="Default Unit Symbol", description="Default Unit Description"):
+        self.id = id
+        self.name = name
+        self.symbol = symbol
+        self.description = description
+
+    def __repr__(self):
+        return '<Unit Id: %r Name: %r Symbol: %r Description: %r>' % (self.id, self.name, self.symbol, self.description)
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'symbol': self.symbol,
+            'description': self.description,
+        }
 
 @login_manager.user_loader
 def load_user(user_id):

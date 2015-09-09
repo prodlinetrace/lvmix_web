@@ -8,6 +8,8 @@
     	<ul>
 	    	<p>{{ _('Id') }}: {{ operation_status.id }}</p>
 	    	<p>{{ _('Name') }}: {{ operation_status.name }}</p>
+ 		   	<p>{{ _('Unit Name') }}: {{ operation_status.unit.name }}</p>
+		   	<p>{{ _('Unit Symbol') }}: [{{ operation_status.unit.symbol }}]</p>
 	    	{% if operation_status.description %}<p>{{ _('Description') }}: {{ operation_status.description }}</p>{% endif %}
     	</ul>
     </p>
