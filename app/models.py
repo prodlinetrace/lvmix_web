@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
     location = db.Column(db.String(64))
     locale = db.Column(db.String(16))
     bio = db.Column(db.Text())
-    member_since = db.Column(db.DateTime(), default=datetime.utcnow)
+    member_since = db.Column(db.DateTime(), default=datetime.now)
     avatar_hash = db.Column(db.String(32))
     comments = db.relationship('Comment', lazy='dynamic', backref='author')
 
@@ -75,7 +75,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
 
@@ -98,7 +98,7 @@ class Product(db.Model):
     serial = db.Column(db.Integer, index=True, unique=False)
     week = db.Column(db.Integer, unique=False)
     year = db.Column(db.Integer, unique=False)
-    date_added = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+    date_added = db.Column(db.DateTime(), index=True, default=datetime.now)
     comments = db.relationship('Comment', lazy='dynamic', backref='product')
     statuses = db.relationship('Status', lazy='dynamic', backref='product')
     operations = db.relationship('Operation', lazy='dynamic', backref='product')
@@ -346,10 +346,7 @@ class Unit(db.Model):
     name = db.Column(db.String(64))
     symbol = db.Column(db.String(16))
     description = db.Column(db.String(255))
-    #operation_statues = db.relationship('Operation_Status', lazy='dynamic', backref='unit')
-
     unit = db.relationship('Operation_Status', lazy='dynamic', backref='unit', foreign_keys='Operation_Status.unit_id')
-
 
     def __init__(self, id, name="Default Unit Name", symbol="Default Unit Symbol", description="Default Unit Description"):
         self.id = id
