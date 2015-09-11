@@ -7,7 +7,7 @@ from ..models import Unit
 #unit_list = Unit.query.order_by(Unit.id.desc())
 #print unit_list
 #TODO: replace this ugly hardcode by db entries
-unit_choices = [('0', 'None'), ('1', 'N'), ('2', 'Nm'), ('3', 'deg'), ('4', 'mm')]
+unit_choices = [('0', 'None'), ('1', 'N'), ('2', 'Nm'), ('3', 'deg'), ('4', 'mm'), ('5', 'kN')]
 
 class Operation_StatusForm(Form):
 
