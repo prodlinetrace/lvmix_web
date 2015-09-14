@@ -10,8 +10,11 @@ from .forms import ProductForm, CommentForm, FindProductForm
 @products.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    product_list = Product.query.order_by(Product.id.desc())
-    return render_template('products/index.html', products=product_list)
+    pagination = Product.query.order_by(Product.date_added.desc()).paginate(
+        page, per_page=current_app.config['PRODUCTS_PER_PAGE'],
+        error_out=False)
+    product_list = pagination.items
+    return render_template('products/index.html', products=product_list, pagination=pagination)
 
 @products.route('/find_product', methods=['GET', 'POST'])
 def find_product():
