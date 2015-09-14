@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-14 22:21+0200\n"
-"PO-Revision-Date: 2015-09-14 22:20+0100\n"
+"POT-Creation-Date: 2015-09-14 23:04+0200\n"
+"PO-Revision-Date: 2015-09-14 23:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
@@ -507,7 +507,7 @@ msgstr "Parametry Operacji"
 
 #: app/templates/products/product.html:80
 msgid "Result | Max | Min | Unit | Status"
-msgstr "Rezultat | Minimum | Maximimum | Status "
+msgstr "Rezultat | Max | Min | Jednostka | Status"
 
 #: app/templates/products/product.html:195
 msgid "Write a comment"
