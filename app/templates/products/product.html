@@ -7,7 +7,7 @@
 </div>
 
 <div class="product-body">
-	<h3 id="comments">{{ _('Product Overview') }}</h3>
+	<h3>{{ _('Product Overview') }}</h3>
 	    {% if product.type %}
 		    <div class="product-main">
 		    {{ _('Type') }}: {{ product.type | safe }}
@@ -34,7 +34,7 @@
 	    	</div>
 	    {% endif %}
 
-	<h3 id="comments">{{ _('Status Overview') }}</h3>
+	<h3>{{ _('Status Overview') }}</h3>
 	<table cellspacing="0" id="statuses" class="tablesorter">
 	  <colgroup>
 		    <col class="id">
@@ -68,7 +68,7 @@
         </tbody>
     </table>
 
-	<h3 id="comments">{{ _('Operation Overview') }}</h3>
+	<h3>{{ _('Operation Overview') }}</h3>
 	<table cellspacing="0" id="operations" class="tablesorter">
 		<thead>
 	   		<tr>
