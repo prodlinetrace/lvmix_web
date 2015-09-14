@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, abort, request, cur
 from flask.ext.login import login_required, current_user
 from flask.ext.babel import gettext
 from .. import db
-from ..models import Operation_Status
+from ..models import Operation_Status, Unit
 from . import operation_statuses
 from .forms import Operation_StatusForm
 
@@ -30,7 +30,8 @@ def new():
     if _last_operation_status_id is not None:
         id = _last_operation_status_id.id + 1
 
-    form = Operation_StatusForm()
+    unit_choices = [(unicode(unit.id), unicode("[{symbol}] - {name}".format(symbol=unit.symbol, name=unit.name))) for unit in Unit.query.order_by(Unit.id.asc())]
+    form = Operation_StatusForm(unit_choices)
     if form.validate_on_submit():
         operation_status = Operation_Status(id)
         form.to_model(operation_status) # update operation_status object with form data
@@ -43,7 +44,7 @@ def new():
             flash(gettext("Validation failed"))
         for field, errors in form.errors.items():
             for error in errors:
-                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
+                flash(u"Error in the %s field - %s" % (getattr(form, field).label.text, error))
     return render_template('operation_statuses/new.html', form=form)
 
 
@@ -53,7 +54,9 @@ def edit(id):
     operation_status = Operation_Status.query.get_or_404(id)
     if not current_user.is_admin:
         abort(403)
-    form = Operation_StatusForm()
+    
+    unit_choices = [(unicode(unit.id), unicode("[{symbol}] - {name}".format(symbol=unit.symbol, name=unit.name))) for unit in Unit.query.order_by(Unit.id.asc())]
+    form = Operation_StatusForm(unit_choices)
     if form.validate_on_submit():
         form.to_model(operation_status)
         db.session.add(operation_status)
@@ -65,7 +68,7 @@ def edit(id):
             flash(gettext("Validation failed"))
         for field, errors in form.errors.items():
             for error in errors:
-                flash(u"Error in the %s field - %s" % ( getattr(form, field).label.text, error))
+                flash(u"Error in the %s field - %s" % (getattr(form, field).label.text, error))
     form.from_model(operation_status)
     return render_template('operation_statuses/edit.html', operation_status=operation_status, form=form)
 
