@@ -4,23 +4,27 @@
             <th class="id">{{ _('Id') }}</th>
             <th class="type">{{ _('Type') }}</th>
             <th class="serial">{{ _('Serial') }}</th>
-            <th>{{ _('Year') }}</th>
-            <th>{{ _('Week') }}</th>
             <th class="date">{{ _('Date Added') }}</th>
-            <th class="comments">{{ _('Comments') }}</th>
-            <th class="extras" width="160px">{{ _('Extras') }}</th>
+            <th class="value">{{ _('Year') }}</th>
+            <th class="value">{{ _('Week') }}</th>
+            <th class="value">{{ _('Statuses') }}</th>
+            <th class="value">{{ _('Operations') }}</th>
+            <th class="value">{{ _('Comments') }}</th>
+            <th class="extras">{{ _('Extras') }}</th>
        	</tr>
    	</thead>
    	<tbody>
 		{% for product in products %}
 		<tr>
-			<td><a href="{{ url_for('products.product', id=product.id) }}">{{ product.id }}</a></td>
-			<td>{{ product.type }}</td>
-			<td>{{ product.serial }}</td>
-			<td>{{ product.year }}</td>
-			<td>{{ product.week }}</td>
-   			<td>{{ product.date_added }}</td>
-   			<td>
+			<td class="right"><a href="{{ url_for('products.product', id=product.id) }}">{{ product.id }}</a></td>
+			<td class="right">{{ product.type }}</td>
+			<td class="right">{{ product.serial }}</td>
+   			<td class="right">{{ product.date_added }}</td>
+			<td class="right">{{ product.year }}</td>
+			<td class="right">{{ product.week }}</td>
+			<td class="right">{{ product.statuses.count() }}</td>
+			<td class="right">{{ product.operations.count() }}</td>
+   			<td class="right">
    				<div class="pull-right"><a href="{{ url_for('products.product', id=product.id) }}#comments">{{ product.comments.count() }}</a></div>
    			</td>
    			<td class="extras">
@@ -39,15 +43,3 @@
 	</tbody>
 </table>
 
-<ul class="pager">
-    {% if pagination.has_prev %}
-	    <li class="previous"><a href="{{ url_for('products.index', page=pagination.prev_num) }}">&larr; {{ _('Newer') }}</a></li>
-	    {% else %}
-	    <li class="previous disabled"><a href="#">&larr; {{ _('Newer') }}</a></li>
-	    {% endif %}
-    {% if pagination.has_next %}
-	    <li class="next"><a href="{{ url_for('products.index', page=pagination.next_num) }}">{{ _('Older') }} &rarr;</a></li>
-	    {% else %}
-	    <li class="next disabled"><a href="#">{{ _('Older') }} &rarr;</a></li>
-    {% endif %}
-</ul>

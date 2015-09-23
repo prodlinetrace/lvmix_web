@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-{% include "products/_products.html" %}
+<ul class="pager">
+	{{ pagination.links }}
+</ul>
+	{% include "products/_products.html" %}
+<ul class="pager">
+	{{ pagination.info }}
+	{{ pagination.links }}
+</ul>
 {% endblock %}
 
 {% block scripts %}
@@ -14,9 +21,9 @@
 	        .tablesorter({
 	        	theme: 'blue',
 	            	headers: {
-	                	5: { sorter:'text' } // force fifth column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+	                	3: { sorter:'text' } // force third column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
 	            	},
-	            	sortList: [[5,1]],  // sort by date_added on load (descending)
+	            	sortList: [[3,1]],  // sort by date_added on load (descending)
 	        		widgets: ["zebra", "filter"],
 	            	widgetOptions: {
 	            	      filter_columnFilters: true,

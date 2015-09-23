@@ -1,20 +1,20 @@
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from flask.ext.babel import gettext
+from flask.ext.paginate import Pagination
 from .. import db, babel, cfg
 from ..models import *
 from . import products
 from .forms import ProductForm, CommentForm, FindProductForm
 
-
 @products.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Product.query.order_by(Product.date_added.desc()).paginate(
-        page, per_page=current_app.config['PRODUCTS_PER_PAGE'],
-        error_out=False)
-    product_list = pagination.items
-    return render_template('products/index.html', products=product_list, pagination=pagination)
+    per_page = current_app.config['PRODUCTS_PER_PAGE']
+    total = Product.query.count()
+    products = Product.query.order_by(Product.date_added.desc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='products', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('products/index.html', products=products, pagination=pagination)
 
 @products.route('/find_product', methods=['GET', 'POST'])
 def find_product():
@@ -57,9 +57,7 @@ def product(id):
     if current_user.is_authenticated():
         headers['X-XSS-Protection'] = '0'
     return render_template('products/product.html', product=product, form=form,
-                           comments=comments, pagination=pagination),\
-           200, headers
-
+                           comments=comments, pagination=pagination), 200, headers
 
 @products.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required

@@ -7,18 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 02:20+0200\n"
-"PO-Revision-Date: 2015-09-23 02:26+0100\n"
+"POT-Creation-Date: 2015-09-23 16:44+0200\n"
+"PO-Revision-Date: 2015-09-23 16:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"Language: pl\n"
-"X-Generator: Poedit 1.7.5\n"
 
 #: app/api_1_0/comments.py:13
 msgid "You cannot modify this comment."
@@ -32,13 +30,13 @@ msgstr "Nie mozesz modyfikować tej operacji"
 msgid "You cannot modify this product."
 msgstr "Nie mozesz modyfikować tego produktu"
 
-#: app/api_1_0/products.py:20
+#: app/api_1_0/products.py:19
 msgid ""
-"Product: {product} removed with {comments_count} comments, {status_count} "
-"statuses and {operations_count} operations."
+"Product: {product} removed with {comments_count} comments, {status_count}"
+" statuses and {operations_count} operations."
 msgstr ""
-"Product: {product} usuniety. Dodatkow usunięto {comments_count} komentarzy, "
-"{status_count} statusów i{operations_count} operacji."
+"Product: {product} usuniety. Dodatkow usunięto {comments_count} "
+"komentarzy, {status_count} statusów i{operations_count} operacji."
 
 #: app/api_1_0/statuses.py:13
 msgid "You cannot modify this status."
@@ -80,9 +78,9 @@ msgstr "Zostałeś wylogowany."
 #: app/templates/products/_products.html:4
 #: app/templates/stations/_stations.html:4
 #: app/templates/stations/station.html:9 app/templates/statistics/index.html:8
-#: app/templates/statuses/_statuses.html:4
-#: app/templates/statuses/status.html:9 app/templates/units/_units.html:4
-#: app/templates/units/unit.html:9 app/units/forms.py:8
+#: app/templates/statuses/_statuses.html:4 app/templates/statuses/status.html:9
+#: app/templates/units/_units.html:4 app/templates/units/unit.html:9
+#: app/units/forms.py:8
 msgid "Id"
 msgstr "Identyfikator"
 
@@ -95,8 +93,7 @@ msgstr "Identyfikator"
 #: app/templates/operations/_operations.html:5
 #: app/templates/operations/operation.html:10
 #: app/templates/stations/_stations.html:5
-#: app/templates/stations/station.html:10
-#: app/templates/statistics/index.html:9
+#: app/templates/stations/station.html:10 app/templates/statistics/index.html:9
 #: app/templates/statuses/_statuses.html:5
 #: app/templates/statuses/status.html:10 app/templates/units/_units.html:5
 #: app/templates/units/unit.html:10 app/templates/users/user.html:9
@@ -115,9 +112,9 @@ msgstr "Jednostka"
 #: app/templates/operation_types/_operation_types.html:6
 #: app/templates/operation_types/operation_type.html:11
 #: app/templates/operations/operation.html:11
-#: app/templates/statistics/index.html:11
-#: app/templates/statuses/status.html:11 app/templates/units/_units.html:7
-#: app/templates/units/unit.html:12 app/units/forms.py:11
+#: app/templates/statistics/index.html:11 app/templates/statuses/status.html:11
+#: app/templates/units/_units.html:7 app/templates/units/unit.html:12
+#: app/units/forms.py:11
 msgid "Description"
 msgstr "Opis"
 
@@ -191,7 +188,7 @@ msgstr "Rok Produkcji"
 msgid "Week Number"
 msgstr "Tydzien Produkcji"
 
-#: app/products/forms.py:14 app/templates/products/_products.html:9
+#: app/products/forms.py:14 app/templates/products/_products.html:7
 #: app/templates/products/product.html:33
 msgid "Date Added"
 msgstr "Data dodania"
@@ -199,6 +196,35 @@ msgstr "Data dodania"
 #: app/products/forms.py:33
 msgid "Comment"
 msgstr "komentarz"
+
+#: app/products/routes.py:16 app/templates/operation_statuses/index.html:18
+#: app/templates/operation_statuses/index.html:20
+#: app/templates/operation_types/index.html:18
+#: app/templates/operation_types/index.html:20
+#: app/templates/operations/index.html:14
+#: app/templates/operations/index.html:16
+#: app/templates/products/product.html:193
+#: app/templates/products/product.html:195 app/templates/stations/index.html:18
+#: app/templates/stations/index.html:20 app/templates/statuses/index.html:14
+#: app/templates/statuses/index.html:16 app/templates/users/index.html:18
+#: app/templates/users/index.html:20 app/templates/users/user.html:24
+#: app/templates/users/user.html:26
+msgid "Older"
+msgstr "Starsze"
+
+#: app/products/routes.py:16 app/templates/operation_statuses/index.html:13
+#: app/templates/operation_statuses/index.html:15
+#: app/templates/operation_types/index.html:13
+#: app/templates/operation_types/index.html:15
+#: app/templates/operations/index.html:9 app/templates/operations/index.html:11
+#: app/templates/products/product.html:198
+#: app/templates/products/product.html:200 app/templates/stations/index.html:13
+#: app/templates/stations/index.html:15 app/templates/statuses/index.html:9
+#: app/templates/statuses/index.html:11 app/templates/users/index.html:13
+#: app/templates/users/index.html:15 app/templates/users/user.html:19
+#: app/templates/users/user.html:21
+msgid "Newer"
+msgstr "Nowsze"
 
 #: app/products/routes.py:25
 msgid "Product with serial {serial} found."
@@ -212,7 +238,7 @@ msgstr "Produkt z numerem seryjnym: {serial} nie znaleziony."
 msgid "Your comment has been published."
 msgstr "Twój komentarz został opublikowany."
 
-#: app/products/routes.py:75
+#: app/products/routes.py:73
 msgid "The product was updated successfully."
 msgstr "Produkt został pomyślnie zaktualizowany."
 
@@ -280,11 +306,13 @@ msgstr "Znajdź"
 msgid "Stations"
 msgstr "Stacje"
 
-#: app/templates/base.html:32 app/templates/statistics/index.html:29
+#: app/templates/base.html:32 app/templates/products/_products.html:11
+#: app/templates/statistics/index.html:29
 msgid "Operations"
 msgstr "Operacje"
 
-#: app/templates/base.html:33 app/templates/statistics/index.html:23
+#: app/templates/base.html:33 app/templates/products/_products.html:10
+#: app/templates/statistics/index.html:23
 msgid "Statuses"
 msgstr "Statusy"
 
@@ -343,7 +371,7 @@ msgstr "Wartość niezdefiniowana"
 #: app/templates/operation_types/operation_type.html:5
 #: app/templates/operations/operation.html:5
 #: app/templates/products/_product_header.html:9
-#: app/templates/products/_products.html:34
+#: app/templates/products/_products.html:38
 #: app/templates/stations/_station_header.html:10
 #: app/templates/stations/_station_header.html:13
 #: app/templates/stations/station.html:5 app/templates/statuses/status.html:5
@@ -359,7 +387,7 @@ msgstr "Edytuj"
 #: app/templates/operations/_operation_header.html:7
 #: app/templates/products/_comment.html:4
 #: app/templates/products/_product_header.html:4
-#: app/templates/products/_products.html:29
+#: app/templates/products/_products.html:33
 #: app/templates/products/product.html:64
 #: app/templates/products/product.html:169
 #: app/templates/stations/_station_header.html:12
@@ -376,7 +404,7 @@ msgstr "Jednostka [Symbol]"
 #: app/templates/operation_statuses/_operation_statuses.html:8
 #: app/templates/operation_types/_operation_types.html:7
 #: app/templates/operations/_operations.html:6
-#: app/templates/products/_products.html:11
+#: app/templates/products/_products.html:13
 #: app/templates/products/product.html:51
 #: app/templates/products/product.html:86
 #: app/templates/stations/_stations.html:10
@@ -391,40 +419,6 @@ msgstr "Edytuj Status Operacji"
 #: app/templates/operation_statuses/index.html:6
 msgid "New Operation Status"
 msgstr "Nowy Status Operacji"
-
-#: app/templates/operation_statuses/index.html:13
-#: app/templates/operation_statuses/index.html:15
-#: app/templates/operation_types/index.html:13
-#: app/templates/operation_types/index.html:15
-#: app/templates/operations/index.html:9
-#: app/templates/operations/index.html:11
-#: app/templates/products/_products.html:44
-#: app/templates/products/_products.html:46
-#: app/templates/products/product.html:198
-#: app/templates/products/product.html:200
-#: app/templates/stations/index.html:13 app/templates/stations/index.html:15
-#: app/templates/statuses/index.html:9 app/templates/statuses/index.html:11
-#: app/templates/users/index.html:13 app/templates/users/index.html:15
-#: app/templates/users/user.html:19 app/templates/users/user.html:21
-msgid "Newer"
-msgstr "Nowsze"
-
-#: app/templates/operation_statuses/index.html:18
-#: app/templates/operation_statuses/index.html:20
-#: app/templates/operation_types/index.html:18
-#: app/templates/operation_types/index.html:20
-#: app/templates/operations/index.html:14
-#: app/templates/operations/index.html:16
-#: app/templates/products/_products.html:49
-#: app/templates/products/_products.html:51
-#: app/templates/products/product.html:193
-#: app/templates/products/product.html:195
-#: app/templates/stations/index.html:18 app/templates/stations/index.html:20
-#: app/templates/statuses/index.html:14 app/templates/statuses/index.html:16
-#: app/templates/users/index.html:18 app/templates/users/index.html:20
-#: app/templates/users/user.html:24 app/templates/users/user.html:26
-msgid "Older"
-msgstr "Starsze"
 
 #: app/templates/operation_statuses/new.html:6
 msgid "Add New Operation Status"
@@ -461,7 +455,7 @@ msgstr "Dodaj nowy rodzaj operacji"
 #: app/templates/operations/_operation_header.html:10
 #: app/templates/products/_comment.html:7
 #: app/templates/products/_product_header.html:7
-#: app/templates/products/_products.html:32
+#: app/templates/products/_products.html:36
 #: app/templates/products/product.html:67
 #: app/templates/products/product.html:172
 #: app/templates/statuses/_status_header.html:10
@@ -481,7 +475,7 @@ msgid "commented"
 msgstr "skomentowany"
 
 #: app/templates/products/_product_header.html:14
-#: app/templates/products/_products.html:10
+#: app/templates/products/_products.html:12
 #: app/templates/products/product.html:189
 #: app/templates/statistics/index.html:59
 msgid "Comments"
@@ -497,12 +491,12 @@ msgstr "Typ"
 msgid "Serial"
 msgstr "Numer Seryjny"
 
-#: app/templates/products/_products.html:7
+#: app/templates/products/_products.html:8
 #: app/templates/products/product.html:23
 msgid "Year"
 msgstr "Rok"
 
-#: app/templates/products/_products.html:8
+#: app/templates/products/_products.html:9
 #: app/templates/products/product.html:28
 msgid "Week"
 msgstr "Tydzień"
@@ -531,12 +525,12 @@ msgstr "Id"
 #: app/templates/products/product.html:48
 #: app/templates/products/product.html:81
 msgid "Station"
-msgstr "Stacje "
+msgstr "Stacja"
 
 #: app/templates/products/product.html:49
 #: app/templates/products/product.html:82
 msgid "Status"
-msgstr "Statusy "
+msgstr "Status"
 
 #: app/templates/products/product.html:50
 #: app/templates/products/product.html:84
@@ -549,7 +543,7 @@ msgstr "Podglad Stacji"
 
 #: app/templates/products/product.html:83
 msgid "Operation"
-msgstr "Operacje "
+msgstr "Operacja"
 
 #: app/templates/products/product.html:85
 msgid "Operation Measurment"
@@ -728,8 +722,7 @@ msgstr "Dodaj nowego użytkownika"
 msgid "Edit Profile"
 msgstr "Edytuj Profil"
 
-#: app/templates/users/user.html:10 app/users/forms.py:13
-#: app/users/forms.py:33
+#: app/templates/users/user.html:10 app/users/forms.py:13 app/users/forms.py:33
 msgid "Location"
 msgstr "Lokalizacja"
 
@@ -821,3 +814,4 @@ msgstr "Jesteś za młody na heroda. Musisz być adminem."
 
 #~ msgid "Overall Status"
 #~ msgstr "Status Całkowity"
+

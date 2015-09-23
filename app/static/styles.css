@@ -7,7 +7,7 @@
 }
 
 .date {
-	width: 250px;
+	width: 200px;
 }
 
 .name {
@@ -19,7 +19,27 @@
 }
 
 .status {
+	width: 50px;
+}
+
+.extras {
+	width: 160px;
+}
+
+.serial {
 	width: 100px;
+}
+
+.type {
+	width: 120px;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
 }
 
 .user-avatar {
