@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from flask.ext.babel import gettext
+from flask.ext.paginate import Pagination
 from .. import db
 from ..models import Operation
 from . import operations
@@ -9,12 +10,11 @@ from . import operations
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Operation.query.order_by(Operation.id.desc()).paginate(
-        page, per_page=current_app.config['OPERATIONS_PER_PAGE'],
-        error_out=False)
-    operation_list = pagination.items
-    return render_template('operations/index.html', operations=operation_list, pagination=pagination)
-
+    per_page = current_app.config['OPERATIONS_PER_PAGE']
+    total = Operation.query.count()
+    operations = Operation.query.order_by(Operation.id.desc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='operations', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('operations/index.html', operations=operations, pagination=pagination)
 
 @operations.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required

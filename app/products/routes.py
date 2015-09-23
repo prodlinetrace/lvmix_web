@@ -36,29 +36,24 @@ def product(id):
     if current_user.is_authenticated():
         form = CommentForm()
         if form.validate_on_submit():
-            comment = Comment(body=form.body.data,
-                              product=product,
-                              author=current_user
-                              )
+            comment = Comment(body=form.body.data, product=product, author=current_user)
     if comment:
         db.session.add(comment)
         db.session.commit()
-        if comment:
-            flash(gettext(u'Your comment has been published.'))
+        flash(gettext(u'Your comment has been published.'))
         return redirect(url_for('.product', id=product.id) + '#top')
-    comments_query = product.comments
+
     page = request.args.get('page', 1, type=int)
-    pagination = comments_query.order_by(Comment.timestamp.asc()).paginate(
-        page, per_page=current_app.config['COMMENTS_PER_PAGE'],
-        error_out=False)
-    comments = pagination.items
+    per_page = current_app.config['COMMENTS_PER_PAGE']
+    total = product.comments.count()
+    comments = product.comments.order_by(Comment.timestamp.asc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
     stations = {}
     headers = {}
     if current_user.is_authenticated():
         headers['X-XSS-Protection'] = '0'
-    return render_template('products/product.html', product=product, form=form,
-                           comments=comments, pagination=pagination), 200, headers
-
+    return render_template('products/product.html', product=product, form=form, comments=comments, pagination=pagination), 200, headers
+    
 @products.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_product(id):
@@ -74,5 +69,3 @@ def edit_product(id):
         return redirect(url_for('.product', id=product.id))
     form.from_model(product)
     return render_template('products/edit_product.html', form=form)
-
-

@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from flask.ext.babel import gettext
+from flask.ext.paginate import Pagination
 from .. import db
 from ..models import Station
 from . import stations
@@ -10,6 +11,14 @@ from .forms import StationForm
 @stations.route('/')
 @login_required
 def index():
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['STATIONS_PER_PAGE']
+    total = Station.query.count()
+    stations = Station.query.order_by(Station.id.desc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='stations', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('stations/index.html', stations=stations, pagination=pagination)
+    
+    
     page = request.args.get('page', 1, type=int)
     pagination = Station.query.order_by(Station.id.desc()).paginate(
         page, per_page=current_app.config['STATIONS_PER_PAGE'],

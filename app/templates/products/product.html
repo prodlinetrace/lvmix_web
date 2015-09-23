@@ -54,7 +54,7 @@
         <tbody>
 			{% for status in product.statuses %}
    			<tr>
-   				<td>{{ status.id }}</td>
+   				<td class="right">{{ status.id }}</td>
 				{% if status.station %}<td><a href="{{ url_for('stations.station', id=status.station.id) | safe}}" title="{{status.station.ip | safe}}">{{ status.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
 				{% if status.status_name %} <td><a href="{{ url_for('operation_statuses.operation_status', id=status.status_name.id) | safe}}" title="{{status.status_name.description | safe}}">{{ status.status_name.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ status.date_time }} </td>
@@ -89,7 +89,7 @@
         <tbody>
 			{% for operation in product.operations|sort %}
     		<tr>
-    			<td>{{ operation.id }}</td>
+    			<td class="right">{{ operation.id }}</td>
     			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
@@ -187,18 +187,13 @@
 </div>
 	{% if comments %}
 		<h3 id="comments">{{ _('Comments') }}</h3>
+		<ul class="pager">
+			{{ pagination.links }}
+		</ul>
 		{% include "products/_comments.html" %}
 		<ul class="pager">
-		    {% if pagination.has_prev %}
-			    <li class="previous"><a href="{{ url_for('products.product', id=product.id, page=pagination.prev_num) }}#comments">&larr; {{ _('Older') }}</a></li>
-			    {% else %}
-			    <li class="previous disabled"><a href="#">&larr; {{ _('Older') }}</a></li>
-			    {% endif %}
-		    {% if pagination.has_next %}
-			    <li class="next"><a href="{{ url_for('products.product', id=product.id, page=pagination.next_num) }}#comments">{{ _('Newer') }} &rarr;</a></li>
-			    {% else %}
-			    <li class="next disabled"><a href="#">{{ _('Newer') }} &rarr;</a></li>
-		    {% endif %}
+			{{ pagination.info }}
+			{{ pagination.links }}
 		</ul>
 	{% endif %}
 	{% if form %}

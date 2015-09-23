@@ -5,23 +5,32 @@ from ..models import User, Comment
 from . import users
 from .forms import ProfileForm, UserForm, EditUserForm
 from flask.ext.babel import gettext
+from flask.ext.paginate import Pagination
 
 
 @users.route('/')
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = User.query.paginate(
-        page, per_page=current_app.config['USERS_PER_PAGE'],
-        error_out=False)
-    user_list = pagination.items
-    return render_template('users/index.html', users=user_list, pagination=pagination)
-
-
+    per_page = current_app.config['USERS_PER_PAGE']
+    total = User.query.count()
+    users = User.query.order_by(User.id.desc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='users', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('users/index.html', users=users, pagination=pagination)
+    
 @users.route('/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(login=username).first_or_404()
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['COMMENTS_PER_PAGE']
+    total = user.comments.count()
+    comments = user.comments.paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('users/user.html', user=user, comments=comments, pagination=pagination)
+    
+    
+    
     page = request.args.get('page', 1, type=int)
     pagination = user.comments.paginate(
         page, per_page=current_app.config['USERS_PER_PAGE'],

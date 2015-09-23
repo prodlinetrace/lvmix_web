@@ -1,22 +1,14 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
-{% include "operations/_operations.html" %}
-{% if operations %}
 <ul class="pager">
-    {% if pagination.has_prev %}
-    <li class="previous"><a href="{{ url_for('operations.index', page=pagination.prev_num) }}">&larr; {{ _('Newer') }}</a></li>
-    {% else %}
-    <li class="previous disabled"><a href="#">&larr; {{ _('Newer') }}</a></li>
-    {% endif %}
-    {% if pagination.has_next %}
-    <li class="next"><a href="{{ url_for('operations.index', page=pagination.next_num) }}">{{ _('Older') }} &rarr;</a></li>
-    {% else %}
-    <li class="next disabled"><a href="#">{{ _('Older') }} &rarr;</a></li>
-    {% endif %}
+	{{ pagination.links }}
 </ul>
-{% endif %}
+{% include "operations/_operations.html" %}
+<ul class="pager">
+	{{ pagination.info }}
+	{{ pagination.links }}
+</ul>
 {% endblock %}
 {% block scripts %}
 	{{ super() }}

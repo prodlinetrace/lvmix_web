@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from flask.ext.babel import gettext
+from flask.ext.paginate import Pagination
 from .. import db
 from ..models import Operation_Status, Unit
 from . import operation_statuses
@@ -11,11 +12,12 @@ from .forms import Operation_StatusForm
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Operation_Status.query.order_by(Operation_Status.id.desc()).paginate(
-        page, per_page=current_app.config['OPERATION_STATUSES_PER_PAGE'],
-        error_out=False)
-    operation_status_list = pagination.items
-    return render_template('operation_statuses/index.html', operation_statuses=operation_status_list, pagination=pagination)
+    per_page = current_app.config['OPERATION_STATUSES_PER_PAGE']
+    total = Operation_Status.query.count()
+    operation_statuses = Operation_Status.query.order_by(Operation_Status.id.desc()).paginate(page, per_page, False).items
+    pagination = Pagination(page=page, total=total, record_name='operation_statuses', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    return render_template('operation_statuses/index.html', operation_statuses=operation_statuses, pagination=pagination)
+    
 
 @operation_statuses.route('/<int:id>')
 @login_required

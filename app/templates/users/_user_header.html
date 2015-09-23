@@ -1,4 +1,4 @@
-<div class="talk-header">
+<div class="product-header">
     {% if user.id == current_user.id %}
     <a class="btn btn-primary pull-right" href="{{ url_for('users.edit', id=user.id) }}">{{ _('Edit') }}</a>
     {% elif current_user.is_admin %}
