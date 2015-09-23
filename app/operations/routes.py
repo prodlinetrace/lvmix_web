@@ -9,7 +9,7 @@ from . import operations
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Operation.query.paginate(
+    pagination = Operation.query.order_by(Operation.id.desc()).paginate(
         page, per_page=current_app.config['OPERATIONS_PER_PAGE'],
         error_out=False)
     operation_list = pagination.items

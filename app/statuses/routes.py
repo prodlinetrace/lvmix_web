@@ -9,7 +9,7 @@ from . import statuses
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Status.query.paginate(
+    pagination = Status.query.order_by(Status.id.desc()).paginate(
         page, per_page=current_app.config['STATUSES_PAGE'],
         error_out=False)
     status_list = pagination.items

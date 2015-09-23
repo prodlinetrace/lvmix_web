@@ -30,11 +30,21 @@
 	<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
 
 	<script type="text/javascript">
-	$(document).ready(function()
-		    {
-				$("#operations").tablesorter();
-		    }
-		);
+	$(function() {
+        $("#operations")
+        .tablesorter({
+        	theme: 'blue',
+            	sortList: [[0,1]],  // sort by in on load (descending)
+        		widgets: ["zebra", "filter"],
+            	widgetOptions: {
+            	      filter_columnFilters: true,
+            	      filter_placeholder: { search : 'Filter...' },
+            	      filter_reset: '.reset'
+              	}
+        });
+
+	});
 	</script>
 	{% include "_api_client.html" %}
 {% endblock %}
+

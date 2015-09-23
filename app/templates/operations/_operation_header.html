@@ -1,9 +1,14 @@
 <tr>
 	<td>{{ operation.id }}</td>
-	<td>{{ operation }}</td>	  
+	<td>{{ operation }}</td>
 	<td>
-	    {% if current_user.is_admin  %}
-	    	<a class="btn btn-danger pull-right" href="{{ url_for('operations.delete', id=operation.id) }}">{{ _('Delete') }}</a>
-	    {% endif %}
+		{% if current_user.is_admin  %}
+	        <div id="operation-moderate-{{ operation.id }}" class="pull-right">
+	            <a class="btn btn-danger api-operation-delete" data-id="{{ operation.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
+   			</div>
+   			<div id="operation-deleted-{{ operation.id }}" class="pull-right" style="display: none;">
+       			<span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
+   			</div>
+		{% endif %}
     </td>
 </tr>
