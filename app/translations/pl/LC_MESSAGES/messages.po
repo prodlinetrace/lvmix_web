@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 20:38+0200\n"
-"PO-Revision-Date: 2015-09-23 20:43+0100\n"
+"POT-Creation-Date: 2015-09-23 20:45+0200\n"
+"PO-Revision-Date: 2015-09-23 20:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
@@ -629,6 +629,10 @@ msgstr "Nowa Stacja"
 msgid "Add New Station"
 msgstr "Dodaj Nową Stację"
 
+#: app/templates/statistics/index.html:5
+msgid "General Statistics"
+msgstr "Statystyki Ogólne"
+
 #: app/templates/statistics/index.html:12
 msgid "Parameter"
 msgstr "Parametr"
@@ -696,6 +700,10 @@ msgstr "Ilość statusów na stronę"
 #: app/templates/statistics/index.html:32
 msgid "Users per page"
 msgstr "Ilość użytkowników na stronę"
+
+#: app/templates/statistics/index.html:37
+msgid "Database Statistics"
+msgstr "Statystyki Bazy Danych"
 
 #: app/templates/statistics/index.html:44
 msgid "Count"
