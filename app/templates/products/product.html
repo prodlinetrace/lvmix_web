@@ -55,12 +55,17 @@
 			{% for status in product.statuses %}
    			<tr>
    				<td>{{ status.id }}</td>
-				{% if status.station %}<td><a href="{{ url_for('stations.station', id=status.station.id) | safe}}" title="{{status.station.ip | safe}}">{{ status.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
+				{% if status.station %}<td><a href="{{ url_for('stations.station', id=status.station.id) | safe}}" title="{{status.station.ip | safe}}">{{ status.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
 				{% if status.status_name %} <td><a href="{{ url_for('operation_statuses.operation_status', id=status.status_name.id) | safe}}" title="{{status.status_name.description | safe}}">{{ status.status_name.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ status.date_time }} </td>
     			<td>
 	    			{% if current_user.is_admin  %}
-		    			<a class="btn btn-danger pull-right" href="{{ url_for('statuses.delete', id=status.id) }}">{{ _('Delete') }}</a>
+    		            <div id="status-moderate-{{ status.id }}" class="pull-right">
+			                <a class="btn btn-danger api-status-delete" data-id="{{ status.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
+            			</div>
+            			<div id="status-deleted-{{ status.id }}" class="pull-right" style="display: none;">
+                			<span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
+            			</div>
 		    		{% endif %}
 	    		</td>
    			</tr>
@@ -85,7 +90,7 @@
 			{% for operation in product.operations|sort %}
     		<tr>
     			<td>{{ operation.id }}</td>
-    			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>_('undefined value') }}</td> {% endif %}
+    			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ operation.date_time }} </td>
@@ -160,7 +165,12 @@
     			</td>
 			    <td>
 	    			{% if current_user.is_admin  %}
-		    			<a class="btn btn-danger pull-right" href="{{ url_for('operations.delete', id=operation.id) }}">{{ _('Delete') }}</a>
+    		            <div id="operation-moderate-{{ operation.id }}" class="pull-right">
+			                <a class="btn btn-danger api-operation-delete" data-id="{{ operation.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
+            			</div>
+            			<div id="operation-deleted-{{ operation.id }}" class="pull-right" style="display: none;">
+                			<span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
+            			</div>
 		    		{% endif %}
 	    		</td>
     		</tr>

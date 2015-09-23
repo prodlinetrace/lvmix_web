@@ -1,9 +1,9 @@
 <p>
         {% if comment.author.id == current_user.id or current_user.is_admin %}
-            <div id="moderate-{{ comment.id }}" class="pull-right">
-                <a class="btn btn-danger api-delete" data-id="{{ comment.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
+            <div id="comment-moderate-{{ comment.id }}" class="pull-right">
+                <a class="btn btn-danger api-comment-delete" data-id="{{ comment.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
             </div>
-            <div id="deleted-{{ comment.id }}" class="pull-right" style="display: none;">
+            <div id="comment-deleted-{{ comment.id }}" class="pull-right" style="display: none;">
                 <span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
             </div>
         {% endif %}
