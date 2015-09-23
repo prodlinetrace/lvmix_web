@@ -7,16 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 16:44+0200\n"
-"PO-Revision-Date: 2015-09-23 16:33+0100\n"
+"POT-Creation-Date: 2015-09-23 20:38+0200\n"
+"PO-Revision-Date: 2015-09-23 20:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: pl <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Language: pl\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: app/api_1_0/comments.py:13
 msgid "You cannot modify this comment."
@@ -32,11 +34,11 @@ msgstr "Nie mozesz modyfikować tego produktu"
 
 #: app/api_1_0/products.py:19
 msgid ""
-"Product: {product} removed with {comments_count} comments, {status_count}"
-" statuses and {operations_count} operations."
+"Product: {product} removed with {comments_count} comments, {status_count} "
+"statuses and {operations_count} operations."
 msgstr ""
-"Product: {product} usuniety. Dodatkow usunięto {comments_count} "
-"komentarzy, {status_count} statusów i{operations_count} operacji."
+"Product: {product} usuniety. Dodatkow usunięto {comments_count} komentarzy, "
+"{status_count} statusów i{operations_count} operacji."
 
 #: app/api_1_0/statuses.py:13
 msgid "You cannot modify this status."
@@ -77,10 +79,10 @@ msgstr "Zostałeś wylogowany."
 #: app/templates/operations/operation.html:9
 #: app/templates/products/_products.html:4
 #: app/templates/stations/_stations.html:4
-#: app/templates/stations/station.html:9 app/templates/statistics/index.html:8
-#: app/templates/statuses/_statuses.html:4 app/templates/statuses/status.html:9
-#: app/templates/units/_units.html:4 app/templates/units/unit.html:9
-#: app/units/forms.py:8
+#: app/templates/stations/station.html:9
+#: app/templates/statuses/_statuses.html:4
+#: app/templates/statuses/status.html:9 app/templates/units/_units.html:4
+#: app/templates/units/unit.html:9 app/units/forms.py:8
 msgid "Id"
 msgstr "Identyfikator"
 
@@ -93,7 +95,8 @@ msgstr "Identyfikator"
 #: app/templates/operations/_operations.html:5
 #: app/templates/operations/operation.html:10
 #: app/templates/stations/_stations.html:5
-#: app/templates/stations/station.html:10 app/templates/statistics/index.html:9
+#: app/templates/stations/station.html:10
+#: app/templates/statistics/index.html:43
 #: app/templates/statuses/_statuses.html:5
 #: app/templates/statuses/status.html:10 app/templates/units/_units.html:5
 #: app/templates/units/unit.html:10 app/templates/users/user.html:9
@@ -112,9 +115,9 @@ msgstr "Jednostka"
 #: app/templates/operation_types/_operation_types.html:6
 #: app/templates/operation_types/operation_type.html:11
 #: app/templates/operations/operation.html:11
-#: app/templates/statistics/index.html:11 app/templates/statuses/status.html:11
-#: app/templates/units/_units.html:7 app/templates/units/unit.html:12
-#: app/units/forms.py:11
+#: app/templates/statistics/index.html:45
+#: app/templates/statuses/status.html:11 app/templates/units/_units.html:7
+#: app/templates/units/unit.html:12 app/units/forms.py:11
 msgid "Description"
 msgstr "Opis"
 
@@ -125,42 +128,56 @@ msgstr "Opis"
 msgid "Submit"
 msgstr "Wyślij"
 
-#: app/operation_statuses/routes.py:44
+#: app/operation_statuses/routes.py:18 app/operation_types/routes.py:18
+#: app/operations/routes.py:16 app/products/routes.py:16
+#: app/products/routes.py:50 app/stations/routes.py:18
+#: app/statuses/routes.py:16 app/users/routes.py:18 app/users/routes.py:29
+msgid "Older"
+msgstr "Starsze"
+
+#: app/operation_statuses/routes.py:18 app/operation_types/routes.py:18
+#: app/operations/routes.py:16 app/products/routes.py:16
+#: app/products/routes.py:50 app/stations/routes.py:18
+#: app/statuses/routes.py:16 app/users/routes.py:18 app/users/routes.py:29
+msgid "Newer"
+msgstr "Nowsze"
+
+#: app/operation_statuses/routes.py:46
 msgid "New operation_status: {operation_status} was added successfully."
 msgstr "Nowy status operacji : {operation_status} został dodany."
 
-#: app/operation_statuses/routes.py:48 app/operation_statuses/routes.py:72
-#: app/operation_types/routes.py:48 app/operation_types/routes.py:70
-#: app/stations/routes.py:49 app/stations/routes.py:72 app/units/routes.py:43
+#: app/operation_statuses/routes.py:50 app/operation_statuses/routes.py:74
+#: app/operation_types/routes.py:49 app/operation_types/routes.py:71
+#: app/stations/routes.py:58 app/stations/routes.py:81 app/units/routes.py:43
 #: app/units/routes.py:65
 msgid "Validation failed"
 msgstr "Walidacja nie powiodla się"
 
-#: app/operation_statuses/routes.py:68
+#: app/operation_statuses/routes.py:70
 msgid "operation_status with id: {operation_status} has been updated."
 msgstr "Status Operacji: {operation_status} został zaktualizowany."
 
-#: app/operation_statuses/routes.py:87
+#: app/operation_statuses/routes.py:89
 msgid "Operation_Status with id: {operation_status} has been deleted."
 msgstr "Status Operacji: {operation_status} został skasowany. "
 
-#: app/operation_statuses/routes.py:90
+#: app/operation_statuses/routes.py:92
 msgid "You have to be administrator to remove operation_statuses."
 msgstr "Musisz byc administratorem aby kasować Statusy Operacji."
 
-#: app/operation_types/routes.py:44
+#: app/operation_types/routes.py:45
 msgid "New operation_type: {operation_type} was added successfully."
 msgstr "Nowy rodzaj operacji : {operation_type} został dodany."
 
-#: app/operation_types/routes.py:66
+#: app/operation_types/routes.py:67
 msgid "Operation_Type with id: {operation_type} has been updated."
 msgstr "Typ Operacji: {operation_type} został zaktualizowany."
 
-#: app/operation_types/routes.py:85
+#: app/operation_types/routes.py:86
 msgid "Operation_Type with id: {operation_type} has been deleted."
 msgstr "Typ Operacji: {operation_type} został skasowany. "
 
-#: app/operation_types/routes.py:88
+#: app/operation_types/routes.py:89
 msgid "You have to be administrator to remove operation_types."
 msgstr "Musisz byc administratorem aby kasować Typy Operacji."
 
@@ -197,35 +214,6 @@ msgstr "Data dodania"
 msgid "Comment"
 msgstr "komentarz"
 
-#: app/products/routes.py:16 app/templates/operation_statuses/index.html:18
-#: app/templates/operation_statuses/index.html:20
-#: app/templates/operation_types/index.html:18
-#: app/templates/operation_types/index.html:20
-#: app/templates/operations/index.html:14
-#: app/templates/operations/index.html:16
-#: app/templates/products/product.html:193
-#: app/templates/products/product.html:195 app/templates/stations/index.html:18
-#: app/templates/stations/index.html:20 app/templates/statuses/index.html:14
-#: app/templates/statuses/index.html:16 app/templates/users/index.html:18
-#: app/templates/users/index.html:20 app/templates/users/user.html:24
-#: app/templates/users/user.html:26
-msgid "Older"
-msgstr "Starsze"
-
-#: app/products/routes.py:16 app/templates/operation_statuses/index.html:13
-#: app/templates/operation_statuses/index.html:15
-#: app/templates/operation_types/index.html:13
-#: app/templates/operation_types/index.html:15
-#: app/templates/operations/index.html:9 app/templates/operations/index.html:11
-#: app/templates/products/product.html:198
-#: app/templates/products/product.html:200 app/templates/stations/index.html:13
-#: app/templates/stations/index.html:15 app/templates/statuses/index.html:9
-#: app/templates/statuses/index.html:11 app/templates/users/index.html:13
-#: app/templates/users/index.html:15 app/templates/users/user.html:19
-#: app/templates/users/user.html:21
-msgid "Newer"
-msgstr "Nowsze"
-
 #: app/products/routes.py:25
 msgid "Product with serial {serial} found."
 msgstr "Produkt z numerem seryjnym: {serial} znaleziony."
@@ -234,11 +222,11 @@ msgstr "Produkt z numerem seryjnym: {serial} znaleziony."
 msgid "Product with serial {serial} not found."
 msgstr "Produkt z numerem seryjnym: {serial} nie znaleziony."
 
-#: app/products/routes.py:47
+#: app/products/routes.py:43
 msgid "Your comment has been published."
 msgstr "Twój komentarz został opublikowany."
 
-#: app/products/routes.py:73
+#: app/products/routes.py:68
 msgid "The product was updated successfully."
 msgstr "Produkt został pomyślnie zaktualizowany."
 
@@ -262,19 +250,19 @@ msgstr "Rack"
 msgid "Slot"
 msgstr "Slot"
 
-#: app/stations/routes.py:45
+#: app/stations/routes.py:54
 msgid "New station: {station} was added successfully."
 msgstr "Nowa Stacja: {station} została dodana pomyslnie."
 
-#: app/stations/routes.py:68
+#: app/stations/routes.py:77
 msgid "Station profile for: {station} has been updated."
 msgstr "Profil stacji: {station} został zaktualizowany."
 
-#: app/stations/routes.py:87
+#: app/stations/routes.py:96
 msgid "Station for: {station} has been deleted."
 msgstr "Stacja: {station} została usunięta."
 
-#: app/stations/routes.py:90
+#: app/stations/routes.py:99
 msgid "You have to be adminstrator to remove stations."
 msgstr "Musisz być administratorem aby kasować stacje."
 
@@ -294,7 +282,7 @@ msgstr "PLCWeb - ProdLineTrace UI - "
 msgid "Toggle Navigation"
 msgstr "Przełącz nawigacje"
 
-#: app/templates/base.html:25 app/templates/statistics/index.html:17
+#: app/templates/base.html:25 app/templates/statistics/index.html:50
 msgid "Products"
 msgstr "Produkty"
 
@@ -302,25 +290,29 @@ msgstr "Produkty"
 msgid "Find"
 msgstr "Znajdź"
 
-#: app/templates/base.html:31 app/templates/statistics/index.html:47
+#: app/templates/base.html:31 app/templates/statistics/index.html:75
 msgid "Stations"
 msgstr "Stacje"
 
-#: app/templates/base.html:32 app/templates/products/_products.html:11
-#: app/templates/statistics/index.html:29
+#: app/templates/base.html:32
+#: app/templates/operation_types/_operation_types.html:7
+#: app/templates/products/_products.html:11
+#: app/templates/stations/_stations.html:11
+#: app/templates/statistics/index.html:60
 msgid "Operations"
 msgstr "Operacje"
 
 #: app/templates/base.html:33 app/templates/products/_products.html:10
-#: app/templates/statistics/index.html:23
+#: app/templates/stations/_stations.html:10
+#: app/templates/statistics/index.html:55
 msgid "Statuses"
 msgstr "Statusy"
 
-#: app/templates/base.html:34 app/templates/statistics/index.html:53
+#: app/templates/base.html:34 app/templates/statistics/index.html:80
 msgid "Units"
 msgstr "Jednostki"
 
-#: app/templates/base.html:36 app/templates/statistics/index.html:65
+#: app/templates/base.html:36 app/templates/statistics/index.html:90
 msgid "Users"
 msgstr "Użytkownicy"
 
@@ -366,14 +358,14 @@ msgstr "Wartość niezdefiniowana"
 #: app/templates/operation_statuses/_operation_status_header.html:12
 #: app/templates/operation_statuses/_operation_status_header.html:15
 #: app/templates/operation_statuses/operation_status.html:5
-#: app/templates/operation_types/_operation_type_header.html:7
-#: app/templates/operation_types/_operation_type_header.html:10
+#: app/templates/operation_types/_operation_type_header.html:8
+#: app/templates/operation_types/_operation_type_header.html:11
 #: app/templates/operation_types/operation_type.html:5
 #: app/templates/operations/operation.html:5
 #: app/templates/products/_product_header.html:9
 #: app/templates/products/_products.html:38
-#: app/templates/stations/_station_header.html:10
-#: app/templates/stations/_station_header.html:13
+#: app/templates/stations/_station_header.html:12
+#: app/templates/stations/_station_header.html:15
 #: app/templates/stations/station.html:5 app/templates/statuses/status.html:5
 #: app/templates/units/_unit_header.html:8
 #: app/templates/units/_unit_header.html:11 app/templates/units/unit.html:5
@@ -383,14 +375,14 @@ msgid "Edit"
 msgstr "Edytuj"
 
 #: app/templates/operation_statuses/_operation_status_header.html:14
-#: app/templates/operation_types/_operation_type_header.html:9
+#: app/templates/operation_types/_operation_type_header.html:10
 #: app/templates/operations/_operation_header.html:7
 #: app/templates/products/_comment.html:4
 #: app/templates/products/_product_header.html:4
 #: app/templates/products/_products.html:33
 #: app/templates/products/product.html:64
 #: app/templates/products/product.html:169
-#: app/templates/stations/_station_header.html:12
+#: app/templates/stations/_station_header.html:14
 #: app/templates/statuses/_status_header.html:7
 #: app/templates/units/_unit_header.html:10
 #: app/templates/users/_user_header.html:5
@@ -402,12 +394,12 @@ msgid "Unit [Symbol]"
 msgstr "Jednostka [Symbol]"
 
 #: app/templates/operation_statuses/_operation_statuses.html:8
-#: app/templates/operation_types/_operation_types.html:7
+#: app/templates/operation_types/_operation_types.html:8
 #: app/templates/operations/_operations.html:6
 #: app/templates/products/_products.html:13
 #: app/templates/products/product.html:51
 #: app/templates/products/product.html:86
-#: app/templates/stations/_stations.html:10
+#: app/templates/stations/_stations.html:12
 #: app/templates/statuses/_statuses.html:6 app/templates/units/_units.html:8
 msgid "Extras"
 msgstr "Dodatki"
@@ -477,7 +469,7 @@ msgstr "skomentowany"
 #: app/templates/products/_product_header.html:14
 #: app/templates/products/_products.html:12
 #: app/templates/products/product.html:189
-#: app/templates/statistics/index.html:59
+#: app/templates/statistics/index.html:85
 msgid "Comments"
 msgstr "Komentarze"
 
@@ -553,7 +545,7 @@ msgstr "Parametry Operacji"
 msgid "Result | Max | Min | Unit | Status"
 msgstr "Rezultat | Max | Min | Jednostka | Status"
 
-#: app/templates/products/product.html:205
+#: app/templates/products/product.html:200
 msgid "Write a comment"
 msgstr "Dodaj komentarz"
 
@@ -637,51 +629,119 @@ msgstr "Nowa Stacja"
 msgid "Add New Station"
 msgstr "Dodaj Nową Stację"
 
-#: app/templates/statistics/index.html:10
+#: app/templates/statistics/index.html:12
+msgid "Parameter"
+msgstr "Parametr"
+
+#: app/templates/statistics/index.html:13
+msgid "Value"
+msgstr "Wartość"
+
+#: app/templates/statistics/index.html:18
+msgid "Version"
+msgstr "Wersja Programu"
+
+#: app/templates/statistics/index.html:19
+msgid "Model Version"
+msgstr "Wersja Modelu"
+
+#: app/templates/statistics/index.html:20
+msgid "Database file location"
+msgstr "Lokacja pliku bazy danych"
+
+#: app/templates/statistics/index.html:21
+msgid "Mode"
+msgstr "Tryb"
+
+#: app/templates/statistics/index.html:22
+msgid "Default Locale"
+msgstr "Domyślny Język"
+
+#: app/templates/statistics/index.html:23
+msgid "Supported Languages"
+msgstr "Wspierane języki"
+
+#: app/templates/statistics/index.html:24
+msgid "Local Bootstrap"
+msgstr "Lokana biblioteka bootstrap"
+
+#: app/templates/statistics/index.html:25
+msgid "Products per page"
+msgstr "Ilość produktów na stronę"
+
+#: app/templates/statistics/index.html:26
+msgid "Comments per page"
+msgstr "Ilość komentarzy na stronę"
+
+#: app/templates/statistics/index.html:27
+msgid "Stations per page"
+msgstr "Ilość stacji na stronę"
+
+#: app/templates/statistics/index.html:28
+msgid "Operation types per page"
+msgstr "Ilość typów operacji na stronę"
+
+#: app/templates/statistics/index.html:29
+msgid "Operation statuses per page"
+msgstr "Ilość statusów operacji na stronę"
+
+#: app/templates/statistics/index.html:30
+msgid "Operations per page"
+msgstr "Ilość operacji na stronę"
+
+#: app/templates/statistics/index.html:31
+msgid "Statuses per page"
+msgstr "Ilość statusów na stronę"
+
+#: app/templates/statistics/index.html:32
+msgid "Users per page"
+msgstr "Ilość użytkowników na stronę"
+
+#: app/templates/statistics/index.html:44
 msgid "Count"
 msgstr "Suma"
 
-#: app/templates/statistics/index.html:19
+#: app/templates/statistics/index.html:52
 msgid "Number of products in DB"
 msgstr "Ilość produktów w bazie"
 
-#: app/templates/statistics/index.html:25
+#: app/templates/statistics/index.html:57
 msgid "Number of statuses in DB"
 msgstr "Ilość statusów w bazie"
 
-#: app/templates/statistics/index.html:31
+#: app/templates/statistics/index.html:62
 msgid "Number of operations in DB"
 msgstr "Ilość operacji w bazie"
 
-#: app/templates/statistics/index.html:35
+#: app/templates/statistics/index.html:65
 msgid "Operation Types"
 msgstr "Typy Operacji"
 
-#: app/templates/statistics/index.html:37
+#: app/templates/statistics/index.html:67
 msgid "Number of operation types in DB"
 msgstr "Ilość typów operacji w bazie"
 
-#: app/templates/statistics/index.html:41
+#: app/templates/statistics/index.html:70
 msgid "Operation Statuses"
 msgstr "Statusy Operacji"
 
-#: app/templates/statistics/index.html:43
+#: app/templates/statistics/index.html:72
 msgid "Number of operation statuses in DB"
 msgstr "Ilość statusów operacji w bazie"
 
-#: app/templates/statistics/index.html:49
+#: app/templates/statistics/index.html:77
 msgid "Number of stations in DB"
 msgstr "Ilość stacji w bazie"
 
-#: app/templates/statistics/index.html:55
+#: app/templates/statistics/index.html:82
 msgid "Number of units in DB"
 msgstr "Ilość typow jednostek w bazie"
 
-#: app/templates/statistics/index.html:61
+#: app/templates/statistics/index.html:87
 msgid "Number of comments in DB"
 msgstr "Ilość komentarzy w bazie"
 
-#: app/templates/statistics/index.html:67
+#: app/templates/statistics/index.html:92
 msgid "Number of users in DB"
 msgstr "Ilość użytkowników w bazie"
 
@@ -722,7 +782,8 @@ msgstr "Dodaj nowego użytkownika"
 msgid "Edit Profile"
 msgstr "Edytuj Profil"
 
-#: app/templates/users/user.html:10 app/users/forms.py:13 app/users/forms.py:33
+#: app/templates/users/user.html:10 app/users/forms.py:13
+#: app/users/forms.py:33
 msgid "Location"
 msgstr "Lokalizacja"
 
@@ -770,27 +831,27 @@ msgstr "Powtórz hasło"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: app/users/routes.py:44
+#: app/users/routes.py:53
 msgid "{user}, you have updated your profile successfully."
 msgstr "{user}, pomyślnie zaktualizowałeś swój profil."
 
-#: app/users/routes.py:63
+#: app/users/routes.py:72
 msgid "New user: {user} was added successfully."
 msgstr "Nowy użytkownik: {user} został dodany pomyślnie."
 
-#: app/users/routes.py:81
+#: app/users/routes.py:90
 msgid "User profile for: {user} has been updated."
 msgstr "Profil użytkownika {user} został zaktualizowany."
 
-#: app/users/routes.py:93
+#: app/users/routes.py:102
 msgid "Unable to remove currently logged user: {user}."
 msgstr "Nie mogę usunąć aktualnie zalogowanego użytkownika: {user}."
 
-#: app/users/routes.py:98
+#: app/users/routes.py:107
 msgid "User profile for: {user} has been deleted."
 msgstr "Profil użytkownika: {user} został skasowany."
 
-#: app/users/routes.py:101
+#: app/users/routes.py:110
 msgid "You have to be adminstrator to remove users."
 msgstr "Jesteś za młody na heroda. Musisz być adminem."
 
@@ -814,4 +875,3 @@ msgstr "Jesteś za młody na heroda. Musisz być adminem."
 
 #~ msgid "Overall Status"
 #~ msgstr "Status Całkowity"
-

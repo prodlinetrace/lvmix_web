@@ -61,8 +61,7 @@ def create_app(config_name):
         lang = session.get('lang', browser)
         setattr(g, 'lang', lang)
         return lang
-
-
+    
     from .products import products as products_blueprint
     app.register_blueprint(products_blueprint, url_prefix='/app')
     app.register_blueprint(products_blueprint, url_prefix='/')

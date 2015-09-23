@@ -1,4 +1,5 @@
 import os
+from __builtin__ import False
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -18,6 +19,8 @@ class Config:
     VERSION = '0.4.1'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'en'
+    MODE = False
+    LANG='jp'
 
     STATION_STATUS_CODES = {
         0: {"result": "UNDEFINED", "desc": "status undefined (not present in database)"},
@@ -34,6 +37,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    MODE = "development"
     SECRET_KEY = os.environ.get('SECRET_KEY') or 't0p s3cr3t'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
@@ -41,6 +45,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    MODE = "testing"
     SECRET_KEY = 'secret'
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
@@ -48,6 +53,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 't0p s3cr3t'
+    MODE = "production"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
