@@ -10,8 +10,12 @@ from .forms import Operation_StatusForm
 @operation_statuses.route('/')
 @login_required
 def index():
-    operation_status_list = Operation_Status.query.order_by(Operation_Status.id.desc())
-    return render_template('operation_statuses/index.html', operation_statuses=operation_status_list)
+    page = request.args.get('page', 1, type=int)
+    pagination = Operation_Status.query.order_by(Operation_Status.id.desc()).paginate(
+        page, per_page=current_app.config['OPERATION_STATUSES_PER_PAGE'],
+        error_out=False)
+    operation_status_list = pagination.items
+    return render_template('operation_statuses/index.html', operation_statuses=operation_status_list, pagination=pagination)
 
 @operation_statuses.route('/<int:id>')
 @login_required
@@ -54,7 +58,7 @@ def edit(id):
     operation_status = Operation_Status.query.get_or_404(id)
     if not current_user.is_admin:
         abort(403)
-    
+
     unit_choices = [(unicode(unit.id), unicode("[{symbol}] - {name}".format(symbol=unit.symbol, name=unit.name))) for unit in Unit.query.order_by(Unit.id.asc())]
     form = Operation_StatusForm(unit_choices)
     if form.validate_on_submit():

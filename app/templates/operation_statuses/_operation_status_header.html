@@ -1,7 +1,11 @@
 <tr>
 	<td><a href="{{ url_for('operation_statuses.edit', id=operation_status.id) }}">{{ operation_status.id }}</a></td>
 	<td><a href="{{ url_for('operation_statuses.operation_status', id=operation_status.id) }}">{{ operation_status.name }}</a></td>
+	{% if operation_status.unit %}
 	<td><a href="{{ url_for('units.unit', id=operation_status.unit.id) }}">{{ operation_status.unit.name }} [{{ operation_status.unit.symbol }}]</a></td>
+    {% else %}
+	<td>{{ _('undefined value') }}</td>
+	{% endif %}
 	<td>{{ operation_status.description }}</td>
 	<td>
 	    {% if not current_user.is_admin  %}

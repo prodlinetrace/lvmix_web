@@ -11,7 +11,7 @@ from .forms import Operation_TypeForm
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Operation_Type.query.paginate(
+    pagination = Operation_Type.query.order_by(Operation_Type.id.desc()).paginate(
         page, per_page=current_app.config['OPERATION_TYPES_PER_PAGE'],
         error_out=False)
     operation_type_list = pagination.items

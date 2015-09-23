@@ -11,7 +11,7 @@ from .forms import StationForm
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Station.query.paginate(
+    pagination = Station.query.order_by(Station.id.desc()).paginate(
         page, per_page=current_app.config['STATIONS_PER_PAGE'],
         error_out=False)
     station_list = pagination.items
