@@ -16,11 +16,10 @@ class Config:
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('en', 'English'), ('pl', 'Polish'))
-    VERSION = '0.4.1'
+    VERSION = '0.4.2'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'en'
     MODE = False
-    LANG='jp'
 
     STATION_STATUS_CODES = {
         0: {"result": "UNDEFINED", "desc": "status undefined (not present in database)"},
