@@ -15,7 +15,7 @@ def index():
     per_page = current_app.config['OPERATION_TYPES_PER_PAGE']
     total = Operation_Type.query.count()
     operation_types = Operation_Type.query.order_by(Operation_Type.id.desc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='operation_types', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='operation_types', per_page=per_page)
     return render_template('operation_types/index.html', operation_types=operation_types, pagination=pagination)
     
 

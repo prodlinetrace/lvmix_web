@@ -15,7 +15,7 @@ def index():
     per_page = current_app.config['USERS_PER_PAGE']
     total = User.query.count()
     users = User.query.order_by(User.id.desc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='users', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='users', per_page=per_page)
     return render_template('users/index.html', users=users, pagination=pagination)
     
 @users.route('/<username>')
@@ -26,7 +26,7 @@ def user(username):
     per_page = current_app.config['COMMENTS_PER_PAGE']
     total = user.comments.count()
     comments = user.comments.paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page)
     return render_template('users/user.html', user=user, comments=comments, pagination=pagination)
     
     

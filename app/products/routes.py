@@ -13,7 +13,7 @@ def index():
     per_page = current_app.config['PRODUCTS_PER_PAGE']
     total = Product.query.count()
     products = Product.query.order_by(Product.date_added.desc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='products', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='products', per_page=per_page)
     return render_template('products/index.html', products=products, pagination=pagination)
 
 @products.route('/find_product', methods=['GET', 'POST'])
@@ -47,7 +47,7 @@ def product(id):
     per_page = current_app.config['COMMENTS_PER_PAGE']
     total = product.comments.count()
     comments = product.comments.order_by(Comment.timestamp.asc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page)
     stations = {}
     headers = {}
     if current_user.is_authenticated():

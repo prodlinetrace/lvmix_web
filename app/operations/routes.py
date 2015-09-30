@@ -13,7 +13,7 @@ def index():
     per_page = current_app.config['OPERATIONS_PER_PAGE']
     total = Operation.query.count()
     operations = Operation.query.order_by(Operation.id.desc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='operations', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='operations', per_page=per_page)
     return render_template('operations/index.html', operations=operations, pagination=pagination)
 
 @operations.route('/delete/<int:id>', methods=['GET', 'POST'])

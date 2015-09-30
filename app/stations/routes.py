@@ -15,7 +15,7 @@ def index():
     per_page = current_app.config['STATIONS_PER_PAGE']
     total = Station.query.count()
     stations = Station.query.order_by(Station.id.desc()).paginate(page, per_page, False).items
-    pagination = Pagination(page=page, total=total, record_name='stations', per_page=per_page, prev_label=gettext(u'Older'), next_label=gettext(u'Newer'))
+    pagination = Pagination(page=page, total=total, record_name='stations', per_page=per_page)
     return render_template('stations/index.html', stations=stations, pagination=pagination)
     
     
