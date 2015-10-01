@@ -26,7 +26,7 @@ class ProductForm(Form):
         product.serial = self.serial.data
         product.year = self.year.data
         product.week = self.week.data
-        product.date_added = self.date.data 
+        product.date_added = self.date.data
 
 
 class CommentForm(Form):
@@ -35,6 +35,10 @@ class CommentForm(Form):
 
 
 class FindProductForm(Form):
-    type = IntegerField(lazy_gettext('Product Type'), validators=[Required()])
+    type = SelectField(lazy_gettext('Product Type'), validators=[Required()])
     serial = IntegerField(lazy_gettext('Serial Number'), validators=[Required()])
     submit = SubmitField(lazy_gettext('Submit'))
+
+    def __init__(self, type_choices):
+        Form.__init__(self)
+        self.type.choices = type_choices

@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, abort, request, make_response, url_for, render_template
-
+import json
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from .. import db, auto, cfg
@@ -38,6 +38,16 @@ def get_products():
     In order to get list of all products please run HTTP GET on: http://localhost:5000/api/product
     """
     return jsonify(json_list=[i.serialize for i in Product.query.all()])
+
+
+@rest.route('/autocomplete/<product_type>', methods=['GET'])
+@auto.doc()
+def autocomplete(product_type):
+    results = []
+    search = request.args.get('term')
+    if search is None:
+        search = ""
+    return json.dumps([str(p.serial) for p in Product.query.all() if str(p.serial).startswith(search)  if str(p.type) == str(product_type)])
 
 
 @rest.route('/product/<int:id>', methods=['GET'])

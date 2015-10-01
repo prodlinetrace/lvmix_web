@@ -18,7 +18,11 @@ def index():
 
 @products.route('/find_product', methods=['GET', 'POST'])
 def find_product():
-    form = FindProductForm()
+    type_query = db.session.query(Product.type.distinct().label("type"))
+    type_choices = [(unicode(row.type), unicode(row.type)) for row in type_query.all()]
+    type_choices.insert(0, ("", "Select Product Type"))
+    form = FindProductForm(type_choices)
+
     if form.validate_on_submit():
         result = Product.query.filter_by(type=form.type.data).filter_by(serial=form.serial.data).first()
         if result is not None:
@@ -53,7 +57,7 @@ def product(id):
     if current_user.is_authenticated():
         headers['X-XSS-Protection'] = '0'
     return render_template('products/product.html', product=product, form=form, comments=comments, pagination=pagination), 200, headers
-    
+
 @products.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_product(id):

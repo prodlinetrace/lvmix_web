@@ -7,3 +7,36 @@
 </div>
 {{ wtf.quick_form(form) }}
 {% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css') }}" />
+	<script src="{{ url_for('static', filename='jquery-ui.js') }}"></script>
+
+	<script type="text/javascript">
+		var product_type = $('#type').value;
+
+		$('#type').change(function() {
+			var product_type = this.value;
+			autocomplete_setup(product_type);
+		});
+
+		function autocomplete_setup(product_type) {
+			var cache = {};
+			$( "#serial" ).autocomplete({
+				minLength: 1,
+				source: function( request, response ) {
+					var term = request.term;
+					if ( term in cache ) {
+						response( cache[ term ] );
+						return;
+					}
+					$.getJSON( "/api/autocomplete/" + product_type, request, function( data, status, xhr ) {
+						cache[ term ] = data;
+						response( data );
+					});
+				}
+			});
+		}
+      </script>
+{% endblock %}
