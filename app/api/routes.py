@@ -13,12 +13,6 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-def get_product_id(_type, _serial):
-    """
-    returns product id based on product_type and serial_number.
-    It is used within Product table.
-    """
-    return pow(10, 8) * _type + _serial
 
 @rest.errorhandler(400)
 def bad_request(error):
@@ -50,14 +44,14 @@ def autocomplete(product_type):
     return json.dumps([str(p.serial) for p in Product.query.all() if str(p.serial).startswith(search)  if str(p.type) == str(product_type)])
 
 
-@rest.route('/product/<int:id>', methods=['GET'])
+@rest.route('/product/<id>', methods=['GET'])
 @auto.doc()
 def get_product(id):
     """
     Gets the specific product identified by id (serial number) from database.
     In order to get product with id 1234 please run HTTP GET on: http://localhost:5000/api/product/1234
     """
-    product = Product.query.filter_by(id=int(id)).first_or_404()
+    product = Product.query.filter_by(id=str(id)).first_or_404()
     if product is None:
         abort(404)
     return jsonify(product.serialize)
@@ -71,15 +65,15 @@ def add_product():
     In order to create new product please run HTTP POST with following data on: http://localhost:5000/api/product
 
     Product Id is created as by following formula:
-    product_id = type * 10^8 + serial
+    product_id = type + serial + week + year
 
     Content Type: application/json
     Content:
     {
-        "type": 1234567890,
-        "serial": 654321,
-        "week": 42,
-        "year": 15
+        "type": "1234567890",
+        "serial": "654321",
+        "week": "42",
+        "year": "15"
     }
     """
     if not request.json:
@@ -92,21 +86,21 @@ def add_product():
             abort(400)
 
     for key in ['type', 'serial', 'week', 'year']:  # check if keys are type of Int
-        if not isinstance(request.json[key], six.integer_types):
+        if not isinstance(request.json[key], six.string_types):
             logger.error("key: %s is not type of Int in request %s" % (key, repr(request.json)))
             abort(400)
 
-    product_id = get_product_id(request.json['type'], request.json['serial'])
-    p = Product.query.filter_by(id=int(product_id)).first()
+    product_id = str(Product.calculate_product_id(type, serial, week, year))
+    p = Product.query.filter_by(id=product_id).first()
     if p is not None:
-        logger.warning("product with id: %d is already present in product database. skipping." % (product_id))
+        logger.warning("product with id: {id} is already present in product database. skipping.".format(id=product_id))
         abort(400)
 
     new_prod = Product(
-        int(request.json['type']),
-        int(request.json['serial']),
-        int(request.json['week']),
-        int(request.json['year']),
+        request.json['type'],
+        request.json['serial'],
+        request.json['week'],
+        request.json['year'],
     )
     db.session.add(new_prod)
     db.session.commit()
@@ -115,14 +109,14 @@ def add_product():
 
 
 # method not allowed see: http://flask-restless.readthedocs.org/en/latest/customizing.html
-@rest.route('/product/<int:id>', methods=['DELETE'])
+@rest.route('/product/<id>', methods=['DELETE'])
 @auto.doc()
 def delete_product(id):
     """
     Deletes product from database.
     To delete product with id 2666 please send http DELETE to: http://localhost:5000/api/product/2666
     """
-    product = Product.query.filter_by(id=int(id)).first()
+    product = Product.query.filter_by(id=str(id)).first()
     if product is None:
         abort(404)
     db.session.delete(product)
@@ -131,7 +125,7 @@ def delete_product(id):
 
 
 # method not allowed see: http://flask-restless.readthedocs.org/en/latest/customizing.html
-@rest.route('/product/<int:id>', methods=['PUT'])
+@rest.route('/product/<id>', methods=['PUT'])
 @auto.doc()
 def update_product(id):
     """
@@ -140,10 +134,10 @@ def update_product(id):
     Content Type: application/json
     Content:
         {
-        "type": 1,
-        "serial": 2,
-        "week": 3,
-        "year": 4
+        "type": "1",
+        "serial": "2",
+        "week": "3",
+        "year": "4"
         }
     """
     product = Product.query.filter_by(id=int(id)).first()
@@ -153,7 +147,7 @@ def update_product(id):
             abort(400)
 
     for key in ['type', 'serial', 'week', 'year']:  # check if keys are type of Int
-        if not isinstance(request.json[key], six.integer_types):
+        if not isinstance(request.json[key], six.string_types):
             logger.error("key: %s is not type of Int in request %s" % (key, repr(request.json)))
             abort(400)
 
@@ -261,7 +255,7 @@ def get_status(id):
     return jsonify(status.serialize)
 
 
-@rest.route('/status/product/<int:product_id>', methods=['GET'])
+@rest.route('/status/product/<product_id>', methods=['GET'])
 @auto.doc()
 def get_status_product(product_id):
     """
@@ -270,10 +264,10 @@ def get_status_product(product_id):
     This will return status information from all stations.
     :param product_id: product_id (serial number) of given status
     """
-    status = Status.query.filter_by(product_id=int(product_id)).all()
+    status = Status.query.filter_by(product_id=str(product_id)).all()
     if len(status) == 0:
         abort(404)
-    return jsonify(json_list=[i.serialize for i in Status.query.filter_by(product_id=int(product_id)).all()])
+    return jsonify(json_list=[i.serialize for i in Status.query.filter_by(product_id=str(product_id)).all()])
 
 
 @rest.route('/status/station/<int:station_id>', methods=['GET'])
@@ -292,20 +286,20 @@ def get_status_station(station_id):
     return jsonify(json_list=[i.serialize for i in Status.query.filter_by(station_id=int(station_id)).all()])
 
 
-@rest.route('/status/station/<int:station_id>/product/<int:product_id>', methods=['GET'])
+@rest.route('/status/station/<int:station_id>/product/<product_id>', methods=['GET'])
 @auto.doc()
 def get_status_station_product(station_id, product_id):
     """
     Get status information for given station_id and product_id.
-    In order to get assembly status for station with id 21 and product id 123456789000123456 please run HTTP GET on: http://localhost:5000/api/status/station/21/product/123456789000123456
+    In order to get assembly status for station with id 21 and product id 464006201000000001 please run HTTP GET on: http://localhost:5000/api/status/station/21/product/464006201000000001
     This will return all status information for given criteria.
     :param station_id: station_id of given status
-    :param product_id: product_id (serial number) of given status
+    :param product_id: product_id (string) of given status
     """
 
-    statuses = Status.query.filter_by(station_id=int(station_id)).filter_by(product_id=int(product_id)).order_by('id').all()
+    statuses = Status.query.filter_by(station_id=int(station_id)).filter_by(product_id=product_id).order_by('id').all()
     if len(statuses) == 0:
-        logger.error("status not found for Station ID: %d Product Id %d" % (station_id, product_id))
+        logger.error("status not found for Station ID: {station_id} Product Id: {product_id}".format(station_id=station_id, product_id=product_id))
         abort(404)
         return
     if len(statuses) > 1:
@@ -322,21 +316,6 @@ def get_status_station_product(station_id, product_id):
     return jsonify(status.serialize)
 
 
-@rest.route('/status/station/<int:station_id>/type/<int:product_type>/serial/<int:serial_number>', methods=['GET'])
-@auto.doc()
-def get_status_station_type_serial(station_id, product_type, serial_number):
-    """
-    Get the last status information for given station_id, product_type and serial_number.
-    In order to get assembly status for station with id 21 prod_type 1234567890 and serial number 123456 please run HTTP GET on: http://localhost:5000/api/status/station/21/type/1234567890/serial/123456
-    This will return last status information for given criteria.
-    :param station_id: station_id of given status
-    :param product_type: product_type of given status
-    :param serial_number: serial_number of given status
-    """
-
-    product_id = get_product_id(product_type, serial_number)
-    return get_status_station_product(station_id, product_id)
-
 
 @rest.route("/status", methods=['POST'])
 @auto.doc()
@@ -351,14 +330,7 @@ def add_status():
     {
         "status": 1,
         "station_id": 10,
-        "product_type": 1234567890,
-        "serial_number": 123456
-    }
-    or
-    {
-        "status": 1,
-        "station_id": 10,
-        "product_id": 16666,
+        "product_id": "16666",
         "date_time": "2015-02-11 22:49:37.496000"
     }
 
@@ -378,26 +350,15 @@ def add_status():
             abort(400)
 
     if "product_id" in request.json:
-        if isinstance(request.json["product_id"], six.integer_types):
+        if isinstance(request.json["product_id"], six.string_types):
             product_id = request.json["product_id"]
         else:
             logger.error("key: %s is not type of Int in request %s" % ("product_id", repr(request.json)))
             abort(400)
-    else:
-        for key in ['product_type', 'serial_number']:  # check if keys are type of Int
-            if key not in request.json:
-                logger.error("required key: %s missing in request %s" % (key, repr(request.json)))
-                abort(400)
-                return
-            if not isinstance(request.json[key], six.integer_types):
-                logger.error("key: %s is not type of Int in request %s" % (key, repr(request.json)))
-                abort(400)
-                return
-        product_id = get_product_id(request.json["product_type"], request.json["serial_number"])
 
-    p = Product.query.filter_by(id=int(product_id)).first()
+    p = Product.query.filter_by(id=str(product_id)).first()
     if p is None:
-        logger.warning("product with id: %d is not present in product database" % (product_id))
+        logger.warning("product with id: {product_id} is not present in product database".format(product_id=product_id))
 
     date_time = get_current_datetime()
     if "date_time" in request.json:
@@ -444,9 +405,9 @@ def get_current_reference():
     last_status = Status.query.order_by('-id').first()
     if last_status is None:
         return str(0)
-    product = Product.query.filter_by(id=int(last_status.product_id)).first()
+    product = Product.query.filter_by(id=str(last_status.product_id)).first()
     if product is not None:
-        cur_ref = int(product.type)
+        cur_ref = str(product.type)
     else:
         cur_ref = 0
 

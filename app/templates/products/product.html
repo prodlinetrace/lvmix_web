@@ -20,7 +20,7 @@
 	    {% endif %}
 	    {% if product.year %}
 		    <div class="product-main">
-		    	{{ _('Year') }}: {{ (2000 + product.year) | safe }}
+		    	{{ _('Year') }}: 20{{ (product.year| string) | safe }}
 	    	</div>
 	    {% endif %}
 	    {% if product.week %}

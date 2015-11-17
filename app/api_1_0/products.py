@@ -7,7 +7,7 @@ from . import webapi
 from .errors import forbidden, bad_request
 from flask.ext.babel import gettext
 
-@webapi.route('/products/<int:id>', methods=['DELETE'])
+@webapi.route('/products/<id>', methods=['DELETE'])
 def delete_product(id):
     product = Product.query.get_or_404(id)
     if not g.current_user.is_admin:
