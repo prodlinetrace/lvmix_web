@@ -402,7 +402,7 @@ def get_current_reference():
     URL: http://localhost:5000/api/current_reference
     """
 
-    last_status = Status.query.order_by('-id').first()
+    last_status = Status.query.filter_by(station_id=11).order_by('-id').first()
     if last_status is None:
         return str(0)
     product = Product.query.filter_by(id=str(last_status.product_id)).first()

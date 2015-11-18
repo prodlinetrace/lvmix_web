@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 
 class User(UserMixin, db.Model):
@@ -146,8 +146,8 @@ class Product(db.Model):
         return Product.calculate_product_id(prodtype, serial, week, year)
 
     @staticmethod
-    def calculate_product_id(_type=None, _serial=None, _week="", _year=""):
-        return str(_type).zfill(10) + str(_serial).zfill(6) + str(_week).zfill(2) + str(_year).zfill(2)
+    def calculate_product_id(_type="", _serial="", _week="", _year=""):
+        return "{type}{serial}{week}{year}".format(type=str(_type).zfill(10), serial=str(_serial).zfill(6), week=str(_week).zfill(2) , year=str(_year).zfill(2))
 
     @property
     def serialize(self):

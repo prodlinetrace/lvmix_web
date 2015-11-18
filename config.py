@@ -15,7 +15,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('pl', 'Polish'), ('en', 'English'))
-    VERSION = '0.5.2'
+    VERSION = '0.5.3'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'en'
     MODE = False
