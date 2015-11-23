@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 
 class User(UserMixin, db.Model):
@@ -204,8 +204,9 @@ class Status(db.Model):
     product_id = db.Column(db.String(20), db.ForeignKey('product.id'))
     station_id = db.Column(db.Integer, db.ForeignKey('station.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    fail_step = db.Column(db.String(255))
 
-    def __init__(self, status, product, station, user=None, date_time=None):
+    def __init__(self, status, product, station, user=None, date_time=None, fail_step=''):
         self.status = status
         self.product_id = product
         self.station_id = station
@@ -213,6 +214,7 @@ class Status(db.Model):
         if date_time is None:
             date_time = datetime.now()
         self.date_time = str(date_time)
+        self.fail_step = fail_step
 
     def __repr__(self):
         return '<Status Id: {id} for Product: {product} Station: {station} Status: {status}>'.format(id=self.id, product=self.product_id, station=self.station_id, status=self.status)
@@ -227,6 +229,7 @@ class Status(db.Model):
             'station_id': self.station_id,
             'user_id': self.user_id,
             'date_time': self.date_time,
+            'fail_step': fail_step,
         }
 
 

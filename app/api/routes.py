@@ -316,7 +316,6 @@ def get_status_station_product(station_id, product_id):
     return jsonify(status.serialize)
 
 
-
 @rest.route("/status", methods=['POST'])
 @auto.doc()
 def add_status():
@@ -331,7 +330,8 @@ def add_status():
         "status": 1,
         "station_id": 10,
         "product_id": "16666",
-        "date_time": "2015-02-11 22:49:37.496000"
+        "date_time": "2015-02-11 22:49:37.496000",
+        "fail_step": "fail step description"
     }
 
     """
@@ -353,7 +353,7 @@ def add_status():
         if isinstance(request.json["product_id"], six.string_types):
             product_id = request.json["product_id"]
         else:
-            logger.error("key: %s is not type of Int in request %s" % ("product_id", repr(request.json)))
+            logger.error("key: %s is not type of String in request %s" % ("product_id", repr(request.json)))
             abort(400)
 
     p = Product.query.filter_by(id=str(product_id)).first()
@@ -365,11 +365,17 @@ def add_status():
         if isinstance(request.json["date_time"], six.text_type):
             date_time = request.json['date_time']
 
+    fail_step = ""
+    if "fail_step" in request.json:
+        if isinstance(request.json["fail_step"], six.text_type):
+            fail_step = request.json["fail_step"]
+
     new_status = Status(
         request.json['status'],
         product_id,
         request.json['station_id'],
-        date_time
+        date_time,
+        fail_step
     )
     db.session.add(new_status)
     try:
