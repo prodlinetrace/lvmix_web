@@ -371,11 +371,11 @@ def add_status():
             fail_step = request.json["fail_step"]
 
     new_status = Status(
-        request.json['status'],
-        product_id,
-        request.json['station_id'],
-        date_time,
-        fail_step
+        status=request.json['status'],
+        product=product_id,
+        station=request.json['station_id'],
+        date_time=date_time,
+        fail_step=fail_step
     )
     db.session.add(new_status)
     try:
