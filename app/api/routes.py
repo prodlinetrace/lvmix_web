@@ -307,7 +307,7 @@ def get_status_station_product(station_id, product_id):
         if status.status == 1:
             # the status is ok after repetition
             status.status = 5
-        if status.status == 0:
+        if status.status == 2:
             # the status is nok after repetition
             status.status = 6
     if len(statuses) == 1:
