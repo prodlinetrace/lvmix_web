@@ -87,6 +87,9 @@ def create_app(config_name):
     from .units import units as units_blueprint
     app.register_blueprint(units_blueprint, url_prefix='/app/units')
 
+    from .variants import variants as variants_blueprint
+    app.register_blueprint(variants_blueprint, url_prefix='/app/variants')
+
     from .statistics import statistics as statistics_blueprint
     app.register_blueprint(statistics_blueprint, url_prefix='/app/statistics')
 

@@ -3,6 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
+    NAME = 'ProdLineTraceWeb'
     SECRET_KEY = os.environ.get('SECRET_KEY')
     USERS_PER_PAGE = 20
     STATIONS_PER_PAGE = 100
@@ -15,10 +16,12 @@ class Config:
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('pl', 'Polish'), ('en', 'English'))
-    VERSION = '0.5.4'
+    VERSION = '0.6.0'
     DBMODEL_VERSION = "None"
-    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_LOCALE = 'pl'
     MODE = False
+    COMMENTS = True
+    CSV = True
 
     STATION_STATUS_CODES = {
         0: {"result": "UNDEFINED", "desc": "status undefined (not present in database)"},

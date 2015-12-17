@@ -1,0 +1,11 @@
+<tr>
+	<td class="id right"><a href="{{ url_for('variants.edit', id=variant.id) }}">{{ variant.id }}</a></td>
+	<td><a href="{{ url_for('variants.variant', id=variant.id) }}">{{ variant.name }}</a></td>
+	<td>{{ variant.description }}</td>
+	<td class="extras">
+	    {% if current_user.is_admin  %}
+	    <a class="btn btn-danger pull-right" href="{{ url_for('variants.delete', id=variant.id) }}">{{ _('Delete') }}</a>
+	    <a class="btn btn-primary pull-right" href="{{ url_for('variants.edit', id=variant.id) }}">{{ _('Edit') }}</a>
+	    {% endif %}
+	</td>
+</tr>

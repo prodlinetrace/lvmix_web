@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header variant-profile">
+    {% if current_user.is_admin %}<a class="btn btn-default pull-right" href="{{ url_for('variants.edit', id=variant.id) }}">{{ _('Edit') }}</a>{% endif %}
+    <h1>{{ _('Details for') }}: {{ variant.name }}</h1>
+    <p>
+    	<ul>
+	    	<p>{{ _('Id') }}: {{ variant.id }}</p>
+	    	<p>{{ _('Name') }}: {{ variant.name }}</p>
+	    	{% if variant .description %}<p>{{ _('Description') }}: {{ variant.description }}</p>{% endif %}
+    	</ul>
+    </p>
+
+</div>
+{% endblock %}

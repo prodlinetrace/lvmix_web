@@ -5,6 +5,12 @@
 	{{ pagination.links }}
 </ul>
 	{% include "products/_products.html" %}
+	{% if config.CSV %}	
+		<div class="csv-export">
+			<a href="{{ url_for('products.download', start_date=request.args.get('start_date'), end_date=request.args.get('end_date'), status=request.args.get('status'), operation=request.args.get('operation')) | safe}}" title="{{products.download | safe}}"><img src="/static/csv.png" height="42" width="42" alt="export to csv" title="export to csv"/></a>
+		</div>
+	{% endif %}
+	
 <ul class="pager">
 	{{ pagination.info }}
 	{{ pagination.links }}
@@ -21,9 +27,11 @@
 	        .tablesorter({
 	        	theme: 'blue',
 	            	headers: {
-	                	3: { sorter:'text' } // force third column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+	            		// force some columns as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+	                	3: { sorter:'text' },
+	                	4: { sorter:'text' },
 	            	},
-	            	sortList: [[3,1]],  // sort by date_added on load (descending)
+	            	sortList: [[4,1]],  // sort by date_added on load (descending)
 	        		widgets: ["zebra", "filter"],
 	            	widgetOptions: {
 	            	      filter_columnFilters: true,
