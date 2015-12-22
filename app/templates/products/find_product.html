@@ -10,7 +10,7 @@
 	{{ wtf.form_errors(basic_search_form) }}
 	{{ wtf.form_field(basic_search_form.type) }}
 	{{ wtf.form_field(basic_search_form.serial) }}
-	{{ detailed_search_form.csrf_token() }}
+	{{ basic_search_form.csrf_token() }}
 	{{ wtf.form_field(basic_search_form.submit) }}
 </form>
 
