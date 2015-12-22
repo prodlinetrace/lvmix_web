@@ -83,9 +83,9 @@ def find_product():
     type_query = db.session.query(Product.type.distinct().label("type"))
     type_choices = [(unicode(row.type), unicode(row.type)) for row in type_query.all()]
     type_choices.insert(0, ("", "Select Product Type"))
+    basic_search_form = FindProductForm(type_choices)
     variant_choices = [(unicode(row.id), unicode(row.name)) for row in Variant.query.all()]
     variant_choices.insert(0, ("", "Select Variant"))
-    basic_search_form = FindProductForm(type_choices)
     detailed_search_form = FindProductsRangeForm(variant_choices)
 
     if basic_search_form.validate_on_submit():
