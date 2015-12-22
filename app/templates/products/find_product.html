@@ -5,44 +5,27 @@
 <div class="page-header">
     <h1>{{ _('Find Product') }}</h1>
 </div>
-{{ wtf.quick_form(basic_search_form) }}
-
+<h3>{{ _('Basic Product Search') }}</h3>
+<form class="form " method="post" role="form">
+	{{ wtf.form_errors(basic_search_form) }}
+	{{ wtf.form_field(basic_search_form.type) }}
+	{{ wtf.form_field(basic_search_form.serial) }}
+	{{ detailed_search_form.csrf_token() }}
+	{{ wtf.form_field(basic_search_form.submit) }}
+</form>
 
 <br/>
 <h3>{{ _('Detailed Product Search') }}</h3>
-<form class="form form-inline" method="post" role="form">
+<form class="form " method="post" role="form">
+	{{ wtf.form_errors(detailed_search_form) }}
 	<div class="input-daterange input-group" id="datepicker">
-		{{ detailed_search_form.hidden_tag() }}
-		{{ wtf.form_errors(detailed_search_form) }}
-		<div>
-			<label class="col-sm-2 control-label" for="start">{{ _('Start Date') }}</label>
-			<div class="col-sm-2">
-				<input type="text" class="input-sm form-control" name="start" />
-			</div>
-		</div>
-		<br/><br/>
-		<div>
-			<label class="col-sm-2 control-label " for="end">{{ _('End Date') }}</label>
-			<div class="col-sm-2">
-				<input type="text" class="input-sm form-control" name="end" />
-			</div>
-		</div>
-	</div>
-	<br/>
-	<div>
-		<label class="col-sm-2 control-label " for="status_failed">{{ _('Status Failed') }}</label>
-		<div class="col-sm-2">
-			<input type="checkbox" name="status_failed"/>
-		</div>
-	</div>
-	<br/><br/>
-	<div>
-		<label class="col-sm-2 control-label " for="operation_failed">{{ _('Operation Failed') }}</label>
-		<div class="col-sm-2">
-			<input type="checkbox" name="operation_failed"/>
-		</div>
-	</div>
-	<br/><br/>
+		{{ wtf.form_field(detailed_search_form.start) }}
+		{{ wtf.form_field(detailed_search_form.end) }}
+	</div>		
+	{{ wtf.form_field(detailed_search_form.variant_id) }}
+	{{ wtf.form_field(detailed_search_form.status_failed) }}
+	{{ wtf.form_field(detailed_search_form.operation_failed) }}
+	{{ detailed_search_form.csrf_token() }}
 	{{ wtf.form_field(detailed_search_form.submit) }}
 </form>
 

@@ -10,7 +10,7 @@
         {% if index %}
         	<span class="label label-default">#{{ index }}</span>
         {% endif %}
-        <b>{{comment.author.name}}</b> {{ _('commented') }} {{ moment(comment.timestamp).fromNow() }}:
+        <b>{{comment.author.name}}</b> {{ _('commented') }} {{ comment.timestamp }}:
 </p>
 <div class="comment-body">
     {{ comment.body_html | safe }}

@@ -16,6 +16,7 @@ def index():
     end_date = request.args.get('end_date')
     status = request.args.get('status')
     operation = request.args.get('operation')
+    variant_id = request.args.get('variant_id')
     per_page = current_app.config['PRODUCTS_PER_PAGE']
     query = Product.query
     if start_date:
@@ -28,6 +29,8 @@ def index():
     if operation:
         # include in the list in case one of operations is equal to searched operation_id
         query = query.filter(Product.operations.any(Operation.operation_status_id==operation))
+    if variant_id:
+        query = query.filter(variant_id == Product.variant_id)
 
     total = query.count()
     products = query.order_by(Product.date_added.desc()).paginate(page, per_page, False).items
@@ -40,6 +43,7 @@ def download(start_date=None, end_date=None, status=None, operation=None):
     end_date = request.args.get('end_date')
     status = request.args.get('status')
     operation = request.args.get('operation')
+    variant_id = request.args.get('variant_id')
     query = Product.query
     if start_date and start_date!='':
         query = query.filter(start_date <= Product.date_added)
@@ -51,6 +55,8 @@ def download(start_date=None, end_date=None, status=None, operation=None):
     if operation and operation!='':
         # include in the list in case one of operations is equal to searched operation_id
         query = query.filter(Product.operations.any(Operation.operation_status_id==operation))
+    if variant_id:
+        query = query.filter(variant_id == Product.variant_id)
 
     csv_header = ['Id', 'Type', 'Serial', 'Variant', 'Date Added', 'Week', 'Year', 'Success Statuses', 'Failed Statuses', 'Success Operations', 'Failed Operations']
     buffer = StringIO()
@@ -77,8 +83,10 @@ def find_product():
     type_query = db.session.query(Product.type.distinct().label("type"))
     type_choices = [(unicode(row.type), unicode(row.type)) for row in type_query.all()]
     type_choices.insert(0, ("", "Select Product Type"))
+    variant_choices = [(unicode(row.id), unicode(row.name)) for row in Variant.query.all()]
+    variant_choices.insert(0, ("", "Select Variant"))
     basic_search_form = FindProductForm(type_choices)
-    detailed_search_form = FindProductsRangeForm()
+    detailed_search_form = FindProductsRangeForm(variant_choices)
 
     if basic_search_form.validate_on_submit():
         result = Product.query.filter_by(type=basic_search_form.type.data).filter_by(serial=basic_search_form.serial.data).first()
@@ -92,6 +100,7 @@ def find_product():
         end_date = detailed_search_form.end.data
         status = ""
         operation = ""
+        variant_id = detailed_search_form.variant_id.data
         query = Product.query
         if start_date:
             query = query.filter(start_date <= Product.date_added)
@@ -103,12 +112,16 @@ def find_product():
         if detailed_search_form.operation_failed.data:
             operation = 2
             query = query.filter(Product.operations.any(Operation.operation_status_id==operation))
+        if detailed_search_form.variant_id.data:
+            query = query.filter(detailed_search_form.variant_id.data == Product.variant_id)
+            
+            
         total = query.count()
         result = query.all()
         if result is not None:
-            flash(gettext(u'{number} products found with selected criteria.'.format(number=len(result), start=start_date, end=end_date)))
-            return redirect(url_for('products.index', start_date=start_date, end_date=end_date, status=status, operation=operation))
-        flash(gettext(u'No products are matching selected criteria.'.format(number=len(result), start=start_date, end=end_date)))
+            flash(gettext(u'{number} products found with selected criteria.'.format(number=len(result), start=start_date, end=end_date, variant_id=variant_id)))
+            return redirect(url_for('products.index', start_date=start_date, end_date=end_date, status=status, operation=operation, variant_id=variant_id))
+        flash(gettext(u'No products are matching selected criteria.'.format(number=len(result), start=start_date, end=end_date, variant_id=variant_id)))
 
     return render_template('products/find_product.html', basic_search_form=basic_search_form, detailed_search_form=detailed_search_form)
 
@@ -144,7 +157,9 @@ def edit_product(id):
     product = Product.query.get_or_404(id)
     if not current_user.is_admin and product.author != current_user:
         abort(403)
-    form = ProductForm()
+    variant_choices = [(unicode(row.id), unicode(row.name)) for row in Variant.query.order_by('id')]
+    variant_choices.insert(0, ("", "Select Variant"))
+    form = ProductForm(variant_choices)
     if form.validate_on_submit():
         form.to_model(product)
         db.session.add(product)

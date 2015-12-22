@@ -4,7 +4,7 @@ from wtforms.fields.html5 import DateTimeField
 from wtforms.validators import Required, NumberRange, InputRequired, Length
 from flask.ext.pagedown.fields import PageDownField
 from flask.ext.babel import gettext, lazy_gettext
-from wtforms.fields.simple import TextField, BooleanField
+from wtforms.fields.simple import BooleanField
 
 
 class ProductForm(Form):
@@ -13,6 +13,7 @@ class ProductForm(Form):
     year = StringField(lazy_gettext('Year Number'), validators=[Required(), Length(min=1, max=2)])
     week = StringField(lazy_gettext('Week Number'), validators=[Required(), Length(min=1, max=2)])
     date = DateTimeField(lazy_gettext('Date Added'), validators=[Required()])
+    variant_id = SelectField(lazy_gettext('Variant'), validators=[Required()])
     submit = SubmitField(lazy_gettext('Submit'))
 
     def from_model(self, product):
@@ -21,6 +22,7 @@ class ProductForm(Form):
         self.year.data = product.year
         self.week.data = product.week
         self.date.data = product.date_added
+        self.variant_id.data = product.variant_id
 
     def to_model(self, product):
         product.type = self.type.data
@@ -28,6 +30,11 @@ class ProductForm(Form):
         product.year = self.year.data
         product.week = self.week.data
         product.date_added = self.date.data
+        product.variant_id = self.variant_id.data
+
+    def __init__(self, variant_choices):
+        Form.__init__(self)
+        self.variant_id.choices = variant_choices
 
 
 class CommentForm(Form):
@@ -46,8 +53,13 @@ class FindProductForm(Form):
 
 
 class FindProductsRangeForm(Form):
-    start = TextField(lazy_gettext('From'))
-    end = TextField(lazy_gettext('To'))
+    start = StringField(lazy_gettext('From'))
+    end = StringField(lazy_gettext('To'))
     status_failed = BooleanField(lazy_gettext('Status Failed'))
     operation_failed = BooleanField(lazy_gettext('Operation Failed'))
+    variant_id = SelectField(lazy_gettext('Variant'))
     submit = SubmitField(lazy_gettext('Find'))
+
+    def __init__(self, variant_choices):
+        Form.__init__(self)
+        self.variant_id.choices = variant_choices
