@@ -10,8 +10,10 @@
             <th class="value">{{ _('Year') }}</th>
             <th class="value">{{ _('Success Statuses') }}</th>
             <th class="value">{{ _('Failed Statuses') }}</th>
+	    <!--
             <th class="value">{{ _('Success Operations') }}</th>
             <th class="value">{{ _('Failed Operations') }}</th>
+	    -->
             {% if config.COMMENTS %}
 	            <th class="value">{{ _('Comments') }}</th>
 	        {% endif %}
@@ -30,8 +32,6 @@
 			<td class="right">{{ product.year }}</td>
 			<td class="right">{{ product.statuses.filter(Status.status==1).count() }}</td>
 			<td class="right" {% if product.statuses.filter(Status.status==2).count() != 0 %} id="red" {% endif %}>{{ product.statuses.filter(Status.status==2).count() }}</td>
-			<td class="right">{{ product.operations.filter(Operation.operation_status_id==1).count() }}</td>
-			<td class="right" {% if product.operations.filter(Operation.operation_status_id==2).count() != 0 %} id="red" {% endif %}>{{ product.operations.filter(Operation.operation_status_id==2).count() }}</td>
 			{% if config.COMMENTS %}
    				<td class="right">
    					<div class="pull-right"><a href="{{ url_for('products.product', id=product.id) }}#comments">{{ product.comments.count() }}</a></div>
