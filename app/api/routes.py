@@ -408,6 +408,16 @@ def get_current_reference():
     URL: http://localhost:5000/api/current_reference
     """
 
+    sql_query = "select type from Product where id = (select product_id from Status where station_id=11 order by id DESC limit 1);"
+    results = db.engine.execute(sql_query)
+    # return first element
+    for row in results:
+        return str(row[0])
+
+    return str(0)
+    
+    #last_status = db.session.query(Status).filter(station_id=11).order_by('id').get()
+	#cur_product = db.session.query(Product).
     last_status = Status.query.filter_by(station_id=11).order_by('-id').first()
     if last_status is None:
         return str(0)
@@ -438,6 +448,28 @@ def get_serverstatus():
 
     return jsonify(serverstatus)
 
+	
+@rest.route("/serverstatus2", methods=['GET'])
+@auto.doc()
+def get_serverstatus2():
+    """
+    Get the current server status in JSON format.
+    Status contains:
+    - current date_time from PC
+    - currently processed product_type
+    URL: http://localhost:5000/api/serverstatus
+    """
+    begin = datetime.now()
+    ref = get_current_reference()
+    end = datetime.now()
+    elapsed = end - begin
+    serverstatus = {
+        'date_time': get_current_datetime(),
+        'current_reference': str(ref),
+        'elapsed': str(elapsed),
+    }
+
+    return jsonify(serverstatus)	
 
 @rest.route('/')
 def index(name=None):
