@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-__version__ = '0.5.2'
+__version__ = '0.5.3'
 
 
 class User(UserMixin, db.Model):
@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
     member_since = db.Column(db.DateTime(), default=datetime.now)
     avatar_hash = db.Column(db.String(32))
     comments = db.relationship('Comment', lazy='dynamic', backref='author')
-    status = db.relationship('Status', lazy='dynamic', backref='user', foreign_keys='Status.user_id')
+    #status = db.relationship('Status', lazy='dynamic', backref='user')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

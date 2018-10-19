@@ -1,9 +1,9 @@
 from StringIO import StringIO
 import csv
 from flask import render_template, flash, redirect, url_for, abort, request, current_app, make_response
-from flask.ext.login import login_required, current_user
-from flask.ext.babel import gettext
-from flask.ext.paginate import Pagination
+from flask_login import login_required, current_user
+from flask_babel import gettext
+from flask_paginate import Pagination
 from .. import db, babel, cfg
 from ..models import *
 from . import products
@@ -130,7 +130,7 @@ def product(id):
     product = Product.query.get_or_404(id)
     comment = None
     form = None
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         form = CommentForm()
         if form.validate_on_submit():
             comment = Comment(body=form.body.data, product=product, author=current_user)
@@ -147,7 +147,7 @@ def product(id):
     pagination = Pagination(page=page, total=total, record_name='comments', per_page=per_page)
     stations = {}
     headers = {}
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         headers['X-XSS-Protection'] = '0'
     return render_template('products/product.html', product=product, form=form, comments=comments, pagination=pagination, Status=Status, Operation=Operation), 200, headers
 

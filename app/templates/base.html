@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
             	<li><a href="{{ url_for('products.find_product') }}">{{ _('Find') }}</a></li>
-                {% if current_user.is_authenticated() %}
+                {% if current_user.is_authenticated %}
 	                	 <li><a href="{{ url_for('stations.index') }}">{{ _('Stations') }}</a></li>
 	                	 <li><a href="{{ url_for('operation_types.index') }}">{{ _('Operations') }}</a></li>
           	 	      	 <li><a href="{{ url_for('operation_statuses.index') }}">{{ _('Statuses') }}</a></li>
@@ -40,7 +40,7 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if not current_user.is_authenticated() %}
+                {% if not current_user.is_authenticated %}
         	        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                 {% else %}
         	        <li><a href="{{ url_for('users.user', login=current_user.login) }}">{{ _('Profile') }}</a></li>
