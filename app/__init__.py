@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_moment import Moment
 from flask_pagedown import PageDown
-from flask_autodoc import Autodoc
+from flask_selfdoc import Autodoc
 from flask_babel import Babel
 from config import config
 
