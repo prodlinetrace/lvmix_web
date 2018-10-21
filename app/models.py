@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-__version__ = '0.5.3'
+__version__ = '0.6.0'
 
 
 class User(UserMixin, db.Model):
@@ -85,8 +85,8 @@ class Comment(db.Model):
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    product_id = db.Column(db.String(20), db.ForeignKey('product.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    product_id = db.Column(db.String(20), db.ForeignKey('product.id'), index=True)
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -204,11 +204,11 @@ class Station(db.Model):
 
 class Status(db.Model):
     __tablename__ = 'status'
-    id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.Integer, db.ForeignKey('operation_status.id'))
+    id = db.Column(db.BigInteger, nullable=False, unique=True, index=True, primary_key=True, autoincrement=True)
+    status = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
     date_time = db.Column(db.String(40))
-    product_id = db.Column(db.String(20), db.ForeignKey('product.id'))
-    station_id = db.Column(db.Integer, db.ForeignKey('station.id'))
+    product_id = db.Column(db.String(20), db.ForeignKey('product.id'), index=True)
+    station_id = db.Column(db.Integer, db.ForeignKey('station.id'), index=True)
     user_id = db.Column(db.Integer)
     fail_step = db.Column(db.String(255))
 
@@ -241,24 +241,24 @@ class Status(db.Model):
 
 class Operation(db.Model):
     __tablename__ = 'operation'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    product_id = db.Column(db.String(20), db.ForeignKey('product.id'))
-    station_id = db.Column(db.Integer, db.ForeignKey('station.id'))
-    operation_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'))
-    operation_type_id = db.Column(db.Integer, db.ForeignKey('operation_type.id'))
+    id = db.Column(db.BigInteger, nullable=False, unique=True, index=True, primary_key=True, autoincrement=True)
+    product_id = db.Column(db.String(20), db.ForeignKey('product.id'), index=True)
+    station_id = db.Column(db.Integer, db.ForeignKey('station.id'), index=True)
+    operation_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
+    operation_type_id = db.Column(db.Integer, db.ForeignKey('operation_type.id'), index=True)
     date_time = db.Column(db.String(40))
     result_1 = db.Column(db.Float)
     result_1_max = db.Column(db.Float)
     result_1_min = db.Column(db.Float)
-    result_1_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'))
+    result_1_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
     result_2 = db.Column(db.Float)
     result_2_max = db.Column(db.Float)
     result_2_min = db.Column(db.Float)
-    result_2_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'))
+    result_2_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
     result_3 = db.Column(db.Float)
     result_3_max = db.Column(db.Float)
     result_3_min = db.Column(db.Float)
-    result_3_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'))
+    result_3_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
 
     def __init__(self, product, station, operation_status_id, operation_type_id, date_time, r1=None, r1_max=None, r1_min=None, r1_stat=None, r2=None, r2_max=None, r2_min=None, r2_stat=None, r3=None, r3_max=None, r3_min=None, r3_stat=None):
         self.product_id = product
@@ -321,7 +321,7 @@ class Operation_Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     description = db.Column(db.String(255))
-    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
+    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'), index=True)
     operations = db.relationship('Operation', lazy='dynamic', backref='operation_status',  foreign_keys='Operation.operation_status_id')
 
     result_1_status = db.relationship('Operation', lazy='dynamic', backref='result_1_status', foreign_keys='Operation.result_1_status_id')
