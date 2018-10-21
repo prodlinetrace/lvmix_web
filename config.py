@@ -16,7 +16,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI_PREFIX = 'sqlite:///'
     BOOTSTRAP_SERVE_LOCAL = True
     LANGUAGES = (('pl', 'Polish'), ('en', 'English'))
-    VERSION = '0.6.1'
+    VERSION = '0.6.2'
     DBMODEL_VERSION = "None"
     BABEL_DEFAULT_LOCALE = 'pl'
     MODE = False
@@ -36,6 +36,7 @@ class Config:
         99: {"result": "VALUEERROR", "desc": "Faulty value was passed. Unable to process data."},
     }
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
     MODE = "development"
@@ -43,6 +44,7 @@ class DevelopmentConfig(Config):
     #SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://trace:trace@localhost/trace_new?autocommit=true'
     PRODUCTS_PER_PAGE = 50
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class TestingConfig(Config):
@@ -50,12 +52,14 @@ class TestingConfig(Config):
     MODE = "testing"
     SECRET_KEY = 'secret'
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 't0p s3cr3t'
     MODE = "production"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://trace:trace@localhost/trace_new?autocommit=true'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 config = {
