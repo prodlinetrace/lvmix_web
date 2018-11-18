@@ -11,10 +11,6 @@
             <th class="value">{{ _('Proda Sync') }}</th>
             <th class="value">{{ _('Success Statuses') }}</th>
             <th class="value">{{ _('Failed Statuses') }}</th>
-	    <!--
-            <th class="value">{{ _('Success Operations') }}</th>
-            <th class="value">{{ _('Failed Operations') }}</th>
-	    -->
             {% if config.COMMENTS %}
 	            <th class="value">{{ _('Comments') }}</th>
 	        {% endif %}
@@ -35,7 +31,7 @@
 	    	 {% if product.prodasync == 0 %} <td class="right" id="yellow">{{ _('UNDEF') }}</td> {% endif %}
 	    	 {% if product.prodasync == 1 %} <td class="right" id="green">{{ _('OK') }}</td> {% endif %}
 	    	 {% if product.prodasync == 2 %} <td class="right" id="red">{{ _('NOK') }}</td> {% endif %}
-	    	 {% if product.prodasync == 9 %} <td class="right" id="cyan">{{ _('WAITING') }}</td> {% endif %}			
+	    	 {% if product.prodasync == 9 %} <td class="right" id="cyan">{{ _('WAITING') }}</td> {% endif %}
 			
 			<td class="right">{{ product.status_count_good }}</td>
 			<td class="right" {% if product.status_count_bad > 0 %} id="red" {% endif %}>{{ product.status_count_bad }}</td>

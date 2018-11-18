@@ -78,7 +78,7 @@
 	    </tr>
 		<tr>
 			<td>
-	    		{{ _('Sucessfull Statuses') }}
+	    		{{ _('Sucessfull Statuses') }}:
 			</td>
 			<td>
 	    		<span {% if  product.status_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}>{{ product.status_count_good }} {{ _('out of') }} {{ product.status_count }}</span>
@@ -86,10 +86,23 @@
 	    </tr>
 		<tr>
 			<td>
-   	    		{{ _('Sucessfull Operations') }}
+   	    		{{ _('Sucessfull Operations') }}:
 			</td>
 			<td>
    	    		 <span {% if  product.operation_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}> {{ product.operation_count_good }} {{ _('out of') }} {{ product.operation_count }}</span>
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+   	    		{{ _('Electronic Stamp') }}:
+			</td>
+			<td>
+				{% if product.electronic_stamp %}
+					{% if  product.electronic_stamp.status == 1 %} <span id="green">{{_('OK')}} @ {{product.electronic_stamp.datetime}} {{ _('by') }} <a href="{{  url_for('users.user', login=product.electronic_stamp.user.login) |safe}}" title="{{product.electronic_stamp.user.name | safe}}">{{ product.electronic_stamp.user.name }}</a></span>{% endif %}
+					{% if  product.electronic_stamp.status == 2 %} <span id="red">{{_('NOK')}} @ {{product.electronic_stamp.datetime}} {{ _('by') }} <a href="{{  url_for('users.user', login=product.electronic_stamp.user.login) |safe}}" title="{{product.electronic_stamp.user.name | safe}}">{{ product.electronic_stamp.user.name }}</a></span>{% endif %}
+				{% else %}
+					<span id="yellow">{{_('UNDEF')}}</span>
+				{% endif %}
 	    	</td>
 	    </tr>
     </table> 
@@ -106,7 +119,7 @@
 	   		<tr>
 	            <th class="id">{{ _('Ident') }}</th>
 	            <th class="status">{{ _('Status') }}</th>
-	            <th class="prodasync">{{ _('Proda Synnc') }}</th>
+	            <th class="prodasync">{{ _('Proda Sync') }}</th>
 	            <th class="name">{{ _('Station') }}</th>
 	            <th class="user">{{ _('User') }}</th>
 	            <th class="date">{{ _('Date') }}</th>
