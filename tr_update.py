@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!python27
 import os
 import sys
 if sys.platform == 'wiin32':
