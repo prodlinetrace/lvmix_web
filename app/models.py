@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-__version__ = '0.6.0'
+__version__ = '0.7.1'
 
 
 class User(UserMixin, db.Model):
@@ -164,8 +164,50 @@ class Product(db.Model):
             'week': self.week,
             'year': self.year,
             'variant_id': self.variant_id,
+            'date_added': self.date_added,
+            'datetime_added': self.datetime_added,
             'prodasync': self.prodasync,
+            'proda_serial': self.proda_serial,
         }
+
+    @property
+    def proda_serial(self):
+        """Return proda serial number in well defined format: YYYY_WW_V_SN (YYYY-rok, WW-tydzien, V-wariant, SN-numer seryjny)"""
+        return "{year:04d}_{week:02d}_{variant}_{serial}".format(year=2000+int(self.year), week=int(self.week), variant=self.variant_id, serial=str(self.serial).zfill(6))
+
+    @property
+    def datetime(self):
+        return datetime.strptime(self.date_time, "%Y-%m-%d %H:%M:%S.%f")
+
+    @property
+    def status_count(self):
+        """ Return number statuses """
+        return self.statuses.count()  
+
+    @property
+    def status_count_good(self):
+        """ Return number of good statuses """
+        return self.statuses.filter(Status.status==1).count()  
+
+    @property
+    def status_count_bad(self):
+        """ Return number of bad statuses """
+        return self.statuses.filter(Status.status==2).count()
+
+    @property
+    def operation_count(self):
+        """ Return number operations """
+        return self.operations.count()  
+
+    @property
+    def operation_count_good(self):
+        """ Return number of good operations """
+        return self.operations.filter(Operation.operation_status_id==1).count()  
+
+    @property
+    def operation_count_bad(self):
+        """ Return number of bad operations """
+        return self.operations.filter(Operation.operation_status_id==2).count()
 
 
 class Station(db.Model):
@@ -212,6 +254,7 @@ class Status(db.Model):
     station_id = db.Column(db.Integer, db.ForeignKey('station.id'), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     fail_step = db.Column(db.String(255))
+    prodasync = db.Column(db.Integer, index=True, default=0)
 
     def __init__(self, status, product, station, user=None, date_time=None, fail_step=''):
         self.status = status
@@ -236,8 +279,27 @@ class Status(db.Model):
             'station_id': self.station_id,
             'user_id': self.user_id,
             'date_time': self.date_time,
+            'datetime': self.datetime,
             'fail_step': self.fail_step,
+            'operations': self.operations,
         }
+
+    @property
+    def datetime(self):
+        return datetime.strptime(self.date_time, "%Y-%m-%d %H:%M:%S.%f")
+
+    @property
+    def operations(self):
+        """
+            get list of operations matching given status (120 seconds diff from operation and status is the limit). 
+        """
+        time_diff_limit = 120  # time diff limit in seconds
+        
+        # filter operations with matching station_id
+        opers = filter(lambda x: x.station_id == self.station_id, self.product.operations.all())  
+        # filter out operations with with time difference bigger than 120 seconds.
+        opers = filter(lambda x: (self.datetime - datetime.strptime(x.date_time, "%Y-%m-%d %H:%M:%S.%f")).seconds < time_diff_limit, opers)
+        return opers
 
 
 class Operation(db.Model):
@@ -248,6 +310,7 @@ class Operation(db.Model):
     operation_status_id = db.Column(db.Integer, db.ForeignKey('operation_status.id'), index=True)
     operation_type_id = db.Column(db.Integer, db.ForeignKey('operation_type.id'), index=True)
     date_time = db.Column(db.String(40))
+    prodasync = db.Column(db.Integer, index=True, default=0)
     result_1 = db.Column(db.Float)
     result_1_max = db.Column(db.Float)
     result_1_min = db.Column(db.Float)
@@ -289,6 +352,10 @@ class Operation(db.Model):
         return '<Assembly Operation Id: {id} for: Product: {product} Station: {station} Operation_type: {operation_type}>'.format(id=self.id, product=self.product_id, station=self.station_id, operation_type=self.operation_type_id)
 
     @property
+    def datetime(self):
+        return datetime.strptime(self.date_time, "%Y-%m-%d %H:%M:%S.%f")
+
+    @property
     def serialize(self):
         """Return object data in easily serializeable format"""
 
@@ -299,6 +366,7 @@ class Operation(db.Model):
             'operation_type_id': self.operation_type_id,
             'operation_status_id': self.operation_status_id,
             'date_time': self.date_time,
+            'datetime': self.datetime,
 
             'result_1': self.result_1,
             'result_1_max': self.result_1_max,

@@ -8,6 +8,7 @@
             <th class="date">{{ _('Date Added') }}</th>
             <th class="value">{{ _('Week') }}</th>
             <th class="value">{{ _('Year') }}</th>
+            <th class="value">{{ _('Proda Sync') }}</th>
             <th class="value">{{ _('Success Statuses') }}</th>
             <th class="value">{{ _('Failed Statuses') }}</th>
 	    <!--
@@ -30,8 +31,14 @@
    			<td class="right">{{ product.date_added }}</td>
 			<td class="right">{{ product.week }}</td>
 			<td class="right">{{ product.year }}</td>
-			<td class="right">{{ product.statuses.filter(Status.status==1).count() }}</td>
-			<td class="right" {% if product.statuses.filter(Status.status==2).count() != 0 %} id="red" {% endif %}>{{ product.statuses.filter(Status.status==2).count() }}</td>
+			
+	    	 {% if product.prodasync == 0 %} <td class="right" id="yellow">{{ _('UNDEF') }}</td> {% endif %}
+	    	 {% if product.prodasync == 1 %} <td class="right" id="green">{{ _('OK') }}</td> {% endif %}
+	    	 {% if product.prodasync == 2 %} <td class="right" id="red">{{ _('NOK') }}</td> {% endif %}
+	    	 {% if product.prodasync == 9 %} <td class="right" id="cyan">{{ _('WAITING') }}</td> {% endif %}			
+			
+			<td class="right">{{ product.status_count_good }}</td>
+			<td class="right" {% if product.status_count_bad > 0 %} id="red" {% endif %}>{{ product.status_count_bad }}</td>
 			{% if config.COMMENTS %}
    				<td class="right">
    					<div class="pull-right"><a href="{{ url_for('products.product', id=product.id) }}#comments">{{ product.comments.count() }}</a></div>

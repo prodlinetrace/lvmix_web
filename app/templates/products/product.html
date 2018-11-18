@@ -8,50 +8,93 @@
 
 <div class="product-body">
 	<h3>{{ _('Product Overview') }}</h3>
-	    {% if product.type %}
-		    <div class="product-main">
-		    {{ _('Type') }}: {{ product.type | safe }}
-		    </div>
-	    {% endif %}
-	    {% if product.serial %}
-		    <div class="product-main">
-		    	{{ _('Serial') }}: {{ product.serial | safe }}
-		    </div>
-	    {% endif %}
-	    {% if product.year %}
-		    <div class="product-main">
-		    	{{ _('Year') }}: 20{{ (product.year| string) | safe }}
-	    	</div>
-	    {% endif %}
-	    {% if product.week %}
-		    <div class="product-main">
-		    	{{ _('Week') }}: {{ product.week | safe }}
-	    	</div>
-	    {% endif %}
-	    {% if product.date_added %}
-		    <div class="product-main">
-		    	{{ _('Date Added') }}: {{ product.date_added | safe }}
-	    	</div>
-	    {% endif %}
-	    {% if product.statuses %}
-		    <div class="product-main">
-		    	{{ _('Statuses (Failed / Success / Total)') }}:  {{ product.statuses.filter(Status.status==2).count() }} / {{ product.statuses.filter(Status.status==1).count() }} / {{ product.statuses.count() }}
-	    	</div>
-	    {% endif %}
+		<table cellspacing="0" id="global_info">
+		<tr>
+			<td>
+			    {{ _('Wabco Number') }}:
+	    	</td>
+	    	<td>
+	    		{{ product.type | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+		    	{{ _('Serial') }}: 
+   	    	</td>
+	    	<td>
+		    	{{ product.serial | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+	    	<td>
+		    	{{ _('Year') }}: 
+   	    	</td>
+	    	<td>
+		    	20{{ (product.year| string) | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+		    	{{ _('Week') }}: 
+   	    	</td>
+	    	<td>
+		    	{{ product.week | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+	    		{{ _('Variant') }}:
+   	    	</td>
+	    	<td>
+	    		{{ product.variant.name | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+		    	{{ _('Date Added') }}:
+			</td>
+			<td>
+		    	{{ product.date_added | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+		    	{{ _('Proda Serial') }}:
+			</td>
+			<td>
+		    	{{ product.proda_serial | safe }}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+	    	 {{ _('Proda Sync') }}:
+			</td>
+			<td>
+	    	 {% if product.prodasync == 0 %} <span id="yellow">{{ _('UNDEF') }}</span> {% endif %}
+	    	 {% if product.prodasync == 1 %} <span id="green">{{ _('OK') }}</span> {% endif %}
+	    	 {% if product.prodasync == 2 %} <span id="red">{{ _('NOK') }}</span> {% endif %}
+	    	 {% if product.prodasync == 9 %} <span id="cyan">{{ _('WAITING') }}</span> {% endif %}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+	    		{{ _('Sucessfull Statuses') }}
+			</td>
+			<td>
+	    		<span {% if  product.status_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}>{{ product.status_count_good }} {{ _('out of') }} {{ product.status_count }}</span>
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
+   	    		{{ _('Sucessfull Operations') }}
+			</td>
+			<td>
+   	    		 <span {% if  product.operation_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}> {{ product.operation_count_good }} {{ _('out of') }} {{ product.operation_count }}</span>
+	    	</td>
+	    </tr>
+    </table> 
 
-	    {% if product.operations %}
-		    <div class="product-main">
-		    	{{ _('Operations (Failed / Success / Total)') }}: {{ product.operations.filter(Operation.operation_status_id==2).count() }} / {{ product.operations.filter(Operation.operation_status_id==1).count() }}  / {{ product.operations.count() }}
-	    	</div>
-	    {% endif %}
-	    <div class="product-main">
-	    	{{ _('Variant') }}: {{ product.variant.name | safe }}
-	    </div>
-   	    <div class="product-main">
-	    	{{ _('Proda Sync') }}: {{ product.prodasync | safe }}
-	    </div>
-
-	<h3>{{ _('Status Overview') }}</h3>
+	<h3>{{ _('Detailed Overview') }}</h3>
 	<table cellspacing="0" id="statuses" class="tablesorter">
 	  <colgroup>
 		    <col class="id">
@@ -62,10 +105,12 @@
 		<thead>
 	   		<tr>
 	            <th class="id">{{ _('Ident') }}</th>
+	            <th class="prodasync">{{ _('Proda Synnc') }}</th>
 	            <th class="name">{{ _('Station') }}</th>
 	            <th class="status">{{ _('Status') }}</th>
 	            <th class="user">{{ _('User') }}</th>
 	            <th class="date">{{ _('Date') }}</th>
+	            <th class="operations">{{ _('Operations: Status | Proda Sync | Operation Name | Date | Min | Result | Max | Unit | Name') }}</th>
 	            <th class="extras">{{ _('Extras') }}</th>
 	        </tr>
         </thead>
@@ -73,10 +118,120 @@
 			{% for status in product.statuses %}
    			<tr>
    				<td class="right">{{ status.id }}</td>
+    			{% if status.prodasync == 0 %} <td class="right" id="yellow"><a href="{{ url_for('operation_statuses.operation_status', id=status.prodasync) | safe}}">{{ _('UNDEF') }}</a></td> {% endif %}
+				{% if status.prodasync == 1 %} <td class="right" id="green"><a href="{{ url_for('operation_statuses.operation_status', id=status.prodasync) | safe}}">{{ _('OK') }}</a></td> {% endif %}
+				{% if status.prodasync == 2 %} <td class="right" id="red"><a href="{{ url_for('operation_statuses.operation_status', id=status.prodasync) | safe}}">{{ _('NOK') }}</a></td> {% endif %}
+				{% if status.prodasync == 9 %} <td class="right" id="cyan"><a href="{{ url_for('operation_statuses.operation_status', id=status.prodasync) | safe}}">{{ _('WAITING') }}</a></td> {% endif %}
+    			
+   				
 				{% if status.station %}<td><a href="{{ url_for('stations.station', id=status.station.id) | safe}}" title="{{status.station.ip | safe}}">{{ status.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
 				{% if status.status_name %} <td {% if status.status_name.id == 2 %} id="red" {% endif %} {% if status.status_name.id == 1 %} id="green" {% endif %}><a href="{{ url_for('operation_statuses.operation_status', id=status.status_name.id) | safe}}" title="{{status.status_name.description | safe}}">{{ status.status_name.name }} {% if status.fail_step and status.status_name.id != (1 or 5) %} => {{ status.fail_step }} {% endif %}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
 				{% if status.user %} <td><a href="{{  url_for('users.user', login=status.user.login) |safe}}" title="{{status.user.name | safe}}">{{ status.user.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			<td>{{ status.date_time }} </td>
+    			
+    			<!-- INLINE OPERATIONS START  -->
+    			<td>
+    				<table cellspacing="0"  class="tablesorter inline_operations">
+				        <tbody>
+							{% for operation in status.operations | sort (attribute='id') %}
+				    		<tr>
+				    			<!-- 
+	    		    			<td class="right">{{ operation.id }}</td>
+				    			-->
+				    			{% if operation.operation_status %} <td  {% if operation.operation_status.id == 2 %} id="red" {% endif %} {% if operation.operation_status.id == 1 %} id="green" {% endif %}><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
+				    			{% if operation.prodasync == 0 %} <td id="yellow"><a href="{{ url_for('operation_statuses.operation_status', id=operation.prodasync) | safe}}">{{ _('UNDEF') }}</a></td> {% endif %}
+	    	 					{% if operation.prodasync == 1 %} <td id="green"><a href="{{ url_for('operation_statuses.operation_status', id=operation.prodasync) | safe}}">{{ _('OK') }}</a></td> {% endif %}
+	    	 					{% if operation.prodasync == 2 %} <td id="red"><a href="{{ url_for('operation_statuses.operation_status', id=operation.prodasync) | safe}}">{{ _('NOK') }}</a></td> {% endif %}
+	    	 					{% if operation.prodasync == 9 %} <td id="cyan"><a href="{{ url_for('operation_statuses.operation_status', id=operation.prodasync) | safe}}">{{ _('WAITING') }}</a></td> {% endif %}
+				    			
+				    			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
+				    			<td>{{ operation.date_time }} </td>
+				    			<td>
+				    				<table id="result" class="operation_data">
+							        	<tbody>
+							    			{% if operation.result_1 or operation.result_1_status.id != 0 %}
+						    				<tr>
+						    					<td class="value">{{ "%.2f" % (operation.result_1_min|round(2)) }}</td>
+						    					<td class="value" {% if operation.result_1_min == operation.result_1_max == 0 %} id="empty" {% else %} {% if operation.result_1 < operation.result_1_min  or operation.result_1 > operation.result_1_max %} id="red" {% else %} id="green" {% endif %} {% endif %} >{{ "%.2f" % (operation.result_1|round(2)) }}</td>
+						    					<td class="value">{{ "%.2f" % (operation.result_1_max|round(2)) }}</td>
+						    					<td class="value">
+							    					{% if operation.result_1_status %}
+							    						[<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_1_status.id)}}" title="{{operation.result_1_status.description}}">{{ operation.result_1_status.unit.symbol }}</a>]
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+						    					<td>
+							    					{% if operation.result_1_status %}
+							    						<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_1_status.id)}}" title="{{operation.result_1_status.description}}">{{ operation.result_1_status.name }}</a>
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+						    				</tr>
+							    			{% endif %}
+							    			{% if operation.result_2 or operation.result_2_status.id != 0 %}
+						    				<tr>
+						    					<td class="value">{{ "%.2f" % (operation.result_2_min|round(2)) }}</td>
+						    					<td class="value" {% if operation.result_2_min == operation.result_2_max == 0 %} id="empty" {% else %} {% if operation.result_2 < operation.result_2_min  or operation.result_2 > operation.result_2_max %} id="red" {% else %} id="green" {% endif %} {% endif %} >{{ "%.2f" % (operation.result_2|round(2)) }}</td>
+						    					<td class="value">{{ "%.2f" % (operation.result_2_max|round(2)) }}</td>
+						    					<td class="value">
+							    					{% if operation.result_2_status %}
+							    						[<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_2_status.id)}}" title="{{operation.result_2_status.description}}">{{ operation.result_2_status.unit.symbol }}</a>]
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+						    					<td>
+						    						{% if operation.result_2_status %}
+						    							<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_2_status.id)}}" title="{{operation.result_2_status.description}}">{{ operation.result_2_status.name }}</a>
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+						    				</tr>
+							    			{% endif %}
+							    			{% if operation.result_3 or operation.result_3_status.id != 0 %}
+						    				<tr>
+						    					<td class="value">{{ "%.2f" % (operation.result_3_min|round(2)) }}</td>
+						    					<td class="value" {% if operation.result_3_min == operation.result_3_max == 0 %} id="empty" {% else %} {% if operation.result_3 < operation.result_3_min  or operation.result_3 > operation.result_3_max %} id="red" {% else %} id="green" {% endif %} {% endif %} >{{ "%.2f" % (operation.result_3|round(2)) }}</td>
+						    					<td class="value">{{ "%.2f" % (operation.result_3_max|round(2)) }}</td>
+						    					<td class="value">
+							    					{% if operation.result_3_status  %}
+							    						[<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_3_status.id)}}" title="{{operation.result_3_status.description}}">{{ operation.result_3_status.unit.symbol }}</a>]
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+					    						<td>
+							    					{% if operation.result_3_status  %}
+						    							<a href="{{ url_for('operation_statuses.operation_status', id=operation.result_3_status.id)}}" title="{{operation.result_3_status.description}}">{{ operation.result_3_status.name }}</a>
+							    					{% else %}
+							    						{{ _('undefined value') }}
+													{% endif %}
+					    						</td>
+					    					</tr>
+							    			{% endif %}
+					    		        </tbody>
+				    				</table>
+				    			</td>
+							    <td>
+					    			{% if current_user.is_admin  %}
+				    		            <div id="operation-moderate-{{ operation.id }}" class="pull-right">
+							                <a class="btn btn-danger api-operation-delete" data-id="{{ operation.id }}" href="#"><span class="glyphicon glyphicon-trash"></span>{{ _('Delete') }}</a>
+				            			</div>
+				            			<div id="operation-deleted-{{ operation.id }}" class="pull-right" style="display: none;">
+				                			<span class="glyphicon glyphicon-trash"></span> <b>{{ _('Deleted') }}</b>
+				            			</div>
+						    		{% endif %}
+					    		</td>
+				    		</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+    			</td>
+    			<!-- INLINE OPERATIONS STOP  -->
     			<td>
 	    			{% if current_user.is_admin  %}
     		            <div id="status-moderate-{{ status.id }}" class="pull-right">
@@ -91,12 +246,13 @@
 			{% endfor %}
         </tbody>
     </table>
-
+<!-- 
 	<h3>{{ _('Operation Overview') }}</h3>
 	<table cellspacing="0" id="operations" class="tablesorter">
 		<thead>
 	   		<tr>
 	            <th class="id">{{ _('Ident') }}</th>
+	            <th class="prodasync">{{ _('Proda Sync') }}</th>
 	            <th class="name">{{ _('Station') }}</th>
 	            <th class="status">{{ _('Status') }}</th>
 	            <th class="name">{{ _('Operation') }}</th>
@@ -109,6 +265,7 @@
 			{% for operation in product.operations|sort %}
     		<tr>
     			<td class="right">{{ operation.id }}</td>
+				<td>{{ operation.prodasync }} </td>
     			{% if operation.station %}<td><a href="{{ url_for('stations.station', id=operation.station.id) | safe}}" title="{{operation.station.ip | safe}}">{{ operation.station.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_status %} <td  {% if operation.operation_status.id == 2 %} id="red" {% endif %} {% if operation.operation_status.id == 1 %} id="green" {% endif %}><a href="{{ url_for('operation_statuses.operation_status', id=operation.operation_status.id) | safe}}" title="{{operation.operation_status.description | safe}}">{{ operation.operation_status.name }}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
     			{% if operation.operation_type %} <td><a href="{{ url_for('operation_types.operation_type', id=operation.operation_type.id )}}" title="{{operation.operation_type.description }}">{{ operation.operation_type.name | safe}}</a></td> {% else %} <td>{{ _('undefined value') }}</td> {% endif %}
@@ -196,6 +353,7 @@
 			{% endfor %}
 		</tbody>
 	</table>
+ -->
 
 
  	{% if product.statuses %}
@@ -239,14 +397,21 @@
 		    {
 				$("#statuses").tablesorter({
 					theme: 'blue',
-			    	sortList: [[4,1], [0,1]],  // sort by date on load
+			    	sortList: [[5,1], [0,1]],  // sort by date on load
 				    headers: {
 				        4: { sorter:'text' } // force third column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
 				    }
 				});
 		        $("#operations").tablesorter({
 		        	theme: 'blue',
-		        	sortList: [[4,1], [0,1]],  // sort by date on load
+		        	sortList: [[5,1], [0,1]],  // sort by date on load
+		            headers: {
+		                4: { sorter:'text' } // force fourth column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
+		            }
+		        });
+		        $("inline_operations").tablesorter({
+		        	theme: 'blue',
+		        	sortList: [[5,1], [0,1]],  // sort by date on load
 		            headers: {
 		                4: { sorter:'text' } // force fourth column as text - see tablesorter bug: http://stackoverflow.com/questions/9733450/jquery-tablesorter-hyphen-bug
 		            }
