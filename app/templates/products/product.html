@@ -78,7 +78,7 @@
 	    </tr>
 		<tr>
 			<td>
-	    		{{ _('Sucessfull Statuses') }}:
+	    		{{ _('Successful Statuses') }}:
 			</td>
 			<td>
 	    		<span {% if  product.status_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}>{{ product.status_count_good }} {{ _('out of') }} {{ product.status_count }}</span>
@@ -86,7 +86,7 @@
 	    </tr>
 		<tr>
 			<td>
-   	    		{{ _('Sucessfull Operations') }}:
+   	    		{{ _('Successful Operations') }}:
 			</td>
 			<td>
    	    		 <span {% if  product.operation_count_bad > 0 %} id="red" {% else %} id="green" {% endif %}> {{ product.operation_count_good }} {{ _('out of') }} {{ product.operation_count }}</span>
