@@ -59,6 +59,18 @@
 	    </tr>
 		<tr>
 			<td>
+   	    		{{ _('Processing Time') }}:
+			</td>
+			<td>
+				{% if product.processing_time %}
+					<span>{{ product.processing_time }}</span>
+				{% else %}
+					<span id="yellow">{{_('UNDEF')}}</span>
+				{% endif %}
+	    	</td>
+	    </tr>
+		<tr>
+			<td>
 		    	{{ _('Proda Serial') }}:
 			</td>
 			<td>
