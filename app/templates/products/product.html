@@ -63,7 +63,7 @@
 			</td>
 			<td>
 				{% if product.processing_time %}
-					<span>{{ product.processing_time }}</span>
+					<span>{{ product.processing_time | safe }}</span>
 				{% else %}
 					<span id="yellow">{{_('UNDEF')}}</span>
 				{% endif %}
