@@ -19,7 +19,7 @@ Werkzeug==0.15.6
 bleach==3.0.2
 blinker==1.4
 coverage==4.5.1
-html5lib==1.0.1
+html5lib==0.999999999
 ItsDangerous==1.1.0
 click==7.0
 nose==1.3.7
